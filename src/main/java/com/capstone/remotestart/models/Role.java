@@ -12,7 +12,7 @@ public class Role {
         this.role = role;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
