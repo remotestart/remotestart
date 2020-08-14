@@ -4,26 +4,26 @@
 
 </head>
 <body>
-<h1>Create an account</h1>
-<form th:action="@{/sign-up}" method="POST" th:object="${user}">
     <header th:replace="partials :: header"></header>
-    <label for="username">Username</label>
-    <input id="username" th:field="*{username}" />
+    <form th:action="@{/sign-up}" method="POST" th:object="${user}">
+        <h1>Create an account</h1>
+        <label for="username">Username</label>
+        <input id="username" th:field="*{username}" />
 
-    <label for="email">Email</label>
-    <input id="email" th:field="*{email}" />
+        <label for="email">Email</label>
+        <input id="email" th:field="*{email}" />
 
-    <label for="first-name">First Name</label>
-    <input id="first-name" th:field="*{firstName}" />
+        <label for="first-name">First Name</label>
+        <input id="first-name" th:field="*{firstName}" />
 
-    <label for="last-name">First Name</label>
-    <input id="last-name" th:field="*{lastName}" />
+        <label for="last-name">Last Name</label>
+        <input id="last-name" th:field="*{lastName}" />
 
-    <label for="password">Password</label>
-    <input id="password" type="password" th:field="*{password}" />
+        <label for="password">Password</label>
+        <input id="password" type="password" th:field="*{password}" />
 
-    <input value="Sign me up!" type="submit" />
+        <input value="Sign me up!" type="submit" />
+    </form>
     <footer th:replace="partials :: footer"></footer>
-</form>
 </body>
 </html>
