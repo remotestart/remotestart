@@ -1,21 +1,33 @@
 package com.capstone.remotestart.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "sub_tasks")
 public class Subtask {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "INT(10) UNSIGNED")
     private long id;
 
+    @Column(length = 50, nullable = false)
     private String title;
 
+    @Column(columnDefinition = "TEXT")
     private String description;
 
-    private long taskId;
+    //relation to task
+    @ManyToOne
+    @JoinColumn(name = "task_id")
+    private Task task;
 
-    private long stateId;
+    //relation to subtask
+
+    @ManyToOne
+    @JoinColumn(name = "state_id")
+    private StateOfCompletion stateOfCompletion;
+
 
 //Constructors
     public Subtask() {
@@ -47,19 +59,19 @@ public class Subtask {
         this.description = description;
     }
 
-    public long getTaskId() {
-        return taskId;
+    public Task getTask() {
+        return task;
     }
 
-    public void setTaskId(long taskId) {
-        this.taskId = taskId;
+    public void setTask(Task task) {
+        this.task = task;
     }
 
-    public long getStateId() {
-        return stateId;
+    public StateOfCompletion getStateOfCompletion() {
+        return stateOfCompletion;
     }
 
-    public void setStateId(long stateId) {
-        this.stateId = stateId;
+    public void setStateOfCompletion(StateOfCompletion stateOfCompletion) {
+        this.stateOfCompletion = stateOfCompletion;
     }
 }
