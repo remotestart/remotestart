@@ -1,4 +1,4 @@
-package com.capstone.remotestart.Models;
+package com.capstone.remotestart.models;
 
 import javax.persistence.*;
 

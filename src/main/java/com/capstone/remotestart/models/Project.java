@@ -1,8 +1,6 @@
-package com.capstone.remotestart.Models;
+package com.capstone.remotestart.models;
 
-import javax.persistence.Entity;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Project {
 
