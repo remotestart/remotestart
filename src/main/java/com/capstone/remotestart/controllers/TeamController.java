@@ -1,4 +1,4 @@
-package com.capstone.remotestart.Controllers;
+package com.capstone.remotestart.controllers;
 
 import com.capstone.remotestart.models.Team;
 import com.capstone.remotestart.repositories.TeamRepository;
