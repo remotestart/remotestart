@@ -1,13 +1,43 @@
 package com.capstone.remotestart.models;
 
+import javax.persistence.Entity;
+import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
+
+@Entity
+@Table(name = "users")
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "INT(10) UNSIGNED")
     private long id;
+
+    @Column(length = 100, nullable = false, unique = true)
     private String username;
+
+    @Column(length = 50, nullable = false)
     private String firstName;
+
+    @Column(length = 50, nullable = false)
     private String lastName;
+
+    @Column(nullable = false, unique = true)
     private String email;
+
+    @Column(nullable = false, unique = true)
     private String password;
 
+    //relation to task
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Task> tasks;
+
+    //many to many SOURCE https://stackoverflow.com/questions/42488559/manytomany-relationship-between-three-tables
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<UserTeamRoleLink> userTeamRoleLinks;
+
+//Constructors
     public User() {
     }
 
@@ -28,6 +58,7 @@ public class User {
         this.password = password;
     }
 
+//Getters and Setters
     public long getId() {
         return id;
     }
@@ -76,4 +107,19 @@ public class User {
         this.password = password;
     }
 
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public Set<UserTeamRoleLink> getUserTeamRoleLinks() {
+        return userTeamRoleLinks;
+    }
+
+    public void setUserTeamRoleLinks(Set<UserTeamRoleLink> userTeamRoleLinks) {
+        this.userTeamRoleLinks = userTeamRoleLinks;
+    }
 }
