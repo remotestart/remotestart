@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns="http://www.w3.org/1999/html">
+<head th:replace="partials :: head (pageTitle ='Create Task')"></head>
+<body>
+<header th:replace="partials :: header"></header>
+
+<div class="container">
+
+    <form th:method="post" th:action="@{/task/create}" th:object="${task}">
+        <div class="form-group">
+            <input th:field="*{title}" type="text" class="form-control" id="title" name="task">
+            <label for="title">Title</label>
+        </div>
+        <div class="form-group">
+            <input th:field="*{description}" type="text" class="form-control" id="description" name="task">
+            <label for="description">Description</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+
+</div>
+
+<footer th:replace="partials :: footer"></footer>
+</body>
+</html>
