@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -27,13 +28,22 @@ public class TeamController {
     @PostMapping("/team/create")
     public String saveTeam(@ModelAttribute Team team){
         teamDao.save(team);
-        return "redirect:/team";
+        return "redirect:/teams";
     }
 
-    @GetMapping("/team")
-    private String showTeamPage(){
+    @GetMapping("/teams")
+    private String showTeamPage(Model model){
+        model.addAttribute("teams", teamDao.findAll());
+        return "teams/teams";
+    }
+
+    @GetMapping("/team/{id}")
+    private String teamPage(Model model, @PathVariable long id){
+        model.addAttribute("team", teamDao.getOne(id));
         return "teams/team";
     }
+
+
 
 
 }
