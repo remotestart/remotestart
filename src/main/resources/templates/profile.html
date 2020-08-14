@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials :: head (pageTitle ='Profile')">
+
+</head>
+<body>
+    <header th:replace="partials :: header"></header>
+
+    <div>
+        <p th:text="${user.username}"></p>
+        <p th:text="${user.firstName + ' ' + user.lastName}"></p>
+        <p th:text="${user.email}"></p>
+    </div>
+
+    <footer th:replace="partials :: footer"></footer>
+</body>
+</html>
