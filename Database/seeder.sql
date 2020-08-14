@@ -1,4 +1,4 @@
-
+USE remotestart_db;
 
 insert into projects ( name, description, start_date, deadline, completion_date) values ( 'Hana and Alice (Hana to Arisu)', 'Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.', '2019-01-02', '2019-11-13', '2020-03-11');
 insert into projects ( name, description, start_date, deadline, completion_date) values ( 'Come Out and Play', 'Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.', '2019-01-02', '2019-11-15', '2019-12-08');
