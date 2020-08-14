@@ -1,5 +1,6 @@
 package com.capstone.remotestart.models;
 
+import java.time.LocalDate;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;

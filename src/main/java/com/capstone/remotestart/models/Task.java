@@ -37,11 +37,11 @@ public class Task {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "task")
     private List<Subtask> subtasks;
 
-//Constructors
+    //Constructors
     public Task() {}
 
 
-//Getters and Setters
+    //Getters and Setters
     public long getId() {
         return id;
     }
@@ -98,8 +98,3 @@ public class Task {
         this.subtasks = subtasks;
     }
 }
-
-
-
-
-
