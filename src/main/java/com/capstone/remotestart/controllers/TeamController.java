@@ -42,8 +42,4 @@ public class TeamController {
         model.addAttribute("team", teamDao.getOne(id));
         return "teams/team";
     }
-
-
-
-
 }
