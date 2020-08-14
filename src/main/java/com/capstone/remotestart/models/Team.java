@@ -19,7 +19,7 @@ public class Team {
     private List<Project> projects;
 
     //mapping table SOURCE https://stackoverflow.com/questions/42488559/manytomany-relationship-between-three-tables
-    @OneToMany(mappedBy = "department", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "team", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<UserTeamRoleLink> userTeamRoleLinks;
 
 //Constructors
