@@ -1,6 +1,7 @@
 package com.capstone.remotestart.controllers;
 
 import com.capstone.remotestart.models.Team;
+import com.capstone.remotestart.models.UserTeamRoleLink;
 import com.capstone.remotestart.repositories.TeamRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +15,11 @@ public class TeamController {
 
     //dependency injection
     private TeamRepository teamDao;
+    private UserTeamRoleLink userTeamRoleDao;
 
-    public TeamController(TeamRepository teamDao) {
+    public TeamController(TeamRepository teamDao, UserTeamRoleLink userTeamRoleDao) {
         this.teamDao = teamDao;
+        this.userTeamRoleDao = userTeamRoleDao;
     }
 
     @GetMapping("/team/create")
@@ -27,6 +30,7 @@ public class TeamController {
 
     @PostMapping("/team/create")
     public String saveTeam(@ModelAttribute Team team){
+        UserTeamRoleLink newMapping = new UserTeamRoleLink();
         teamDao.save(team);
         return "redirect:/teams";
     }
