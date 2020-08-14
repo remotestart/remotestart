@@ -19,6 +19,6 @@ public class TeamController {
     @GetMapping("/team/create")
     public String createTeam(Model model){
         model.addAttribute("team", new Team());
-        return "create-team";
+        return "team/create-team";
     }
 }
