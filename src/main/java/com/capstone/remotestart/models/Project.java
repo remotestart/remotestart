@@ -21,13 +21,13 @@ public class Project {
     private String description;
 
     @Column(columnDefinition = "DATE", nullable = false)
-    private LocalDate startDate;
+    private String startDate;
 
     @Column(columnDefinition = "DATE", nullable = false)
-    private LocalDate deadline;
+    private String deadline;
 
-    @Column(columnDefinition = "DATE", nullable = false)
-    private LocalDate completionDate;
+    @Column(columnDefinition = "DATE")
+    private String completionDate;
 
     //relation to team
     @ManyToOne
@@ -58,27 +58,27 @@ public class Project {
         this.description = description;
     }
 
-    public LocalDate getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDate getDeadline() {
+    public String getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(LocalDate deadline) {
+    public void setDeadline(String deadline) {
         this.deadline = deadline;
     }
 
-    public LocalDate getCompletionDate() {
+    public String getCompletionDate() {
         return completionDate;
     }
 
-    public void setCompletionDate(LocalDate completionDate) {
+    public void setCompletionDate(String completionDate) {
         this.completionDate = completionDate;
     }
 
