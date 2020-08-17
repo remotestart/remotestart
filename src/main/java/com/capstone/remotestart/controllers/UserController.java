@@ -84,7 +84,7 @@ public class UserController {
             User user = userRepository.findByEmailIgnoreCase(confirmationToken.getUser().getEmail());
             user.setEnabled(true);
             userRepository.save(user);
-            modelAndView.setViewName("registration/successful-registration");
+            modelAndView.setViewName("registration/confirm-account");
         }
         else
         {
