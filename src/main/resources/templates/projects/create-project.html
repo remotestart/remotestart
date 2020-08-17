@@ -7,7 +7,7 @@
 
 <div class="container">
 
-    <form th:method="post" th:action="@{/project/create}" th:object="${project}">
+    <form th:method="post" th:action="@{'/project/create/' + ${teamID}}" th:object="${project}">
         <div class="form-group">
             <input th:field="*{name}" type="text" class="form-control" id="project-name" placeholder="Project Name" required>
             <textarea th:field="*{description}" class="form-control" id="project-description" placeholder="Project Description" required></textarea>
