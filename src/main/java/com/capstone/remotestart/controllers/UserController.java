@@ -49,6 +49,8 @@ public class UserController {
         }
         else
         {
+            String hash = passwordEncoder.encode(user.getPassword());
+            user.setPassword(hash);
             userRepository.save(user);
 
             ConfirmationToken confirmationToken = new ConfirmationToken(user);
