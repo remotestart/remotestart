@@ -81,7 +81,7 @@ public class UserController {
 
         if(token != null)
         {
-            User user = userRepository.findByEmailIgnoreCase(confirmationToken.getUser().getEmail());
+            User user = userRepository.findByUsername(confirmationToken.getUser().getUsername());
             user.setEnabled(true);
             userRepository.save(user);
             modelAndView.setViewName("registration/confirm-account");
