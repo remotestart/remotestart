@@ -13,7 +13,11 @@
         <div class="card-header text-center font-weight-bold" th:text="${team.name}"></div>
         <div class="card-body">
             <p>Card Body</p>
+            <th:block sec:authorize="isAuthenticated()">
+            <a href="/project/create">Create a Project</a>
+            </th:block>
         </div>
+
 
 
     </div>
