@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -24,11 +25,12 @@ public class TaskController {
     @PostMapping("/task/create")
     public String saveTask(@ModelAttribute Task task){
         taskDao.save(task);
-        return "redirect:/task";
+       return "redirect:/task";
     }
 
     @GetMapping("/task")
-    private String showTask() {
+    private String showTask(Model model) {
+    model.addAttribute("task", taskDao.findAll());
         return "tasks/task";
     }
 }
