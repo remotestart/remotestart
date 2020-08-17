@@ -40,6 +40,7 @@
         <div class="card-header text-center font-weight-bold" th:text="${project.name}"></div>
         <div class="card-body">
             <p th:text="${project.description}"></p>
+            <a class="btn btn-outline-info align-self-end" th:href="@{'/project/' + ${project.id}}">View Project</a>
         </div>
 
 
