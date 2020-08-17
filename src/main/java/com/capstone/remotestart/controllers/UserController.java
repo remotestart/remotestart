@@ -62,7 +62,7 @@ public class UserController {
             mailMessage.setSubject("Complete Registration!");
             mailMessage.setFrom("admin@remote-start.io");
             mailMessage.setText("To confirm your account, please click here : "
-                    +"https://remote-start.io/confirm-account?token="+confirmationToken.getConfirmationToken());
+                    +"http://remote-start.io/confirm-account/"+confirmationToken.getConfirmationToken());
 
             emailSenderService.sendEmail(mailMessage);
 
@@ -74,14 +74,14 @@ public class UserController {
         return modelAndView;
     }
 
-    @RequestMapping(value="/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView confirmUserAccount(ModelAndView modelAndView, @RequestParam("token")String confirmationToken)
+    @RequestMapping(value="/confirm-account/{token}", method= {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView confirmUserAccount(ModelAndView modelAndView, @PathVariable String token)
     {
-        ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+        ConfirmationToken confirmationToken = confirmationTokenRepository.findByConfirmationToken(token);
 
         if(token != null)
         {
-            User user = userRepository.findByEmailIgnoreCase(token.getUser().getEmail());
+            User user = userRepository.findByEmailIgnoreCase(confirmationToken.getUser().getEmail());
             user.setEnabled(true);
             userRepository.save(user);
             modelAndView.setViewName("registration/successful-registration");
