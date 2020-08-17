@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class SubtaskController {
 
-//    @GetMapping("/subtask/create")
-//    public String createSubtask(Model model){
-//        model.addAttribute("subtask", new Subtask());
-//        return ""
-//    }
+    @GetMapping("/subtask/create")
+    public String createSubtask(Model model){
+        model.addAttribute("subtask", new Subtask());
+        return "";
+    }
 }
