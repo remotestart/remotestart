@@ -18,11 +18,14 @@
         </div>
         <div class="form-group">
             <!--input for assigned to-->
-             <button class="btn btn-secondary">Assigned to(drop down here)</button>
-        </div>
-        <button type="submit" class="btn btn-primary">Create</button>
-    </form>
 
+            <label>Select Team Member</label>
+            <select th:field="*{user}">
+                <option th:each="u : ${user}" th:value="${user.firstnmame}" th:text="${user.firstname}">
+            </select>
+            <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+    </form>
 </div>
 
 <footer th:replace="partials :: footer"></footer>

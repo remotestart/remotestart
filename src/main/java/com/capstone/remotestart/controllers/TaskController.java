@@ -14,23 +14,25 @@ public class TaskController {
 
     private TaskRepository taskDao;
 
-    public TaskController(TaskRepository taskDao) {this.taskDao = taskDao;}
+    public TaskController(TaskRepository taskDao) {
+        this.taskDao = taskDao;
+    }
 
     @GetMapping("/task/create")
-    public String createTask(Model model){
+    public String createTask(Model model) {
         model.addAttribute("task", new Task());
         return "tasks/create-task";
     }
 
     @PostMapping("/task/create")
-    public String saveTask(@ModelAttribute Task task){
+    public String saveTask(@ModelAttribute Task task) {
         taskDao.save(task);
-       return "redirect:/task";
+        return "redirect:/task";
     }
 
     @GetMapping("/task")
     private String showTask(Model model) {
-    model.addAttribute("task", taskDao.findAll());
+        model.addAttribute("task", taskDao.findAll());
         return "tasks/task";
     }
 }
