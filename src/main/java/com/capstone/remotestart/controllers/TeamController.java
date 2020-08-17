@@ -4,6 +4,7 @@ import com.capstone.remotestart.models.Role;
 import com.capstone.remotestart.models.Team;
 import com.capstone.remotestart.models.User;
 import com.capstone.remotestart.models.UserTeamRoleLink;
+import com.capstone.remotestart.repositories.RoleRepository;
 import com.capstone.remotestart.repositories.TeamRepository;
 import com.capstone.remotestart.repositories.UserTeamRoleRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,10 +21,12 @@ public class TeamController {
     //dependency injection
     private TeamRepository teamDao;
     private UserTeamRoleRepository userTeamRoleDao;
+    private RoleRepository roleDao;
 
-    public TeamController(TeamRepository teamDao, UserTeamRoleRepository userTeamRoleDao) {
+    public TeamController(TeamRepository teamDao, UserTeamRoleRepository userTeamRoleDao, RoleRepository roleDao) {
         this.teamDao = teamDao;
         this.userTeamRoleDao = userTeamRoleDao;
+        this.roleDao = roleDao;
     }
 
     @GetMapping("/team/create")
@@ -40,12 +43,14 @@ public class TeamController {
         //new mapping table object
         UserTeamRoleLink newMapping = new UserTeamRoleLink();
 
+
         //saving new team to db
         teamDao.save(team);
 
         //using setters to set logged in user and new team to table object
         newMapping.setUser(user);
         newMapping.setTeam(team);
+        newMapping.setRole(roleDao.getOne(1L));
         //saving table object to db
         userTeamRoleDao.save(newMapping);
         return "redirect:/teams";
