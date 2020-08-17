@@ -4,9 +4,7 @@ import com.capstone.remotestart.models.Role;
 import com.capstone.remotestart.models.Team;
 import com.capstone.remotestart.models.User;
 import com.capstone.remotestart.models.UserTeamRoleLink;
-import com.capstone.remotestart.repositories.RoleRepository;
-import com.capstone.remotestart.repositories.TeamRepository;
-import com.capstone.remotestart.repositories.UserTeamRoleRepository;
+import com.capstone.remotestart.repositories.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,11 +20,15 @@ public class TeamController {
     private TeamRepository teamDao;
     private UserTeamRoleRepository userTeamRoleDao;
     private RoleRepository roleDao;
+    private UserRepository userDao;
+    private ProjectRepository projectDao;
 
-    public TeamController(TeamRepository teamDao, UserTeamRoleRepository userTeamRoleDao, RoleRepository roleDao) {
+    public TeamController(TeamRepository teamDao, UserTeamRoleRepository userTeamRoleDao, RoleRepository roleDao, UserRepository userDao, ProjectRepository projectDao) {
         this.teamDao = teamDao;
         this.userTeamRoleDao = userTeamRoleDao;
         this.roleDao = roleDao;
+        this.userDao = userDao;
+        this.projectDao = projectDao;
     }
 
     @GetMapping("/team/create")
@@ -65,6 +67,29 @@ public class TeamController {
     @GetMapping("/team/{id}")
     private String teamPage(Model model, @PathVariable long id){
         model.addAttribute("team", teamDao.getOne(id));
+        model.addAttribute("users", userDao.findAll());
+        model.addAttribute("projects", projectDao.findAllByTeamId(id));
         return "teams/team";
+    }
+
+    @GetMapping("/team/{id}/add/{userId}")
+    private String addUserToTeam(@PathVariable long id, @PathVariable long userId){
+        //grabbing user by id
+        User user = userDao.getOne(userId);
+        //grabbing team by id
+        Team team = teamDao.getOne(id);
+
+        //new mapping table object
+        UserTeamRoleLink newMapping = new UserTeamRoleLink();
+
+        //using setters to set user and team to table object
+        newMapping.setUser(user);
+        newMapping.setTeam(team);
+        newMapping.setRole(roleDao.getOne(2L));
+
+        //saving table object to db
+        userTeamRoleDao.save(newMapping);
+
+        return "redirect:/team/" + id;
     }
 }
