@@ -3,7 +3,8 @@ package com.capstone.remotestart.repositories;
 import com.capstone.remotestart.models.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProjectRepository extends JpaRepository<Project, Long> {
-    Project findAllByTeamId(Long id);
+import java.util.List;
 
+public interface ProjectRepository extends JpaRepository<Project, Long> {
+    List<Project> findAllByTeamId(Long id);
 }
