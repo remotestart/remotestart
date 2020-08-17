@@ -29,6 +29,8 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    private boolean isEnabled;
+
     //relation to task
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Task> tasks;
@@ -41,21 +43,23 @@ public class User {
     public User() {
     }
 
-    public User(String username, String firstName, String lastName, String email, String password) {
+    public User(String username, String firstName, String lastName, String email, String password, boolean isEnabled) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.isEnabled = isEnabled;
     }
 
-    public User(long id, String username, String firstName, String lastName, String email, String password) {
+    public User(long id, String username, String firstName, String lastName, String email, String password, boolean isEnabled) {
         this.id = id;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.isEnabled = isEnabled;
     }
 
     public User(User copy) {
@@ -130,5 +134,13 @@ public class User {
 
     public void setUserTeamRoleLinks(Set<UserTeamRoleLink> userTeamRoleLinks) {
         this.userTeamRoleLinks = userTeamRoleLinks;
+    }
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
     }
 }
