@@ -62,7 +62,7 @@ public class UserController {
             mailMessage.setSubject("Complete Registration!");
             mailMessage.setFrom("admin@remote-start.io");
             mailMessage.setText("To confirm your account, please click here : "
-                    +"http://remote-start.io/confirm-account/"+confirmationToken.getConfirmationToken());
+                    +"https://remote-start.io/confirm-account/"+confirmationToken.getConfirmationToken());
 
             emailSenderService.sendEmail(mailMessage);
 
