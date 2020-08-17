@@ -19,12 +19,23 @@
         <div class="form-group">
             <!--input for assigned to-->
 
-            <label>Select Team Member</label>
-            <select th:field="*{user}">
-                <option th:each="u : ${user}" th:value="${user.firstnmame}" th:text="${user.firstname}">
-            </select>
-            <button type="submit" class="btn btn-primary">Create</button>
+            <div class="dropdown">
+
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Users
+                </button>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <div th:each="user : ${users}">
+
+                        <a class="dropdown-item" th:text="${user.username}" th:href="${user.id}"></a>
+
+                    </div>
+                </div>
+            </div>
+
         </div>
+            <button type="submit" class="btn btn-primary">Create</button>
     </form>
 </div>
 
