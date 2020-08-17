@@ -40,6 +40,7 @@
         <div class="card-header text-center font-weight-bold" th:text="${project.name}"></div>
         <div class="card-body">
             <p th:text="${project.description}"></p>
+            <a th:href="@{'/project/' + ${project.id}}"></a>
         </div>
 
 
