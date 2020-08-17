@@ -7,6 +7,15 @@
 
 <div class="container">
 
+    <form th:method="post" th:action="@{/subtask/create}" th:object="${subtask}">
+        <div class="form-group">
+            <input th:field="*{title}" type="text" class="form-control" id="title" placeholder="Title" required>
+        </div>
+        <div class="form-group">
+            <input th:field="*{description}" type="text" class="form-control" id="description" placeholder="Description" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
 
 </div>
 
