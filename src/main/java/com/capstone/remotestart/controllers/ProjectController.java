@@ -23,14 +23,16 @@ public class ProjectController {
         this.teamDao = teamDao;
     }
 
-    @GetMapping("/project/create")
-    public String createProject(Model model) {
+    @GetMapping("/project/create/{teamId}")
+    public String createProject(Model model, @PathVariable long teamId) {
         model.addAttribute("project", new Project());
+        model.addAttribute("teamID", teamId);
         return "projects/create-project";
     }
 
-    @PostMapping("/project/create")
-    public String saveProject(@ModelAttribute Project project) {
+    @PostMapping("/project/create/{teamId}")
+    public String saveProject(@ModelAttribute Project project, @PathVariable long teamId) {
+        project.setTeam(teamDao.getOne(teamId));
         projectDao.save(project);
         return "redirect:/projects";
     }

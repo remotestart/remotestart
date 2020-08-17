@@ -23,7 +23,7 @@ public class SubtaskController {
         return "subtasks/create-subtask";
     }
 
-    @PostMapping
+    @PostMapping("/subtask/create")
     public String saveSubtask(@ModelAttribute Subtask subtask){
         subtaskDao.save(subtask);
         return "redirect:/task";
