@@ -6,16 +6,16 @@
 <header th:replace="partials :: header"></header>
 
 <div class="container mt-5">
-<div class="row mt-5">
-    <div class="col">
-        <div class="card mb-2" th:each="task : ${task}">
-            <div class="card-body">
-                <h5 class="card-title" th:text="${task.title}"></h5>
-                <p class="card-text" th:text="${task.description}"></p>
+    <div class="row mt-5">
+        <div class="col">
+            <div class="card mb-2" th:each="task : ${task}">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${task.title}"></h5>
+                    <p class="card-text" th:text="${task.description}"></p>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 
 <footer th:replace="partials :: footer"></footer>
