@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials :: head (pageTitle ='Registration Success')">
+
+</head>
+<body>
+<header th:replace="partials :: header"></header>
+    <div>
+        <span th:text="'A verification email has been sent to: ' + ${email}"></span>
+    </div>
+<footer th:replace="partials :: footer"></footer>
+</body>
+</html>
