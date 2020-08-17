@@ -19,12 +19,11 @@ public class TaskController {
 
     private TaskRepository taskDao;
     private UserRepository userDao;
-    private TeamRepository teamDao;
 
-    public TaskController(TaskRepository taskDao, UserRepository userDao, TeamRepository teamDao) {
+
+    public TaskController(TaskRepository taskDao, UserRepository userDao) {
         this.taskDao = taskDao;
         this.userDao = userDao;
-        this.teamDao = teamDao;
     }
 
     @GetMapping("/task/create")
