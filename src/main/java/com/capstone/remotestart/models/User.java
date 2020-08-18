@@ -29,6 +29,7 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Column(columnDefinition = "default false")
     private boolean isEnabled;
 
     //relation to task
