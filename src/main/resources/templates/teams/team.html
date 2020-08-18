@@ -43,6 +43,15 @@
             <a class="btn btn-outline-info align-self-end" th:href="@{'/project/' + ${project.id}}">View Project</a>
         </div>
 
+    </div>
+
+    <div class="card w-50 my-3" th:each="user : ${teamUsers}">
+
+        <div class="card-header text-center font-weight-bold" th:text="${user.username}"></div>
+        <div class="card-body">
+            <p th:text="${user.firstName}"></p>
+            <p th:text="${user.lastName}"></p>
+        </div>
 
     </div>
 

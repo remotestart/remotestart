@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class TeamController {
 
@@ -69,6 +72,15 @@ public class TeamController {
         model.addAttribute("team", teamDao.getOne(id));
         model.addAttribute("users", userDao.findAll());
         model.addAttribute("projects", projectDao.findAllByTeamId(id));
+
+        List<Long> userIdList = userDao.allUsersByTeamId(id);
+        List<User> userList = new ArrayList<>();
+
+        for(int i = 0; i < userIdList.size(); i++){
+            userList.add(userDao.getOne(userIdList.get(i)));
+        }
+
+        model.addAttribute("teamUsers",userList);
         return "teams/team";
     }
 
