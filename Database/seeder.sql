@@ -26,18 +26,7 @@ insert into sub_tasks ( title, description) values ( 'El chocolate del loro', 'S
 insert into state_of_completion ( state_of_completion) values ( 'Not Started');
 insert into state_of_completion ( state_of_completion) values ( 'In Progress');
 insert into state_of_completion ( state_of_completion) values ( 'Completed');
-insert into state_of_completion ( state_of_completion) values ( 'Not Started');
-insert into state_of_completion ( state_of_completion) values ( 'In Progress');
-insert into state_of_completion ( state_of_completion) values ( 'Completed');
-insert into state_of_completion ( state_of_completion) values ( 'Not Started');
-insert into state_of_completion ( state_of_completion) values ( 'In Progress');
-insert into state_of_completion ( state_of_completion) values ( 'Completed');
-insert into state_of_completion ( state_of_completion) values ( 'Completed');
 
-insert into roles ( role) values ( 'user');
-insert into roles ( role) values ( 'Team Leader');
-insert into roles ( role) values ( 'Team Member');
-insert into roles ( role) values ( 'Team Member');
 insert into roles ( role) values ( 'Team Leader');
 insert into roles ( role) values ( 'Team Member');
 
