@@ -1,5 +1,7 @@
 package com.capstone.remotestart.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,12 +20,13 @@ public class Subtask {
     private String description;
 
     //relation to task
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "task_id")
     private Task task;
 
     //relation to subtask
-
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "state_id")
     private StateOfCompletion stateOfCompletion;
