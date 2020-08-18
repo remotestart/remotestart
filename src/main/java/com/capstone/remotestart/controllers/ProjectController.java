@@ -48,4 +48,11 @@ public class ProjectController {
         model.addAttribute("project", projectDao.getOne(id));
         return "projects/project";
     }
+
+    @GetMapping("/project/{id}/{userId}")
+    private String teamMemberPage(Model model, @PathVariable long id, @PathVariable long userId){
+        model.addAttribute("tasks", );
+
+        return
+    }
 }
