@@ -48,13 +48,15 @@ public class ProjectController {
 
     @GetMapping("/project/{id}")
     private String projectPage(Model model, @PathVariable long id){
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("project", projectDao.getOne(id));
+        model.addAttribute("user", loggedInUser);
         return "projects/project";
     }
 
     @GetMapping("/project/{id}/{userId}")
     private String teamMemberPage(Model model, @PathVariable long id, @PathVariable long userId){
-        model.addAttribute("tasks", taskDao.findAllByUserId(userId));
+        model.addAttribute("tasks", taskDao.findAllByUserAndProjectId(id,userId));
         return "tasks/team-member-tasks";
     }
 }
