@@ -17,6 +17,7 @@ public class Team {
     @Column(length = 50, nullable = false, unique = true)
     private String name;
 
+    @JsonBackReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "team")
     private List<Project> projects;
 
