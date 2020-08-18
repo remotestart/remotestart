@@ -1,5 +1,7 @@
 package com.capstone.remotestart.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.Entity;
 import javax.persistence.*;
 import java.util.List;
@@ -36,6 +38,7 @@ public class User {
     private List<Task> tasks;
 
     //many to many SOURCE https://stackoverflow.com/questions/42488559/manytomany-relationship-between-three-tables
+    @JsonBackReference
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<UserTeamRoleLink> userTeamRoleLinks;
 
