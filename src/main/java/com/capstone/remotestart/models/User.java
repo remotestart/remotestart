@@ -34,6 +34,7 @@ public class User {
     private boolean isEnabled;
 
     //relation to task
+    @JsonBackReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Task> tasks;
 

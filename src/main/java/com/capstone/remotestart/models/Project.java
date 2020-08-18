@@ -1,5 +1,8 @@
 package com.capstone.remotestart.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.time.LocalDate;
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -30,11 +33,13 @@ public class Project {
     private String completionDate;
 
     //relation to team
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;
 
     //relation to task
+    @JsonBackReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
     private List<Task> task;
 

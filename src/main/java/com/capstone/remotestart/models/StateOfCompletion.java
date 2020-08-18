@@ -1,5 +1,7 @@
 package com.capstone.remotestart.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -16,10 +18,12 @@ public class StateOfCompletion {
     private String stateOfCompletion;
 
     //relation to task
+    @JsonBackReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "stateOfCompletion")
     private List<Task> task;
 
     //relation to subtask
+    @JsonBackReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "stateOfCompletion")
     private List<Subtask> subtasks;
 
