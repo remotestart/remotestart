@@ -1,5 +1,7 @@
 package com.capstone.remotestart.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,14 +12,17 @@ public class UserTeamRoleLink {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonManagedReference
     @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "user_id")
     private User user;
 
+    @JsonManagedReference
     @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "team_id")
     private Team team;
 
+    @JsonManagedReference
     @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "role_id")
     private Role role;
