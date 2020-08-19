@@ -15,7 +15,7 @@
             <li class="list-group-item" th:text="${project.description}"></li>
         </ul>
             <a class="btn btn-outline-info align-self-start" th:href="@{'/project/' + ${project.id} + '/'+ ${user.id}}">View Tasks</a>
-            <a class="btn btn-outline-info align-self-start" href="/task/create">Create Task</a>
+            <a class="btn btn-outline-info align-self-start" th:href="@{'/task/create/' + ${project.id}}">Create Task</a>
     </div>
 
 </div>
