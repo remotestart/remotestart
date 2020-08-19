@@ -19,5 +19,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "JOIN teams t on user_team_role.team_id = t.id\n" +
             "JOIN users u on user_team_role.user_id = u.id\n" +
             "WHERE user_id = :userId AND team_id = :teamId", nativeQuery = true)
-    List<Long> userRoleByUserTeamId(@Param("userId") long userId, @Param("teamId") long teamId);
+    Long userRoleByUserTeamId(@Param("userId") long userId, @Param("teamId") long teamId);
 }

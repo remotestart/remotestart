@@ -70,7 +70,8 @@ public class TeamController {
     @GetMapping("/team/{id}")
     private String teamPage(Model model, @PathVariable long id){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(user.getUserTeamRoleLinks());
+        System.out.println(userDao.userRoleByUserTeamId(user.getId(), id));
+        model.addAttribute("role", userDao.userRoleByUserTeamId(user.getId(), id));
         model.addAttribute("user", user);
         model.addAttribute("team", teamDao.getOne(id));
         model.addAttribute("users", userDao.findAll());
@@ -106,5 +107,21 @@ public class TeamController {
         userTeamRoleDao.save(newMapping);
 
         return "redirect:/team/" + id;
+    }
+
+    @GetMapping("/teams/my-teams")
+    private String viewMyTeams(Model model){
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        List<Long> teamIdList = teamDao.allTeamsByUserId(user.getId());
+        List<Team> teamList = new ArrayList<>();
+
+        for(int i = 0; i < teamIdList.size(); i++){
+            teamList.add(teamDao.getOne(teamIdList.get(i)));
+        }
+
+        model.addAttribute("teams", teamList);
+        return "teams/view-my-teams";
     }
 }
