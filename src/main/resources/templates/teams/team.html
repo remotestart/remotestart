@@ -13,9 +13,9 @@
         <div class="card-header text-center font-weight-bold" th:text="${team.name}"></div>
         <div class="card-body">
             <p>Card Body</p>
-            <th:block sec:authorize="isAuthenticated()">
+            <p th:if="${role == 1}">
             <a th:href="@{'/project/create/' + ${team.id}}">Create a Project</a>
-            </th:block>
+            </p>
         </div>
 
         <div class="dropdown">
