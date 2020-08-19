@@ -4,6 +4,7 @@ import com.capstone.remotestart.models.Project;
 import com.capstone.remotestart.models.Team;
 import com.capstone.remotestart.models.User;
 import com.capstone.remotestart.repositories.ProjectRepository;
+import com.capstone.remotestart.repositories.SubtaskRepository;
 import com.capstone.remotestart.repositories.TaskRepository;
 import com.capstone.remotestart.repositories.TeamRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,11 +20,13 @@ public class ProjectController {
     private ProjectRepository projectDao;
     private TeamRepository teamDao;
     private TaskRepository taskDao;
+    private SubtaskRepository subTaskDao;
 
-    public ProjectController(ProjectRepository projectDao, TeamRepository teamDao, TaskRepository taskDao) {
+    public ProjectController(ProjectRepository projectDao, TeamRepository teamDao, TaskRepository taskDao, SubtaskRepository subTaskDao) {
         this.projectDao = projectDao;
         this.teamDao = teamDao;
         this.taskDao = taskDao;
+        this.subTaskDao = subTaskDao;
     }
 
     @GetMapping("/project/create/{teamId}")
@@ -56,6 +59,7 @@ public class ProjectController {
 
     @GetMapping("/project/{id}/{userId}")
     private String teamMemberPage(Model model, @PathVariable long id, @PathVariable long userId){
+        model.addAttribute("subtasks", subTaskDao.findAll());
         model.addAttribute("tasks", taskDao.findAllByUserAndProjectId(id,userId));
         return "tasks/team-member-tasks";
     }
