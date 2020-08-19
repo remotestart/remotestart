@@ -107,4 +107,20 @@ public class TeamController {
 
         return "redirect:/team/" + id;
     }
+
+    @GetMapping("/teams/my-teams")
+    private String viewMyTeams(Model model){
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        List<Long> teamIdList = teamDao.allTeamsByUserId(user.getId());
+        List<Team> teamList = new ArrayList<>();
+
+        for(int i = 0; i < teamIdList.size(); i++){
+            teamList.add(teamDao.getOne(teamIdList.get(i)));
+        }
+
+        model.addAttribute("teams", teamList);
+        return "teams/view-my-teams";
+    }
 }
