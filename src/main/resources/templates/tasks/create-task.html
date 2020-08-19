@@ -7,7 +7,7 @@
 
 <div class="container">
 
-    <form th:method="post" th:action="@{/task/create}" th:object="${task}">
+    <form th:method="post" th:action="@{'/task/create/' + ${projectId}}" th:object="${task}">
         <div class="form-group">
             <input th:field="*{title}" type="text" class="form-control" id="title" name="task">
             <label for="title">Title</label>

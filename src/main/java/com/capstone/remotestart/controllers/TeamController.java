@@ -69,6 +69,9 @@ public class TeamController {
 
     @GetMapping("/team/{id}")
     private String teamPage(Model model, @PathVariable long id){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println(user.getUserTeamRoleLinks());
+        model.addAttribute("user", user);
         model.addAttribute("team", teamDao.getOne(id));
         model.addAttribute("users", userDao.findAll());
         model.addAttribute("projects", projectDao.findAllByTeamId(id));
