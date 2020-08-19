@@ -4,37 +4,45 @@ import com.capstone.remotestart.models.Task;
 import com.capstone.remotestart.models.Team;
 import com.capstone.remotestart.models.User;
 import com.capstone.remotestart.models.UserTeamRoleLink;
+import com.capstone.remotestart.repositories.ProjectRepository;
 import com.capstone.remotestart.repositories.TaskRepository;
 import com.capstone.remotestart.repositories.TeamRepository;
 import com.capstone.remotestart.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class TaskController {
 
     private TaskRepository taskDao;
     private UserRepository userDao;
+    private TeamRepository teamDao;
+    private ProjectRepository projectDao;
 
 
-    public TaskController(TaskRepository taskDao, UserRepository userDao) {
+    public TaskController(TaskRepository taskDao, UserRepository userDao, TeamRepository teamDao, ProjectRepository projectDao) {
         this.taskDao = taskDao;
         this.userDao = userDao;
+        this.teamDao = teamDao;
+        this.projectDao = projectDao;
     }
 
-    @GetMapping("/task/create")
-    public String createTask(Model model) {
+    @GetMapping("/task/create/{projectId}")
+    public String createTask(Model model, @PathVariable long projectId) {
+        model.addAttribute("projectId", projectId);
         model.addAttribute("task", new Task());
         model.addAttribute("users", userDao.findAll());
         return "tasks/create-task";
     }
 
-    @PostMapping("/task/create")
-    public String saveTask(@ModelAttribute Task task) {
+    @PostMapping("/task/create/{projectId}")
+    public String saveTask(@ModelAttribute Task task, @RequestParam(name = "userId") long userId, @PathVariable long projectId) {
+        task.setProject(projectDao.getOne(projectId));
+        task.setUser(userDao.getOne(userId));
         taskDao.save(task);
         return "redirect:/task";
     }

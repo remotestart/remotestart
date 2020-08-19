@@ -7,7 +7,7 @@
 
 <div class="container">
 
-    <form th:method="post" th:action="@{/task/create}" th:object="${task}">
+    <form th:method="post" th:action="@{'/task/create/' + ${projectId}}" th:object="${task}">
         <div class="form-group">
             <input th:field="*{title}" type="text" class="form-control" id="title" name="task">
             <label for="title">Title</label>
@@ -20,22 +20,16 @@
             <!--input for assigned to-->
 
             <div class="dropdown">
-
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Assigned to:
-                </button>
-
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <h5>Assigned to:</h5>
+                <div class="form-check form-check-inline">
                     <div th:each="user : ${users}">
-
-                        <a class="dropdown-item" th:text="${user.username}"></a>
-
+                        <input class="form-check-input" type="checkbox" name="userId" th:text="${user.username}" th:value="${user.id}">
                     </div>
                 </div>
             </div>
 
         </div>
-            <button type="submit" class="btn btn-primary">Create</button>
+        <button type="submit" class="btn btn-primary">Create</button>
     </form>
 </div>
 
