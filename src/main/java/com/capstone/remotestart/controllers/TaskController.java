@@ -9,21 +9,23 @@ import com.capstone.remotestart.repositories.TeamRepository;
 import com.capstone.remotestart.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class TaskController {
 
     private TaskRepository taskDao;
     private UserRepository userDao;
+    private TeamRepository teamDao;
 
 
-    public TaskController(TaskRepository taskDao, UserRepository userDao) {
+    public TaskController(TaskRepository taskDao, UserRepository userDao, TeamRepository teamDao) {
         this.taskDao = taskDao;
         this.userDao = userDao;
+        this.teamDao = teamDao;
     }
 
     @GetMapping("/task/create")
@@ -34,7 +36,8 @@ public class TaskController {
     }
 
     @PostMapping("/task/create")
-    public String saveTask(@ModelAttribute Task task) {
+    public String saveTask(@ModelAttribute Task task, @RequestParam(name = "userId") long userId) {
+        task.setUser(userDao.getOne(userId));
         taskDao.save(task);
         return "redirect:/task";
     }
