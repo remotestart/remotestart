@@ -14,6 +14,16 @@
             <p th:text="${task.description}"></p>
             <a class="btn btn-outline-info align-self-start" th:href="@{'/subtask/create/' + ${task.id}}">Create Subtask</a>
         </div>
+        <th:block th:each="subtask: ${subtasks}">
+
+            <div class="container" th:if="${task.id} == ${subtask.getTask().id}">
+                <p th:text="${subtask.title}"></p>
+                <p th:text="${subtask.description}"></p>
+
+            </div>
+
+        </th:block>
+
 
     </div>
 
