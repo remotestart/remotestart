@@ -70,24 +70,24 @@ public class TeamController {
     @GetMapping("/team/{id}")
     private String teamPage(Model model, @PathVariable long id){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("role", userDao.userRoleByUserTeamId(user.getId(), id));
+        model.addAttribute("role", userDao.checkIfTeamLeader(user.getId(), id));
         model.addAttribute("team", teamDao.getOne(id));
         model.addAttribute("users", userDao.findAll());
         model.addAttribute("projects", projectDao.findAllByTeamId(id));
 
-        if (userDao.userRoleByUserTeamId(user.getId(), id) == null) {
+        if (userDao.checkIfOnTeam(user.getId(), id) == null) {
             return "redirect:/teams";
+        } else {
+            List<Long> userIdList = userDao.allUsersByTeamId(id);
+            List<User> userList = new ArrayList<>();
+
+            for (int i = 0; i < userIdList.size(); i++) {
+                userList.add(userDao.getOne(userIdList.get(i)));
+            }
+
+            model.addAttribute("teamUsers", userList);
+            return "teams/team";
         }
-
-        List<Long> userIdList = userDao.allUsersByTeamId(id);
-        List<User> userList = new ArrayList<>();
-
-        for(int i = 0; i < userIdList.size(); i++){
-            userList.add(userDao.getOne(userIdList.get(i)));
-        }
-
-        model.addAttribute("teamUsers",userList);
-        return "teams/team";
     }
 
     @GetMapping("/team/{id}/add/{userId}")
