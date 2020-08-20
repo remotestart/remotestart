@@ -38,8 +38,9 @@ public class SubtaskController {
 
     @PostMapping("/subtask/create/{taskId}")
     public String saveSubtask(@ModelAttribute Subtask subtask, @PathVariable long taskId){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         subtask.setTask(taskDao.getOne(taskId));
         subtaskDao.save(subtask);
-        return "redirect:/task";
+        return "redirect:/project/" + taskId + "/" + user.getId();
     }
 }

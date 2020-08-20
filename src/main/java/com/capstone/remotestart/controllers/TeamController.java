@@ -58,7 +58,7 @@ public class TeamController {
         newMapping.setRole(roleDao.getOne(1L));
         //saving table object to db
         userTeamRoleDao.save(newMapping);
-        return "redirect:/teams";
+        return "redirect:/teams/my-teams";
     }
 
     @GetMapping("/teams")

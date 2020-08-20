@@ -44,7 +44,7 @@ public class ProjectController {
     public String saveProject(@ModelAttribute Project project, @PathVariable long teamId) {
         project.setTeam(teamDao.getOne(teamId));
         projectDao.save(project);
-        return "redirect:/projects";
+        return "redirect:/team/" +teamId;
     }
 
     @GetMapping("/projects")
