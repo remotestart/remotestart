@@ -10,7 +10,7 @@ let showUsers = (users) => {
             "<div class='card w-50 my-3' style='width: 18rem'>" +
             "<div class='card-header text-center font-weight-bold'>" + users[i].firstName + "</div>" +
             "<div class='card-body d-flex flex-column'>" +
-            "<a href=" + "/team/" + users[i].id + " " + "class='btn btn-outline-info align-self-end'>Add User</a>" +
+            "<a href='/team/" + team + "/add/" + users[i].id + "' " + "class='btn btn-outline-info align-self-end'>Add User</a>" +
             "</div>" +
             "</div>" +
             "</div>";
