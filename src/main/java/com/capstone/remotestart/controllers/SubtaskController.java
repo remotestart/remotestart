@@ -1,8 +1,10 @@
 package com.capstone.remotestart.controllers;
 
 import com.capstone.remotestart.models.Subtask;
+import com.capstone.remotestart.models.User;
 import com.capstone.remotestart.repositories.SubtaskRepository;
 import com.capstone.remotestart.repositories.TaskRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,10 +24,16 @@ public class SubtaskController {
     }
 
     @GetMapping("/subtask/create/{taskId}")
-    public String createSubtaskForm(Model model,@PathVariable long taskId){
+    public String createSubtaskForm(Model model, @PathVariable long taskId){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("subtask", new Subtask());
         model.addAttribute("task", taskDao.getOne(taskId));
-        return "subtasks/create-subtask";
+
+        if (taskDao.findUserByTaskId(taskId) != user.getId()) {
+            return "redirect:/teams";
+        } else {
+            return "subtasks/create-subtask";
+        }
     }
 
     @PostMapping("/subtask/create/{taskId}")
