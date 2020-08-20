@@ -21,7 +21,7 @@ showTeams(teams);
 let updateTeams = () => {
     let filteredTeams = []
     teams.forEach(function(team) {
-        if (team.name.includes(search.value)) {
+        if (team.name.toUpperCase().includes(search.value.toUpperCase())) {
             filteredTeams.push(team)
         }
     })
