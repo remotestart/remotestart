@@ -30,7 +30,7 @@ public class SubtaskController {
         model.addAttribute("task", taskDao.getOne(taskId));
 
         if (taskDao.findUserByTaskId(taskId) != user.getId()) {
-            return "redirect:teams";
+            return "redirect:/teams";
         } else {
             return "subtasks/create-subtask";
         }
@@ -40,6 +40,6 @@ public class SubtaskController {
     public String saveSubtask(@ModelAttribute Subtask subtask, @PathVariable long taskId){
         subtask.setTask(taskDao.getOne(taskId));
         subtaskDao.save(subtask);
-        return "redirect:task";
+        return "redirect:/task";
     }
 }

@@ -58,7 +58,7 @@ public class TeamController {
         newMapping.setRole(roleDao.getOne(1L));
         //saving table object to db
         userTeamRoleDao.save(newMapping);
-        return "redirect:teams";
+        return "redirect:/teams";
     }
 
     @GetMapping("/teams")
@@ -76,7 +76,7 @@ public class TeamController {
         model.addAttribute("projects", projectDao.findAllByTeamId(id));
 
         if (userDao.checkIfOnTeam(user.getId(), id) == null) {
-            return "redirect:teams";
+            return "redirect:/teams";
         } else {
             List<Long> userIdList = userDao.allUsersByTeamId(id);
             List<User> userList = new ArrayList<>();
@@ -101,7 +101,7 @@ public class TeamController {
         UserTeamRoleLink newMapping = new UserTeamRoleLink();
 
         if (userDao.checkIfTeamLeader(user.getId(), id) != 1) {
-            return "redirect:teams";
+            return "redirect:/teams";
         } else {
             //using setters to set user and team to table object
             newMapping.setUser(user);
@@ -111,7 +111,7 @@ public class TeamController {
             //saving table object to db
             userTeamRoleDao.save(newMapping);
 
-            return "redirect:team/" + id;
+            return "redirect:/team/" + id;
         }
     }
 
