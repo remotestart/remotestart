@@ -92,6 +92,8 @@ public class TeamController {
 
     @GetMapping("/team/{id}/add/{userId}")
     private String addUserToTeam(@PathVariable long id, @PathVariable long userId){
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         //grabbing user by id
         User user = userDao.getOne(userId);
         //grabbing team by id
@@ -100,7 +102,7 @@ public class TeamController {
         //new mapping table object
         UserTeamRoleLink newMapping = new UserTeamRoleLink();
 
-        if (userDao.checkIfTeamLeader(user.getId(), id) != 1L) {
+        if (userDao.checkIfTeamLeader(loggedInUser.getId(), id) != 1) {
             return "redirect:/teams";
         } else {
             //using setters to set user and team to table object
