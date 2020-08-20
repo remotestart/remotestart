@@ -9,11 +9,11 @@
 
     <form th:method="post" th:action="@{'/task/create/' + ${projectId}}" th:object="${task}">
         <div class="form-group">
-            <input th:field="*{title}" type="text" class="form-control" id="title" name="task">
+            <input th:field="*{title}" type="text" class="form-control" id="title" name="task" required autofocus>
             <label for="title">Title</label>
         </div>
         <div class="form-group">
-            <input th:field="*{description}" type="text" class="form-control" id="description" name="task">
+            <input th:field="*{description}" type="text" class="form-control" id="description" name="task" required>
             <label for="description">Description</label>
         </div>
         <div class="form-group">
@@ -23,7 +23,7 @@
                 <h5>Assigned to:</h5>
                 <div class="form-check form-check-inline">
                     <div th:each="user : ${users}">
-                        <input class="form-check-input" type="checkbox" name="userId" th:text="${user.username}" th:value="${user.id}">
+                        <input class="form-check-input" type="checkbox" name="userId" th:text="${user.username}" th:value="${user.id}" required>
                     </div>
                 </div>
             </div>
