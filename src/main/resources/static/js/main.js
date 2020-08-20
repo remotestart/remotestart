@@ -1,5 +1,7 @@
 "use strict"
 
+//Team Search
+
 let test = document.querySelector("#test");
 let search = document.querySelector("#team-search");
 
