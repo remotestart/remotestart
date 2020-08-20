@@ -18,22 +18,34 @@
             </p>
         </div>
 
-        <div class="dropdown">
+<!--        <div class="dropdown">-->
 
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Users
-            </button>
+<!--            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+<!--                Users-->
+<!--            </button>-->
+<!--DROP DOWN FOR ADDING USERS - OLD WAY-->
+<!--            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
+<!--                <div th:each="user : ${users}">-->
 
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <div th:each="user : ${users}">
+<!--                    <a class="dropdown-item" th:text="${user.username}" th:href="@{'/team/' + ${team.id} + '/add/' + ${user.id}}"></a>-->
 
-                    <a class="dropdown-item" th:text="${user.username}" th:href="@{'/team/' + ${team.id} + '/add/' + ${user.id}}"></a>
+<!--                </div>-->
+<!--            </div>-->
 
-                </div>
-            </div>
-        </div>
+<!--        </div>-->
 
     </div>
+<!--User Search Card-->
+        <div>
+            <form>
+                <input type="text" id="user-search" name="user-search" class="" placeholder="User Name" onkeyup="updateUsers(this)">
+            </form>
+        </div>
+
+            <script th:inline="javascript">
+                let users = [[${users}]];
+            </script>
+            <div id="bucket"></div>
 
     <div class="card w-50 my-3" th:each="project : ${projects}">
 
@@ -58,5 +70,6 @@
 </div>
 
 <footer th:replace="partials :: footer"></footer>
+<script type="text/javascript" th:src="@{/js/user.js}"></script>
 </body>
 </html>
