@@ -8,6 +8,7 @@ import com.capstone.remotestart.repositories.ProjectRepository;
 import com.capstone.remotestart.repositories.TaskRepository;
 import com.capstone.remotestart.repositories.TeamRepository;
 import com.capstone.remotestart.repositories.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,10 +34,17 @@ public class TaskController {
 
     @GetMapping("/task/create/{projectId}")
     public String createTask(Model model, @PathVariable long projectId) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         model.addAttribute("projectId", projectId);
         model.addAttribute("task", new Task());
         model.addAttribute("users", userDao.findAll());
-        return "tasks/create-task";
+
+        if (userDao.checkIfTeamLeader(user.getId(), projectDao.teamIdFromProjectId(projectId)) != 1) {
+            return "redirect:/teams";
+        } else {
+            return "tasks/create-task";
+        }
     }
 
     @PostMapping("/task/create/{projectId}")
