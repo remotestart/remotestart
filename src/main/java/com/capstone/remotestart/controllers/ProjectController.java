@@ -3,10 +3,7 @@ package com.capstone.remotestart.controllers;
 import com.capstone.remotestart.models.Project;
 import com.capstone.remotestart.models.Team;
 import com.capstone.remotestart.models.User;
-import com.capstone.remotestart.repositories.ProjectRepository;
-import com.capstone.remotestart.repositories.SubtaskRepository;
-import com.capstone.remotestart.repositories.TaskRepository;
-import com.capstone.remotestart.repositories.TeamRepository;
+import com.capstone.remotestart.repositories.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,19 +18,26 @@ public class ProjectController {
     private TeamRepository teamDao;
     private TaskRepository taskDao;
     private SubtaskRepository subTaskDao;
+    private UserRepository userDao;
 
-    public ProjectController(ProjectRepository projectDao, TeamRepository teamDao, TaskRepository taskDao, SubtaskRepository subTaskDao) {
+    public ProjectController(ProjectRepository projectDao, TeamRepository teamDao, TaskRepository taskDao, SubtaskRepository subTaskDao, UserRepository userDao) {
         this.projectDao = projectDao;
         this.teamDao = teamDao;
         this.taskDao = taskDao;
         this.subTaskDao = subTaskDao;
+        this.userDao = userDao;
     }
 
     @GetMapping("/project/create/{teamId}")
     public String createProject(Model model, @PathVariable long teamId) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("project", new Project());
         model.addAttribute("teamID", teamId);
-        return "projects/create-project";
+        if (userDao.checkIfTeamLeader(user.getId(), teamId) != 1) {
+            return "redirect:/teams";
+        } else {
+            return "projects/create-project";
+        }
     }
 
     @PostMapping("/project/create/{teamId}")
@@ -54,13 +58,22 @@ public class ProjectController {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("project", projectDao.getOne(id));
         model.addAttribute("user", loggedInUser);
-        return "projects/project";
+        if (userDao.checkIfOnTeam(loggedInUser.getId(), projectDao.teamIdFromProjectId(id)) == null) {
+            return "redirect:/teams";
+        } else {
+            return "projects/project";
+        }
     }
 
     @GetMapping("/project/{id}/{userId}")
     private String teamMemberPage(Model model, @PathVariable long id, @PathVariable long userId){
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("subtasks", subTaskDao.findAll());
         model.addAttribute("tasks", taskDao.findAllByUserAndProjectId(id,userId));
-        return "tasks/team-member-tasks";
+        if (loggedInUser.getId() != userId) {
+            return "redirect:/teams";
+        } else {
+            return "tasks/team-member-tasks";
+        }
     }
 }

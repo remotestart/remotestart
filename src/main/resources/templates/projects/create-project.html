@@ -9,7 +9,7 @@
 
     <form th:method="post" th:action="@{'/project/create/' + ${teamID}}" th:object="${project}">
         <div class="form-group">
-            <input th:field="*{name}" type="text" class="form-control" id="project-name" placeholder="Project Name" required>
+            <input th:field="*{name}" type="text" class="form-control" id="project-name" placeholder="Project Name" required autofocus>
             <textarea th:field="*{description}" class="form-control" id="project-description" placeholder="Project Description" required></textarea>
             <label for="project-start">Project Start</label>
             <input th:field="*{startDate}" type="date" class="form-control" id="project-start" required>
