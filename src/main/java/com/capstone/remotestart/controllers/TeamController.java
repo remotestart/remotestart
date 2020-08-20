@@ -100,15 +100,19 @@ public class TeamController {
         //new mapping table object
         UserTeamRoleLink newMapping = new UserTeamRoleLink();
 
-        //using setters to set user and team to table object
-        newMapping.setUser(user);
-        newMapping.setTeam(team);
-        newMapping.setRole(roleDao.getOne(2L));
+        if (userDao.checkIfTeamLeader(user.getId(), id) != 1) {
+            return "redirect:/teams";
+        } else {
+            //using setters to set user and team to table object
+            newMapping.setUser(user);
+            newMapping.setTeam(team);
+            newMapping.setRole(roleDao.getOne(2L));
 
-        //saving table object to db
-        userTeamRoleDao.save(newMapping);
+            //saving table object to db
+            userTeamRoleDao.save(newMapping);
 
-        return "redirect:/team/" + id;
+            return "redirect:/team/" + id;
+        }
     }
 
     @GetMapping("/teams/my-teams")
