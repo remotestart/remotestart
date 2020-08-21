@@ -69,7 +69,15 @@ public class TeamController {
 
     @GetMapping("/teams")
     private String showTeamPage(Model model){
-        model.addAttribute("teams", teamDao.findAll());
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Team> teamUserNotOn = new ArrayList<>();
+        List<Team> teams = teamDao.findAll();
+        for (int i = 0; i < teams.size(); i++) {
+            if (userDao.checkIfOnTeam(user.getId(), teams.get(i).getId()) == null) {
+                teamUserNotOn.add(teamDao.getOne(teams.get(i).getId()));
+            }
+        }
+        model.addAttribute("teams", teamUserNotOn);
         return "teams/teams";
     }
 
