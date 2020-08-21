@@ -52,7 +52,7 @@ public class TaskController {
         task.setProject(projectDao.getOne(projectId));
         task.setUser(userDao.getOne(userId));
         taskDao.save(task);
-        return "redirect:/task";
+        return "redirect:/project/" + projectId;
     }
 
     @GetMapping("/task")

@@ -44,7 +44,7 @@ public class ProjectController {
     public String saveProject(@ModelAttribute Project project, @PathVariable long teamId) {
         project.setTeam(teamDao.getOne(teamId));
         projectDao.save(project);
-        return "redirect:/projects";
+        return "redirect:/team/" +teamId;
     }
 
     @GetMapping("/projects")
@@ -56,6 +56,7 @@ public class ProjectController {
     @GetMapping("/project/{id}")
     private String projectPage(Model model, @PathVariable long id){
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("role", userDao.checkIfTeamLeader(loggedInUser.getId(),projectDao.teamIdFromProjectId(id)));
         model.addAttribute("project", projectDao.getOne(id));
         model.addAttribute("user", loggedInUser);
         if (userDao.checkIfOnTeam(loggedInUser.getId(), projectDao.teamIdFromProjectId(id)) == null) {
@@ -68,6 +69,7 @@ public class ProjectController {
     @GetMapping("/project/{id}/{userId}")
     private String teamMemberPage(Model model, @PathVariable long id, @PathVariable long userId){
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("project", projectDao.getOne(id));
         model.addAttribute("subtasks", subTaskDao.findAll());
         model.addAttribute("tasks", taskDao.findAllByUserAndProjectId(id,userId));
         if (loggedInUser.getId() != userId) {
@@ -75,5 +77,15 @@ public class ProjectController {
         } else {
             return "tasks/team-member-tasks";
         }
+    }
+
+    @PostMapping("/project/{projectId}/delete")
+    private String deleteProject(@PathVariable long projectId){
+
+        long teamId = projectDao.teamIdFromProjectId(projectId);
+
+        projectDao.deleteById(projectId);
+
+        return "redirect:/team/" + teamId;
     }
 }

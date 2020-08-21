@@ -7,7 +7,7 @@
 
 <div class="container">
 
-    <form th:method="post" th:action="@{'/subtask/create/' + ${task.id}}" th:object="${subtask}">
+    <form th:method="post" th:action="@{'/subtask/create/' + ${project.id} + '/' + ${task.id}}" th:object="${subtask}">
         <div class="form-group">
             <input th:field="*{title}" type="text" class="form-control" id="title" placeholder="Title" required autofocus>
         </div>
