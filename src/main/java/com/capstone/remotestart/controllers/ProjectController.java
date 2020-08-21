@@ -78,4 +78,9 @@ public class ProjectController {
             return "tasks/team-member-tasks";
         }
     }
+
+    @PostMapping("/project/{projectId}/delete")
+    private String deleteProject(@PathVariable long projectId){
+        return "redirect:/team/" + projectDao.teamIdFromProjectId(projectId);
+    }
 }

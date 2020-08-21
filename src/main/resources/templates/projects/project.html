@@ -17,8 +17,12 @@
             <a class="btn btn-outline-info align-self-start" th:href="@{'/project/' + ${project.id} + '/'+ ${user.id}}">View Tasks</a>
             <a class="btn btn-outline-info align-self-start" th:href="@{'/task/create/' + ${project.id}}">Create Task</a>
         <div th:if="${role == 1}">
-            <a th:href="@{#}" class="btn btn-outline-danger">Edit Team</a>
-            <a th:href="@{#}" class="btn btn-danger">Delete Team</a>
+            <form th:action="@{'/project/' + ${project.id} + '/edit'}" th:method="post">
+                <button type="submit" class="btn btn-outline-danger">Edit Team</button>
+            </form>
+            <form th:action="@{'/project/' + ${project.id} + '/delete'}" th:method="post">
+                <button type="submit" class="btn btn-danger">Delete Team</button>
+            </form>
         </div>
     </div>
 
