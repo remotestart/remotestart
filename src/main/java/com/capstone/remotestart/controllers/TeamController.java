@@ -1,6 +1,5 @@
 package com.capstone.remotestart.controllers;
 
-import com.capstone.remotestart.models.Role;
 import com.capstone.remotestart.models.Team;
 import com.capstone.remotestart.models.User;
 import com.capstone.remotestart.models.UserTeamRoleLink;
@@ -168,5 +167,21 @@ public class TeamController {
 
         model.addAttribute("teams", teamList);
         return "teams/view-my-teams";
+    }
+
+    @PostMapping("/team/{id}/delete")
+    private String deleteTeam(Model model, @PathVariable Long id){
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        model.addAttribute("teamId", id);
+
+        if (userDao.checkIfTeamLeader(user.getId(), id) == 1) {
+            teamDao.deleteTeamFromUserRoles(id);
+            teamDao.deleteTeamFromTeams(id);
+        } else {
+            return "redirect:/team/" + id;
+        }
+        return "redirect:/teams/my-teams";
     }
 }
