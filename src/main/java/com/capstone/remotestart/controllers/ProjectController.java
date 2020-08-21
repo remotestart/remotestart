@@ -81,6 +81,11 @@ public class ProjectController {
 
     @PostMapping("/project/{projectId}/delete")
     private String deleteProject(@PathVariable long projectId){
-        return "redirect:/team/" + projectDao.teamIdFromProjectId(projectId);
+
+        long teamId = projectDao.teamIdFromProjectId(projectId);
+
+        projectDao.deleteById(projectId);
+
+        return "redirect:/team/" + teamId;
     }
 }

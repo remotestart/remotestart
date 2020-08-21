@@ -18,10 +18,10 @@
             <a class="btn btn-outline-info align-self-start" th:href="@{'/task/create/' + ${project.id}}">Create Task</a>
         <div th:if="${role == 1}">
             <form th:action="@{'/project/' + ${project.id} + '/edit'}" th:method="post">
-                <button type="submit" class="btn btn-outline-danger">Edit Team</button>
+                <button type="submit" class="btn btn-outline-danger">Edit Project</button>
             </form>
             <form th:action="@{'/project/' + ${project.id} + '/delete'}" th:method="post">
-                <button type="submit" class="btn btn-danger">Delete Team</button>
+                <button type="submit" class="btn btn-danger">Delete Project</button>
             </form>
         </div>
     </div>
