@@ -56,6 +56,7 @@ public class ProjectController {
     @GetMapping("/project/{id}")
     private String projectPage(Model model, @PathVariable long id){
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("role", userDao.checkIfTeamLeader(loggedInUser.getId(),projectDao.teamIdFromProjectId(id)));
         model.addAttribute("project", projectDao.getOne(id));
         model.addAttribute("user", loggedInUser);
         if (userDao.checkIfOnTeam(loggedInUser.getId(), projectDao.teamIdFromProjectId(id)) == null) {

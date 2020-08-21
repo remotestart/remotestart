@@ -16,6 +16,10 @@
         </ul>
             <a class="btn btn-outline-info align-self-start" th:href="@{'/project/' + ${project.id} + '/'+ ${user.id}}">View Tasks</a>
             <a class="btn btn-outline-info align-self-start" th:href="@{'/task/create/' + ${project.id}}">Create Task</a>
+        <div th:if="${role == 1}">
+            <a th:href="@{#}" class="btn btn-outline-danger">Edit Team</a>
+            <a th:href="@{#}" class="btn btn-danger">Delete Team</a>
+        </div>
     </div>
 
 </div>
