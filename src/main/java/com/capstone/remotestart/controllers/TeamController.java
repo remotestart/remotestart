@@ -5,6 +5,9 @@ import com.capstone.remotestart.models.Team;
 import com.capstone.remotestart.models.User;
 import com.capstone.remotestart.models.UserTeamRoleLink;
 import com.capstone.remotestart.repositories.*;
+import com.capstone.remotestart.services.EmailSenderService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +28,9 @@ public class TeamController {
     private RoleRepository roleDao;
     private UserRepository userDao;
     private ProjectRepository projectDao;
+
+    @Autowired
+    private EmailSenderService emailSenderService;
 
     public TeamController(TeamRepository teamDao, UserTeamRoleRepository userTeamRoleDao, RoleRepository roleDao, UserRepository userDao, ProjectRepository projectDao) {
         this.teamDao = teamDao;
@@ -63,7 +69,15 @@ public class TeamController {
 
     @GetMapping("/teams")
     private String showTeamPage(Model model){
-        model.addAttribute("teams", teamDao.findAll());
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Team> teamUserNotOn = new ArrayList<>();
+        List<Team> teams = teamDao.findAll();
+        for (int i = 0; i < teams.size(); i++) {
+            if (userDao.checkIfOnTeam(user.getId(), teams.get(i).getId()) == null) {
+                teamUserNotOn.add(teamDao.getOne(teams.get(i).getId()));
+            }
+        }
+        model.addAttribute("teams", teamUserNotOn);
         return "teams/teams";
     }
 
@@ -87,6 +101,29 @@ public class TeamController {
 
             model.addAttribute("teamUsers", userList);
             return "teams/team";
+        }
+    }
+
+    @GetMapping("/team/request/{id}")
+    private String requestToJoinTeam(Model model, @PathVariable long id){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("role", userDao.checkIfTeamLeader(user.getId(), id));
+        model.addAttribute("team", teamDao.getOne(id));
+
+        if (userDao.checkIfOnTeam(user.getId(), id) != null) {
+            return "redirect:/teams";
+        } else {
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
+            mailMessage.setTo(userDao.getOne(userDao.findTeamLeaderByTeamId(id)).getEmail());
+            mailMessage.setSubject(user.getFirstName() + " " + user.getLastName() + " would like to join your team!");
+            mailMessage.setFrom("admin@remote-start.io");
+            mailMessage.setText("To view your team page and add them, please click here : "
+                    +"https://remote-start.io/team/" + id);
+
+            emailSenderService.sendEmail(mailMessage);
+
+            model.addAttribute("teamName", teamDao.getOne(id).getName());
+            return "teams/request-to-join";
         }
     }
 

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials :: head (pageTitle ='Request to Join')">
+
+</head>
+<body>
+<header th:replace="partials :: header"></header>
+<div>
+    <span th:text="'An email has been sent to the team leader of ' + ${teamName} ' with your request to join.'"></span>
+</div>
+<footer th:replace="partials :: footer"></footer>
+</body>
+</html>
