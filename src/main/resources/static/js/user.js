@@ -21,7 +21,7 @@ showUsers(users);
 let updateUsers = () => {
     let filteredUsers = []
     users.forEach(function (user) {
-        if (user.firstName.includes(userSearch.value)){
+        if (user.firstName.toUpperCase().includes(userSearch.value.toUpperCase())){
             filteredUsers.push(user)
         }
     })
