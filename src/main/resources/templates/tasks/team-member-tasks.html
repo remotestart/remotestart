@@ -12,7 +12,7 @@
         <div class="card-header text-center font-weight-bold" th:text="${task.title}"></div>
         <div class="card-body">
             <p th:text="${task.description}"></p>
-            <a class="btn btn-outline-info align-self-start" th:href="@{'/subtask/create/' + ${task.id}}">Create Subtask</a>
+            <a class="btn btn-outline-info align-self-start" th:href="@{'/subtask/create/' + ${project.id} + '/' + ${task.id}}">Create Subtask</a>
         </div>
         <th:block th:each="subtask: ${subtasks}">
 

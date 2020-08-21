@@ -68,6 +68,7 @@ public class ProjectController {
     @GetMapping("/project/{id}/{userId}")
     private String teamMemberPage(Model model, @PathVariable long id, @PathVariable long userId){
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("project", projectDao.getOne(id));
         model.addAttribute("subtasks", subTaskDao.findAll());
         model.addAttribute("tasks", taskDao.findAllByUserAndProjectId(id,userId));
         if (loggedInUser.getId() != userId) {
