@@ -36,9 +36,17 @@ public class TaskController {
     public String createTask(Model model, @PathVariable long projectId) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+        //getting all users that are currently on the team
+        List<Long> userIdList = userDao.allUsersByTeamId(projectDao.teamIdFromProjectId(projectId));
+        List<User> userList = new ArrayList<>();
+
+        for(int i = 0; i < userIdList.size(); i++){
+            userList.add(userDao.getOne(userIdList.get(i)));
+        }
+
+        model.addAttribute("users", userList);
         model.addAttribute("projectId", projectId);
         model.addAttribute("task", new Task());
-        model.addAttribute("users", userDao.findAll());
 
         if (userDao.checkIfTeamLeader(user.getId(), projectDao.teamIdFromProjectId(projectId)) != 1) {
             return "redirect:/teams";
