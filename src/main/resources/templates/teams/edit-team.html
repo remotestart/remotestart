@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="partials :: head (pageTitle ='Edit Team')"></head>
+<body>
+<header th:replace="partials :: header"></header>
+
+<div class="container">
+
+    <form th:method="post" th:action="@{'/team/' +${team.id}+ '/edit'}" th:object="${team}">
+        <div class="form-group">
+            <input th:field="*{name}" type="text" class="form-control" id="team" placeholder="Team Name" required autofocus>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Changes</button>
+    </form>
+
+
+</div>
+
+<footer th:replace="partials :: footer"></footer>
+</body>
+</html>
