@@ -11,18 +11,25 @@
 
 
         <div class="card-header text-center font-weight-bold" th:text="${team.name}"></div>
-        <div class="card-body">
+        <p class="card-body">
             <p>Card Body</p>
             <p th:if="${role == 1}">
                 <a th:href="@{'/project/create/' + ${team.id}}">Create a Project</a>
             </p>
             <p th:if="${role == 1}">
 
+        <form th:action="@{'/team/' + ${team.id} + '/edit'}" th:method="get">
+            <button type="submit" class="btn btn-warning btn-sm">Edit Team</button>
+        </form>
+        <br>
+
             <form th:action="@{'/team/' + ${team.id} + '/delete'}" th:method="POST">
                 <button class="btn btn-danger btn-sm" type="submit">Delete Team</button>
             </form>
+            </p>
 
-        </div>
+    </div>
+</div>
 
 <!--        <div class="dropdown">-->
 
@@ -40,7 +47,6 @@
 
 <!--        </div>-->
 
-    </div>
 <!--User Search Card-->
         <div>
             <form>
@@ -73,8 +79,6 @@
         </div>
 
     </div>
-
-</div>
 
 <footer th:replace="partials :: footer"></footer>
 <script type="text/javascript" th:src="@{/js/user.js}"></script>
