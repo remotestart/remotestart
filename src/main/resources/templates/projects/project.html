@@ -15,9 +15,9 @@
             <li class="list-group-item" th:text="${project.description}"></li>
         </ul>
             <a class="btn btn-outline-info align-self-start" th:href="@{'/project/' + ${project.id} + '/'+ ${user.id}}">View Tasks</a>
-            <a class="btn btn-outline-info align-self-start" th:href="@{'/task/create/' + ${project.id}}">Create Task</a>
         <div th:if="${role == 1}">
-            <form th:action="@{'/project/' + ${project.id} + '/edit'}" th:method="post">
+            <a class="btn btn-outline-info align-self-start" th:href="@{'/task/create/' + ${project.id}}">Create Task</a>
+            <form th:action="@{'/project/' + ${project.id} + '/edit'}" th:method="get">
                 <button type="submit" class="btn btn-outline-danger">Edit Project</button>
             </form>
             <form th:action="@{'/project/' + ${project.id} + '/delete'}" th:method="post">
