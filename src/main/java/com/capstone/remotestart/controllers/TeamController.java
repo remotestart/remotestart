@@ -85,8 +85,17 @@ public class TeamController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("role", userDao.checkIfTeamLeader(user.getId(), id));
         model.addAttribute("team", teamDao.getOne(id));
-        model.addAttribute("users", userDao.findAll());
         model.addAttribute("projects", projectDao.findAllByTeamId(id));
+
+        List<User> allUsers = userDao.findAll();
+        List<User> usersNotOnTeam = new ArrayList<>();
+        for (int i = 0; i < allUsers.size(); i++) {
+            if (userDao.checkIfOnTeam(allUsers.get(i).getId(), id) == null) {
+                usersNotOnTeam.add(userDao.getOne(allUsers.get(i).getId()));
+            }
+        }
+
+        model.addAttribute("users", usersNotOnTeam);
 
         if (userDao.checkIfOnTeam(user.getId(), id) == null) {
             return "redirect:/teams";
@@ -138,7 +147,7 @@ public class TeamController {
         //new mapping table object
         UserTeamRoleLink newMapping = new UserTeamRoleLink();
 
-        if (userDao.checkIfTeamLeader(loggedInUser.getId(), id) != 1) {
+        if (userDao.checkIfTeamLeader(loggedInUser.getId(), id) != 1 || userDao.checkIfOnTeam(userId, id) != null) {
             return "redirect:/teams";
         } else {
             //using setters to set user and team to table object
