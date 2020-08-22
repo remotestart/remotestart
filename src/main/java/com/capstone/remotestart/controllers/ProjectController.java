@@ -66,12 +66,16 @@ public class ProjectController {
         }
     }
 
-    @GetMapping("/project/{id}/{userId}")
-    private String teamMemberPage(Model model, @PathVariable long id, @PathVariable long userId){
+    @GetMapping("/project/{projectId}/{userId}")
+    private String teamMemberPage(Model model, @PathVariable long projectId, @PathVariable long userId){
+        //logged in user
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        model.addAttribute("project", projectDao.getOne(id));
+        //adding project attribute by path variable project projectId
+        model.addAttribute("project", projectDao.getOne(projectId));
+        //adding subtask attribute. Right now it is pulling all and sorting through in the view, need to refactor to have logic in this method and only send the ones we need
         model.addAttribute("subtasks", subTaskDao.findAll());
-        model.addAttribute("tasks", taskDao.findAllByUserAndProjectId(id,userId));
+        //adding task attribute by using project and user id's
+        model.addAttribute("tasks", taskDao.findAllByUserAndProjectId(projectId,userId));
         if (loggedInUser.getId() != userId) {
             return "redirect:/teams";
         } else {
@@ -97,8 +101,22 @@ public class ProjectController {
 
     @PostMapping("/project/{projectId}/edit")
     private String editProject(@PathVariable long projectId, @ModelAttribute Project project){
-        //need to write update query and use model attribute to edit project
         projectDao.editProjectById(projectId, project.getName(), project.getDescription(),project.getStartDate(),project.getDeadline());
         return "redirect:/project/" + projectId;
+    }
+
+    @GetMapping("/project/{projectId}/all-tasks")
+    private String teamLeaderViewAllTasks(Model model, @PathVariable long projectId) {
+
+    User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+     if (userDao.checkIfTeamLeader(user.getId(), projectDao.teamIdFromProjectId(projectId)) != 1) {
+        return "redirect:/team/" + projectDao.teamIdFromProjectId(projectId);
+    } else {
+
+         model.addAttribute("tasks", taskDao.findAllTasksByProjectId(projectId));
+
+        return "tasks/all-tasks";
+    }
     }
 }

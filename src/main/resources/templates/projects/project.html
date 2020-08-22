@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace="partials :: head (pageTitle ='Project Page')"></head>
+<head th:replace="partials :: head (pageTitle =${project.name})"></head>
 <body>
 <header th:replace="partials :: header"></header>
 
@@ -11,18 +11,28 @@
 
 
         <div class="card-header text-center font-weight-bold" th:text="${project.name}"></div>
+
         <ul class="list-group list-group-flush">
             <li class="list-group-item" th:text="${project.description}"></li>
         </ul>
+
             <a class="btn btn-outline-info align-self-start" th:href="@{'/project/' + ${project.id} + '/'+ ${user.id}}">View Tasks</a>
+
+        <!--Team Leader Links-->
         <div th:if="${role == 1}">
+
             <a class="btn btn-outline-info align-self-start" th:href="@{'/task/create/' + ${project.id}}">Create Task</a>
+
+            <a class="btn btn-outline-info align-self-start" th:href="@{'/project/' + ${project.id} + '/all-tasks'}">View All Tasks</a>
+
             <form th:action="@{'/project/' + ${project.id} + '/edit'}" th:method="get">
                 <button type="submit" class="btn btn-outline-danger">Edit Project</button>
             </form>
+
             <form th:action="@{'/project/' + ${project.id} + '/delete'}" th:method="post">
                 <button type="submit" class="btn btn-danger">Delete Project</button>
             </form>
+
         </div>
     </div>
 
