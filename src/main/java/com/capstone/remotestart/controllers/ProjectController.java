@@ -88,4 +88,17 @@ public class ProjectController {
 
         return "redirect:/team/" + teamId;
     }
+
+    @GetMapping("/project/{projectId}/edit")
+    private String editProjectForm(Model model, @PathVariable long projectId){
+        model.addAttribute("project", projectDao.getOne(projectId));
+        return "projects/edit-project";
+    }
+
+    @PostMapping("/project/{projectId}/edit")
+    private String editProject(@PathVariable long projectId, @ModelAttribute Project project){
+        //need to write update query and use model attribute to edit project
+        projectDao.editProjectById(projectId, project.getName(), project.getDescription(),project.getStartDate(),project.getDeadline());
+        return "redirect:/project/" + projectId;
+    }
 }

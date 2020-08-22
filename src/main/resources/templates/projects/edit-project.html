@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="partials :: head (pageTitle ='Edit Project')"></head>
+<body>
+<header th:replace="partials :: header"></header>
+
+<div class="container">
+
+    <form th:action="@{'/project/' + ${project.id} + '/edit'}" th:method="post" th:object="${project}">
+        <div class="form-group">
+            <input th:field="*{name}" type="text" class="form-control" id="project-name" th:value="${project.name}" required autofocus>
+            <textarea th:field="*{description}" class="form-control" id="project-description" th:value="${project.description}" required></textarea>
+            <label for="project-start">Project Start</label>
+            <input th:field="*{startDate}" type="date" class="form-control" id="project-start" required>
+            <label for="project-deadline">Project Deadline</label>
+            <input th:field="*{deadline}" type="date" class="form-control" id="project-deadline" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Edit</button>
+    </form>
+
+
+</div>
+
+<footer th:replace="partials :: footer"></footer>
+</body>
+</html>
