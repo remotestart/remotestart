@@ -18,7 +18,7 @@
             <li class="list-group-item" th:text="'Deadline: ' + ${project.deadline}"></li>
         </ul>
 
-            <a class="btn btn-outline-info align-self-start" th:href="@{'/project/' + ${project.id} + '/'+ ${user.id}}">View Tasks</a>
+            <a class="btn btn-outline-info align-self-start" th:href="@{'/project/' + ${project.id} + '/'+ ${user.id}}">View My Tasks</a>
 
         <!--Team Leader Links-->
         <div th:if="${role == 1}">
