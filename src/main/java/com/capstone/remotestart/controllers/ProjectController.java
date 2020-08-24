@@ -143,6 +143,7 @@ public class ProjectController {
          //sending in project ID as a long so it can be accessed in the task controller and we can redirect the user back to the project page after deleting a task
          model.addAttribute("projectID", projectId);
          model.addAttribute("tasks", taskDao.findAllTasksByProjectId(projectId));
+         model.addAttribute("user", user);
 
         return "tasks/all-tasks";
         }
