@@ -15,7 +15,7 @@
             <p th:if="${task.getStateOfCompletion().getId()} == 1">Task State: Not started</p>
             <p th:if="${task.getStateOfCompletion().getId()} == 2">Task State: In progress</p>
             <p th:if="${task.getStateOfCompletion().getId()} == 3">Task State: Complete</p>
-            <p th:text="'Assigned to ' + ${user.firstName} + ' ' + ${user.lastName}"></p>
+            <p th:text="'Assigned to: ' + ${task.getUser().firstName} + ' ' + ${task.getUser().lastName}"></p>
             <a th:href="@{'/project/'+ ${projectID} + '/task/' + ${task.id} + '/edit'}" class="btn btn-outline-danger">Edit Task</a>
 
             <a th:href="@{'/project/'+ ${projectID} + '/task/' + ${task.id} + '/delete'}" class="btn btn-danger">Delete Task</a>
