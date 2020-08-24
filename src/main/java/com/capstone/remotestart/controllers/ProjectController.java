@@ -1,6 +1,7 @@
 package com.capstone.remotestart.controllers;
 
 import com.capstone.remotestart.models.Project;
+import com.capstone.remotestart.models.Task;
 import com.capstone.remotestart.models.Team;
 import com.capstone.remotestart.models.User;
 import com.capstone.remotestart.repositories.*;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 
 @Controller
@@ -57,8 +59,28 @@ public class ProjectController {
         return "projects/projects";
     }
 
+    float numCompleted;
+    float percentage;
+    public float percentageComplete(long id){
+        //logic for progress completion
+        List<Task> totalTask = taskDao.findAllTasksByProjectId(id);
+        List<Long> stateIds = taskDao.stateIdsByProjectId(id);
+        for(int i = 0; i < stateIds.size(); i++){
+            if(stateIds.get(i) == 3){
+                numCompleted += 1;
+            }
+        }
+        percentage = numCompleted / totalTask.size();
+        percentage *= 100;
+        return percentage;
+    }
     @GetMapping("/project/{id}")
     private String projectPage(Model model, @PathVariable long id){
+
+        model.addAttribute("completionPercentage", (int) percentageComplete(id));
+        numCompleted = 0;
+        percentage = 0;
+
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("role", userDao.checkIfTeamLeader(loggedInUser.getId(),projectDao.teamIdFromProjectId(id)));
         model.addAttribute("project", projectDao.getOne(id));

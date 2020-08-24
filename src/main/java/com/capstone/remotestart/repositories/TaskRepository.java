@@ -28,4 +28,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     @Modifying
     @Query(value = "UPDATE tasks SET state_id = :stateId WHERE id = :taskId", nativeQuery = true)
     void editStateOfCompletion(@Param("stateId") long stateId, @Param("taskId") long taskId);
+
+    @Query(value = "SELECT state_id FROM tasks WHERE project_id = :project_id", nativeQuery = true)
+    List<Long> stateIdsByProjectId(@Param("project_id") long projectId);
 }
