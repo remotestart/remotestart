@@ -99,8 +99,9 @@ public class TaskController {
 
     @PostMapping("/project/{projectId}/task/{taskId}/update-state")
     private String updateTaskState(@PathVariable long projectId, @PathVariable long taskId, @RequestParam(name = "task-state") long stateId){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         taskDao.editStateOfCompletion(stateId, taskId);
-        return "redirect:/project/" + projectId + "/all-tasks";
+        return "redirect:/project/" + projectId + "/" + user.getId();
     }
 
     @GetMapping("/project/{projectId}/task/{taskId}/delete")
