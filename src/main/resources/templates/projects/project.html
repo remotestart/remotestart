@@ -14,6 +14,8 @@
 
         <ul class="list-group list-group-flush">
             <li class="list-group-item" th:text="${project.description}"></li>
+            <li class="list-group-item" th:text="'Start Date: ' + ${project.startDate}"></li>
+            <li class="list-group-item" th:text="'Deadline: ' + ${project.deadline}"></li>
         </ul>
 
             <a class="btn btn-outline-info align-self-start" th:href="@{'/project/' + ${project.id} + '/'+ ${user.id}}">View Tasks</a>
