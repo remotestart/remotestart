@@ -2,10 +2,13 @@ package com.capstone.remotestart.repositories;
 
 import com.capstone.remotestart.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
 
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
@@ -34,4 +37,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "JOIN teams t on user_team_role.team_id = t.id\n" +
             "WHERE role_id = 1 AND team_id = :teamId", nativeQuery = true)
     Long findTeamLeaderByTeamId(@Param("teamId") long teamId);
+
+   @Transactional
+   @Modifying
+    @Query(value = "UPDATE users SET username = :username, first_name = :firstName, last_name =:lastName, email = :email WHERE id = :id", nativeQuery = true)
+    void editProfileInfo(@Param("id") long id,
+                         @Param("username") String username,
+                         @Param("firstName") String firstName,
+                         @Param("lastName") String lastName,
+                         @Param("email") String email);
 }
