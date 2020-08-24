@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="partials :: head (pageTitle ='DEFAULT')"></head>
+<body>
+<header th:replace="partials :: header"></header>
+
+<div class="container">
+
+    <form th:method="post" th:action="@{'/subtask/' + ${subtask.id} + '/edit/' + ${project.id}}" th:object="${subtask}">
+        <div class="form-group">
+            <input th:field="*{title}" type="text" class="form-control" id="title" th:value="${subtask.title}" required autofocus>
+        </div>
+        <div class="form-group">
+            <input th:field="*{description}" type="text" class="form-control" id="description" th:value="${subtask.description}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Edit</button>
+    </form>
+
+
+</div>
+
+<footer th:replace="partials :: footer"></footer>
+</body>
+</html>

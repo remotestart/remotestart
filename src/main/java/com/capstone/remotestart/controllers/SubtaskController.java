@@ -7,6 +7,7 @@ import com.capstone.remotestart.repositories.ProjectRepository;
 import com.capstone.remotestart.repositories.SubtaskRepository;
 import com.capstone.remotestart.repositories.TaskRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,5 +48,32 @@ public class SubtaskController {
         subtask.setTask(taskDao.getOne(taskId));
         subtaskDao.save(subtask);
         return "redirect:/project/" + projectId + "/" + user.getId();
+    }
+
+    @GetMapping("/subtask/{subtaskId}/delete/{projectId}")
+    public String deleteSubtask(@PathVariable long subtaskId, @PathVariable long projectId){
+
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        subtaskDao.deleteById(subtaskId);
+
+        return "redirect:/project/" + projectId + "/" + loggedInUser.getId();
+    }
+
+    @GetMapping("/subtask/{subtaskId}/edit/{projectId}")
+    public String showEditSubtaskForm(Model model, @PathVariable long subtaskId, @PathVariable long projectId){
+        //need to pass in subtask object to form model bind
+        model.addAttribute("subtask", subtaskDao.getOne(subtaskId));
+        //project object to pull for path variable
+        model.addAttribute("project", projectDao.getOne(projectId));
+
+        return "subtasks/edit-subtask";
+    }
+
+    @PostMapping("/subtask/{subtaskId}/edit/{projectId}")
+    public String editSubtask(@ModelAttribute Subtask subtask,@PathVariable long subtaskId, @PathVariable long projectId){
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        subtaskDao.editSubtaskById(subtaskId,subtask.getTitle(), subtask.getDescription());
+        return "redirect:/project/" + projectId + "/" + loggedInUser.getId();
     }
 }
