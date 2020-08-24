@@ -36,9 +36,17 @@ public class TaskController {
     public String createTask(Model model, @PathVariable long projectId) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+        //getting all users that are currently on the team
+        List<Long> userIdList = userDao.allUsersByTeamId(projectDao.teamIdFromProjectId(projectId));
+        List<User> userList = new ArrayList<>();
+
+        for(int i = 0; i < userIdList.size(); i++){
+            userList.add(userDao.getOne(userIdList.get(i)));
+        }
+
+        model.addAttribute("users", userList);
         model.addAttribute("projectId", projectId);
         model.addAttribute("task", new Task());
-        model.addAttribute("users", userDao.findAll());
 
         if (userDao.checkIfTeamLeader(user.getId(), projectDao.teamIdFromProjectId(projectId)) != 1) {
             return "redirect:/teams";
@@ -59,6 +67,40 @@ public class TaskController {
     private String showTask(Model model) {
         model.addAttribute("task", taskDao.findAll());
         return "tasks/task";
+    }
+
+    //show edit task form
+    @GetMapping("/project/{projectId}/task/{taskId}/edit")
+    private String showEditTaskPage(Model model, @PathVariable long taskId, @PathVariable long projectId){
+
+        //getting all users that are currently on the team
+        List<Long> userIdList = userDao.allUsersByTeamId(projectDao.teamIdFromProjectId(projectId));
+        List<User> userList = new ArrayList<>();
+
+        for(int i = 0; i < userIdList.size(); i++){
+            userList.add(userDao.getOne(userIdList.get(i)));
+        }
+
+        //sending in users
+        model.addAttribute("users", userList);
+        //sending in project ID for post mapping redirect
+        model.addAttribute("projectID", projectDao.getOne(projectId));
+        //sending in task based on path variable task ID
+        model.addAttribute("task", taskDao.getOne(taskId));
+        return "tasks/edit-task";
+    }
+
+    //post mapping for edit task
+    @PostMapping("/project/{projectId}/task/{taskId}/edit")
+    private String editTask(@PathVariable long projectId, @PathVariable long taskId, @ModelAttribute Task task, @RequestParam(name = "userId") long userId){
+        taskDao.editTaskById(taskId, task.getTitle(), task.getDescription(), userId);
+        return "redirect:/project/" + projectId + "/all-tasks";
+    }
+
+    @GetMapping("/project/{projectId}/task/{taskId}/delete")
+    private String deleteTask(@PathVariable long taskId, @PathVariable long projectId){
+        taskDao.deleteById(taskId);
+        return "redirect:/project/" + projectId + "/all-tasks";
     }
 
 }

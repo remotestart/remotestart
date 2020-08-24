@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="partials :: head (pageTitle ='All Tasks')"></head>
+<body>
+<header th:replace="partials :: header"></header>
+
+<div class="container">
+
+    <div class="card w-50 my-3" th:each="task : ${tasks}">
+
+        <div class="card-header text-center font-weight-bold" th:text="${task.title}"></div>
+        <div class="card-body">
+            <p th:text="${task.description}"></p>
+
+            <a th:href="@{'/project/'+ ${projectID} + '/task/' + ${task.id} + '/edit'}" class="btn btn-outline-danger">Edit Task</a>
+
+            <a th:href="@{'/project/'+ ${projectID} + '/task/' + ${task.id} + '/delete'}" class="btn btn-danger">Delete Task</a>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+<footer th:replace="partials :: footer"></footer>
+</body>
+</html>
