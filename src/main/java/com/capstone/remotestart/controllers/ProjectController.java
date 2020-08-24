@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Calendar;
+import java.util.Date;
+
+
 @Controller
 public class ProjectController {
     private ProjectRepository projectDao;
@@ -119,6 +123,26 @@ public class ProjectController {
          model.addAttribute("tasks", taskDao.findAllTasksByProjectId(projectId));
 
         return "tasks/all-tasks";
+        }
     }
+
+    @GetMapping("/project/{projectId}/complete")
+    public String completeProject(@PathVariable long projectId){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (userDao.checkIfTeamLeader(user.getId(), projectDao.teamIdFromProjectId(projectId)) != 1){
+            return "redirect:/project/" + projectId;
+        }else {
+
+            //https://alvinalexander.com/java/java-current-date-example-now/
+            Calendar calendar = Calendar.getInstance();
+            Date currentDate = calendar.getTime();
+            java.sql.Date date = new java.sql.Date(currentDate.getTime());
+
+            projectDao.updateProjectCompletionDateById(projectId, date);
+
+            return "redirect:/project/" + projectId;
+        }
+
     }
 }
