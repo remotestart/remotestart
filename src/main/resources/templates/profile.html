@@ -7,10 +7,14 @@
     <header th:replace="partials :: header"></header>
 
     <div>
+        <h5>Username:</h5>
         <p th:text="${user.username}"></p>
+        <h5>Name:</h5>
         <p th:text="${user.firstName + ' ' + user.lastName}"></p>
+        <h5>Email:</h5>
         <p th:text="${user.email}"></p>
     </div>
+        <a th:href="@{'/profile/' + ${user.id} +'/edit-profile'}">Edit profile information</a>
 
     <footer th:replace="partials :: footer"></footer>
 </body>

@@ -197,19 +197,27 @@ public class TeamController {
     @GetMapping("/team/{id}/edit")
     private String editTeamForm(Model model, @PathVariable Long id){
 
+        model.addAttribute("team", teamDao.getOne(id));
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        model.addAttribute("team", teamDao.getOne(id));
-
-        return "teams/edit-team";
+        if (userDao.checkIfTeamLeader(user.getId(), id) == 1) {
+            return "teams/edit-team";
+        } else {
+            return "redirect:/team/" + id;
+        }
     }
 
     @PostMapping("/team/{id}/edit")
     private String editTeam(@PathVariable long id, Model model, @ModelAttribute Team team){
 
         model.addAttribute("teamId", id);
-        teamDao.editTeamById(id, team.getName());
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+        if (userDao.checkIfTeamLeader(user.getId(), id) == 1) {
+            teamDao.editTeamById(id, team.getName());
+        }else {
+            return "redirect:/team/" + id;
+        }
         return "redirect:/team/" + id;
     }
 }
