@@ -59,6 +59,7 @@ public class TaskController {
         task.setProject(projectDao.getOne(projectId));
         task.setUser(userDao.getOne(userId));
         taskDao.save(task);
+        taskDao.editStateOfCompletion(1, task.getId());
         return "redirect:/project/" + projectId;
     }
 
@@ -93,6 +94,12 @@ public class TaskController {
     @PostMapping("/project/{projectId}/task/{taskId}/edit")
     private String editTask(@PathVariable long projectId, @PathVariable long taskId, @ModelAttribute Task task, @RequestParam(name = "userId") long userId){
         taskDao.editTaskById(taskId, task.getTitle(), task.getDescription(), userId);
+        return "redirect:/project/" + projectId + "/all-tasks";
+    }
+
+    @PostMapping("/project/{projectId}/task/{taskId}/update-state")
+    private String updateTaskState(@PathVariable long projectId, @PathVariable long taskId, @RequestParam(name = "task-state") long stateId){
+        taskDao.editStateOfCompletion(stateId, taskId);
         return "redirect:/project/" + projectId + "/all-tasks";
     }
 

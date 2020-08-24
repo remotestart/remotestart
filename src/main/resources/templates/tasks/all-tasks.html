@@ -12,7 +12,9 @@
         <div class="card-header text-center font-weight-bold" th:text="${task.title}"></div>
         <div class="card-body">
             <p th:text="${task.description}"></p>
-
+            <p th:if="${task.getStateOfCompletion().getId()} == 1">Task State: Not started</p>
+            <p th:if="${task.getStateOfCompletion().getId()} == 2">Task State: In progress</p>
+            <p th:if="${task.getStateOfCompletion().getId()} == 3">Task State: Complete</p>
             <a th:href="@{'/project/'+ ${projectID} + '/task/' + ${task.id} + '/edit'}" class="btn btn-outline-danger">Edit Task</a>
 
             <a th:href="@{'/project/'+ ${projectID} + '/task/' + ${task.id} + '/delete'}" class="btn btn-danger">Delete Task</a>
