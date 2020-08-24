@@ -13,6 +13,16 @@
         <div class="card-body">
             <p th:text="${task.description}"></p>
             <a class="btn btn-outline-info align-self-start" th:href="@{'/subtask/create/' + ${project.id} + '/' + ${task.id}}">Create Subtask</a>
+            <label for="task-state-form">Task State</label>
+            <form th:action="@{'/project/' + ${project.id} + '/task/' + ${task.id} + '/update-state'}" th:method="post" id="task-state-form">
+                <select name="task-state" id="task-state">
+                    <option disabled selected>Select a state</option>
+                    <option th:value="'1'">Not started</option>
+                    <option th:value="'2'">In progress</option>
+                    <option th:value="'3'">Complete</option>
+                </select>
+                <button type="submit" class="btn btn-outline-info">Update status</button>
+            </form>
         </div>
         <th:block th:each="subtask: ${subtasks}">
 
