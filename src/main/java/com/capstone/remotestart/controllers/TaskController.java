@@ -4,10 +4,7 @@ import com.capstone.remotestart.models.Task;
 import com.capstone.remotestart.models.Team;
 import com.capstone.remotestart.models.User;
 import com.capstone.remotestart.models.UserTeamRoleLink;
-import com.capstone.remotestart.repositories.ProjectRepository;
-import com.capstone.remotestart.repositories.TaskRepository;
-import com.capstone.remotestart.repositories.TeamRepository;
-import com.capstone.remotestart.repositories.UserRepository;
+import com.capstone.remotestart.repositories.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,13 +20,15 @@ public class TaskController {
     private UserRepository userDao;
     private TeamRepository teamDao;
     private ProjectRepository projectDao;
+    private SubtaskRepository subtaskDao;
 
 
-    public TaskController(TaskRepository taskDao, UserRepository userDao, TeamRepository teamDao, ProjectRepository projectDao) {
+    public TaskController(TaskRepository taskDao, UserRepository userDao, TeamRepository teamDao, ProjectRepository projectDao, SubtaskRepository subtaskDao) {
         this.taskDao = taskDao;
         this.userDao = userDao;
         this.teamDao = teamDao;
         this.projectDao = projectDao;
+        this.subtaskDao = subtaskDao;
     }
 
     @GetMapping("/task/create/{projectId}")
@@ -99,6 +98,7 @@ public class TaskController {
 
     @GetMapping("/project/{projectId}/task/{taskId}/delete")
     private String deleteTask(@PathVariable long taskId, @PathVariable long projectId){
+        subtaskDao.deleteSubtasksFromTaskId(taskId);
         taskDao.deleteById(taskId);
         return "redirect:/project/" + projectId + "/all-tasks";
     }
