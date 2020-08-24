@@ -85,8 +85,17 @@ public class TeamController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("role", userDao.checkIfTeamLeader(user.getId(), id));
         model.addAttribute("team", teamDao.getOne(id));
-        model.addAttribute("users", userDao.findAll());
         model.addAttribute("projects", projectDao.findAllByTeamId(id));
+
+        List<User> allUsers = userDao.findAll();
+        List<User> usersNotOnTeam = new ArrayList<>();
+        for (int i = 0; i < allUsers.size(); i++) {
+            if (userDao.checkIfOnTeam(allUsers.get(i).getId(), id) == null) {
+                usersNotOnTeam.add(userDao.getOne(allUsers.get(i).getId()));
+            }
+        }
+
+        model.addAttribute("users", usersNotOnTeam);
 
         if (userDao.checkIfOnTeam(user.getId(), id) == null) {
             return "redirect:/teams";
@@ -138,7 +147,7 @@ public class TeamController {
         //new mapping table object
         UserTeamRoleLink newMapping = new UserTeamRoleLink();
 
-        if (userDao.checkIfTeamLeader(loggedInUser.getId(), id) != 1) {
+        if (userDao.checkIfTeamLeader(loggedInUser.getId(), id) != 1 || userDao.checkIfOnTeam(userId, id) != null) {
             return "redirect:/teams";
         } else {
             //using setters to set user and team to table object
@@ -183,5 +192,24 @@ public class TeamController {
             return "redirect:/team/" + id;
         }
         return "redirect:/teams/my-teams";
+    }
+
+    @GetMapping("/team/{id}/edit")
+    private String editTeamForm(Model model, @PathVariable Long id){
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        model.addAttribute("team", teamDao.getOne(id));
+
+        return "teams/edit-team";
+    }
+
+    @PostMapping("/team/{id}/edit")
+    private String editTeam(@PathVariable long id, Model model, @ModelAttribute Team team){
+
+        model.addAttribute("teamId", id);
+        teamDao.editTeamById(id, team.getName());
+
+        return "redirect:/team/" + id;
     }
 }
