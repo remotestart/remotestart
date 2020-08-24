@@ -19,6 +19,8 @@
             <div class="container" th:if="${task.id} == ${subtask.getTask().id}">
                 <p th:text="${subtask.title}"></p>
                 <p th:text="${subtask.description}"></p>
+                <a th:href="@{'/subtask/' + ${subtask.id} + '/edit/' + ${project.id}}" class="btn btn-outline-danger">Edit Subtask</a>
+                <a th:href="@{'/subtask/' + ${subtask.id} + '/delete/' + ${project.id}}" class="btn btn-danger">Delete Subtask</a>
 
             </div>
 

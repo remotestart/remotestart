@@ -16,4 +16,9 @@ public interface SubtaskRepository extends JpaRepository<Subtask, Long> {
     @Modifying
     @Query(value = "DELETE FROM sub_tasks WHERE task_id = :task_id", nativeQuery = true)
     void deleteSubtasksFromTaskId(@Param("task_id") long taskId);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE sub_tasks SET title = :title, description = :description WHERE id = :id", nativeQuery = true)
+    void editSubtaskById(@Param("id") long id, @Param("title") String title, @Param("description") String description);
 }
