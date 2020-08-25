@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +23,11 @@ public class ProfileController {
 
     private UserRepository userDao;
 
-    public ProfileController(UserRepository userDao){
+    private PasswordEncoder passwordEncoder;
+
+    public ProfileController(UserRepository userDao, PasswordEncoder passwordEncoder){
         this.userDao = userDao;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -57,7 +61,7 @@ public class ProfileController {
     }
 
     @GetMapping("/profile/{id}/change-password")
-    public String changePassword(Model model, @PathVariable Long id){
+    public String changePasswordEmail(Model model, @PathVariable Long id){
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("id", id);
         model.addAttribute("user", userDao.getOne(id));
@@ -69,7 +73,7 @@ public class ProfileController {
             mailMessage.setSubject(loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + " : " + "Remote-start Password Change");
             mailMessage.setFrom("admin@remote-start.io");
             mailMessage.setText("Please click this link to update/change your password : " +
-                    "https://remote-start.io/profile/" + id + "/change-password");
+                    "https://remote-start.io/profile/" + id + "/change-password-form");
 
             emailSenderService.sendEmail(mailMessage);
 
@@ -77,10 +81,24 @@ public class ProfileController {
         }
     }
 
-    @PostMapping("profile/{id}/change-password")
+    @GetMapping("profile/{id}/change-password-form")
+    public String changePassword(@PathVariable Long id, @ModelAttribute User user, Model model){
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("id", id);
+        model.addAttribute("user", userDao.getOne(id));
+        if (loggedInUser.getId() != id ){
+            return "redirect:/profile";
+        } else {
+            return "change-password-form";
+        }
+    }
+
+    @PostMapping("profile/{id}/change-password-form")
         public String saveNewPassword(@PathVariable Long id, @ModelAttribute User user){
 
-        userDao.editPassword(id, user.getPassword());
+        String hash = passwordEncoder.encode(user.getPassword());
+//        userDao.getOne(id).setPassword(hash);
+        userDao.editPassword(id, hash);
 
         return "redirect:/profile";
     }
