@@ -46,4 +46,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
                          @Param("firstName") String firstName,
                          @Param("lastName") String lastName,
                          @Param("email") String email);
+
+   @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM user_team_role WHERE user_id = :user_id AND team_id = :team_id", nativeQuery = true)
+    void removeUserFromTeamByUserAndTeamId(@Param("user_id") long userId, @Param("team_id") long teamId);
 }
