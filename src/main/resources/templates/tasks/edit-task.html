@@ -6,6 +6,11 @@
 <header th:replace="partials :: header"></header>
 
 <div class="container">
+
+    <div class="my-2">
+        <a th:href="@{'/project/' + ${projectID.id} + '/all-tasks'}" class="btn btn-outline-info">Back to All Tasks</a>
+    </div>
+
     <form th:method="post" th:action="@{'/project/' + ${projectID.id} + '/task/' + ${task.id} + '/edit'}" th:object="${task}">
         <div class="form-group">
             <input th:field="*{title}" th:value="${task.title}" type="text" class="form-control" id="title" name="task"  required autofocus>

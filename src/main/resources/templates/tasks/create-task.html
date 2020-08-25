@@ -7,6 +7,10 @@
 
 <div class="container">
 
+    <div class="my-2">
+        <a th:href="@{'/project/' + ${project.id}}" class="btn btn-outline-info">Back to <span th:text="${project.name}"></span></a>
+    </div>
+
     <form th:method="post" th:action="@{'/task/create/' + ${projectId}}" th:object="${task}">
         <div class="form-group">
             <input th:field="*{title}" type="text" class="form-control" id="title" name="task" required autofocus>

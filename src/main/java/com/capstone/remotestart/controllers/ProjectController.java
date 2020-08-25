@@ -82,6 +82,7 @@ public class ProjectController {
         percentage = 0;
 
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("team", teamDao.getOne(projectDao.teamIdFromProjectId(id)));
         model.addAttribute("role", userDao.checkIfTeamLeader(loggedInUser.getId(),projectDao.teamIdFromProjectId(id)));
         model.addAttribute("project", projectDao.getOne(id));
         model.addAttribute("user", loggedInUser);
@@ -141,6 +142,7 @@ public class ProjectController {
     } else {
 
          //sending in project ID as a long so it can be accessed in the task controller and we can redirect the user back to the project page after deleting a task
+         model.addAttribute("project", projectDao.getOne(projectId));
          model.addAttribute("projectID", projectId);
          model.addAttribute("tasks", taskDao.findAllTasksByProjectId(projectId));
          model.addAttribute("user", user);

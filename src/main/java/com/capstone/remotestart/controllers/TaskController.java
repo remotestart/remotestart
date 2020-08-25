@@ -49,6 +49,7 @@ public class TaskController {
             userList.add(userDao.getOne(userIdList.get(i)));
         }
 
+        model.addAttribute("project", projectDao.getOne(projectId));
         model.addAttribute("users", userList);
         model.addAttribute("projectId", projectId);
         model.addAttribute("task", new Task());
