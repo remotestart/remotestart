@@ -78,6 +78,7 @@
         <p th:text="${user.firstName}"></p>
         <p th:text="${user.lastName}"></p>
         <div th:if="${role == 1}">
+            <a th:href="@{'/team/' + ${team.id} + '/make-team-lead/' + ${user.id}}" class="btn btn-success">Grant Power</a>
             <a th:href="@{'/team/' + ${team.id} + '/drop-user/' + ${user.id}}" class="btn btn-danger">Remove User</a>
         </div>
     </div>
