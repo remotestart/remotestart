@@ -40,7 +40,16 @@ public class UserController {
     }
 
     @PostMapping("/sign-up")
-    public ModelAndView saveUser(ModelAndView modelAndView, User user){
+    public ModelAndView saveUser(ModelAndView modelAndView, User user, @RequestParam(name = "confirm-password") String confirmPassword){
+
+        //checking to see if password match
+        if(!user.getPassword().equals(confirmPassword)) {
+            modelAndView.addObject("error", true);
+            modelAndView.setViewName("registration/sign-up");
+            return modelAndView;
+        }
+
+
         User existingUser = userRepository.findByEmailIgnoreCase(user.getEmail());
         if(existingUser != null)
         {
