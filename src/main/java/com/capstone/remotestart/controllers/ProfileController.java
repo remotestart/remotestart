@@ -103,4 +103,12 @@ public class ProfileController {
         return "redirect:/profile";
     }
 
+    @PostMapping("/change-password-form")
+    public String changedLoggedOutPassword(@ModelAttribute User user){
+        String hash = passwordEncoder.encode(user.getPassword());
+        userDao.editPassword(user.getId(), hash);
+
+        return "redirect:/login";
+    }
+
 }
