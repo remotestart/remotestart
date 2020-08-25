@@ -83,6 +83,7 @@ public class TeamController {
     @GetMapping("/team/{id}")
     private String teamPage(Model model, @PathVariable long id){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("loggedInUser", user);
         model.addAttribute("role", userDao.checkIfTeamLeader(user.getId(), id));
         model.addAttribute("team", teamDao.getOne(id));
         model.addAttribute("projects", projectDao.findAllByTeamId(id));
@@ -226,7 +227,7 @@ public class TeamController {
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        if (userDao.checkIfTeamLeader(user.getId(), teamId) == 1){
+        if (userDao.checkIfTeamLeader(user.getId(), teamId) == 1 && user.getId() != userDao.getOne(userId).getId()){
             userDao.removeUserFromTeamByUserAndTeamId(userId, teamId);
             return "redirect:/team/" + teamId;
         }else {
