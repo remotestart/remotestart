@@ -5,25 +5,71 @@
 <body>
 <header th:replace="partials :: header"></header>
 
-<div class="container">
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
 
-    <div class="my-2">
-        <a th:href="@{'/team/' + ${team.id}}" class="btn btn-outline-info">Back to <span th:text="${team.name}"></span></a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile">Profile</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/teams">Search Teams</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/teams/my-teams">View My Teams</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/team/create">Create A Team</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">FAQ</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <form th:action="@{/logout}" th:method="post">
+                            <button class="btn-link btn" style="margin-top: 8px">Logout</button>
+                        </form>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+            <div class="container">
+
+                <div class="my-2">
+                    <a th:href="@{'/team/' + ${team.id}}" class="btn btn-outline-info">Back to <span th:text="${team.name}"></span></a>
+                </div>
+
+                <form th:method="post" th:action="@{'/project/create/' + ${teamID}}" th:object="${project}">
+                    <div class="form-group">
+                        <input th:field="*{name}" type="text" class="form-control" id="project-name" placeholder="Project Name" required autofocus>
+                        <textarea th:field="*{description}" class="form-control" id="project-description" placeholder="Project Description" required></textarea>
+                        <label for="project-start">Project Start</label>
+                        <input th:field="*{startDate}" type="date" class="form-control" id="project-start" required>
+                        <label for="project-deadline">Project Deadline</label>
+                        <input th:field="*{deadline}" type="date" class="form-control" id="project-deadline" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </form>
+
+            </div>
+
+        </main>
     </div>
-
-    <form th:method="post" th:action="@{'/project/create/' + ${teamID}}" th:object="${project}">
-        <div class="form-group">
-            <input th:field="*{name}" type="text" class="form-control" id="project-name" placeholder="Project Name" required autofocus>
-            <textarea th:field="*{description}" class="form-control" id="project-description" placeholder="Project Description" required></textarea>
-            <label for="project-start">Project Start</label>
-            <input th:field="*{startDate}" type="date" class="form-control" id="project-start" required>
-            <label for="project-deadline">Project Deadline</label>
-            <input th:field="*{deadline}" type="date" class="form-control" id="project-deadline" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Create</button>
-    </form>
-
 </div>
+
 
 <footer th:replace="partials :: footer"></footer>
 </body>

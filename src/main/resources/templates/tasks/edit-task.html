@@ -5,37 +5,83 @@
 <body>
 <header th:replace="partials :: header"></header>
 
-<div class="container">
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
 
-    <div class="my-2">
-        <a th:href="@{'/project/' + ${projectID.id} + '/all-tasks'}" class="btn btn-outline-info">Back to All Tasks</a>
-    </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
 
-    <form th:method="post" th:action="@{'/project/' + ${projectID.id} + '/task/' + ${task.id} + '/edit'}" th:object="${task}">
-        <div class="form-group">
-            <input th:field="*{title}" th:value="${task.title}" type="text" class="form-control" id="title" name="task"  required autofocus>
-            <label for="title">Title</label>
-        </div>
-        <div class="form-group">
-            <input th:field="*{description}" th:value="${task.description}" type="text" class="form-control" id="description" name="task" required>
-            <label for="description">Description</label>
-        </div>
-        <div class="form-group">
-            <!--input for assigned to-->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile">Profile</a>
+                    </li>
 
-            <div class="dropdown">
-                <h5>Assigned to:</h5>
-                <div class="form-check form-check-inline">
-                    <div th:each="user : ${users}">
-                        <input class="form-check-input" type="checkbox" name="userId" th:text="${user.username}" th:value="${user.id}">
-                    </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/teams">Search Teams</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/teams/my-teams">View My Teams</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/team/create">Create A Team</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">FAQ</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <form th:action="@{/logout}" th:method="post">
+                            <button class="btn-link btn" style="margin-top: 8px">Logout</button>
+                        </form>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+            <div class="container">
+
+                <div class="my-2">
+                    <a th:href="@{'/project/' + ${projectID.id} + '/all-tasks'}" class="btn btn-outline-info">Back to All Tasks</a>
                 </div>
+
+                <form th:method="post" th:action="@{'/project/' + ${projectID.id} + '/task/' + ${task.id} + '/edit'}" th:object="${task}">
+                    <div class="form-group">
+                        <input th:field="*{title}" th:value="${task.title}" type="text" class="form-control" id="title" name="task"  required autofocus>
+                        <label for="title">Title</label>
+                    </div>
+                    <div class="form-group">
+                        <input th:field="*{description}" th:value="${task.description}" type="text" class="form-control" id="description" name="task" required>
+                        <label for="description">Description</label>
+                    </div>
+                    <div class="form-group">
+                        <!--input for assigned to-->
+
+                        <div class="dropdown">
+                            <h5>Assigned to:</h5>
+                            <div class="form-check form-check-inline">
+                                <div th:each="user : ${users}">
+                                    <input class="form-check-input" type="checkbox" name="userId" th:text="${user.username}" th:value="${user.id}">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                </form>
             </div>
 
-        </div>
-        <button type="submit" class="btn btn-primary">Edit</button>
-    </form>
+        </main>
+    </div>
 </div>
+
 
 <footer th:replace="partials :: footer"></footer>
 </body>
