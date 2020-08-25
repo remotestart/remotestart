@@ -10,10 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class SubtaskController {
@@ -47,6 +44,7 @@ public class SubtaskController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         subtask.setTask(taskDao.getOne(taskId));
         subtaskDao.save(subtask);
+        subtaskDao.editSubtaskStateOfCompletion(1, subtask.getId());
         return "redirect:/project/" + projectId + "/" + user.getId();
     }
 
@@ -68,6 +66,13 @@ public class SubtaskController {
         model.addAttribute("project", projectDao.getOne(projectId));
 
         return "subtasks/edit-subtask";
+    }
+
+    @PostMapping("/project/{projectId}/subtask/{taskId}/update-state")
+    private String updateTaskState(@PathVariable long projectId, @PathVariable long taskId, @RequestParam(name = "subtask-state") long stateId){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        subtaskDao.editSubtaskStateOfCompletion(stateId, taskId);
+        return "redirect:/project/" + projectId + "/" + user.getId();
     }
 
     @PostMapping("/subtask/{subtaskId}/edit/{projectId}")
