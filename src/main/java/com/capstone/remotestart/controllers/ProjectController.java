@@ -39,6 +39,7 @@ public class ProjectController {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("project", new Project());
         model.addAttribute("teamID", teamId);
+        model.addAttribute("team", teamDao.getOne(teamId));
         if (userDao.checkIfTeamLeader(user.getId(), teamId) != 1) {
             return "redirect:/teams";
         } else {
