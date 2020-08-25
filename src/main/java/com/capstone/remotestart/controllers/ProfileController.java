@@ -10,10 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class ProfileController {
@@ -104,10 +101,9 @@ public class ProfileController {
     }
 
     @PostMapping("/change-password-form")
-    public String changedLoggedOutPassword(@ModelAttribute User user){
-        String hash = passwordEncoder.encode(user.getPassword());
+    public String changedLoggedOutPassword(@ModelAttribute User user, @RequestParam(name = "password") String password){
+        String hash = passwordEncoder.encode(password);
         userDao.editPassword(user.getId(), hash);
-
         return "redirect:/login";
     }
 
