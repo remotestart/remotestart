@@ -97,7 +97,6 @@ public class ProfileController {
         public String saveNewPassword(@PathVariable Long id, @ModelAttribute User user){
 
         String hash = passwordEncoder.encode(user.getPassword());
-//        userDao.getOne(id).setPassword(hash);
         userDao.editPassword(id, hash);
 
         return "redirect:/profile";
