@@ -1,8 +1,10 @@
 package com.capstone.remotestart.controllers;
 
 import com.capstone.remotestart.models.ConfirmationToken;
+import com.capstone.remotestart.models.PasswordResetToken;
 import com.capstone.remotestart.models.User;
 import com.capstone.remotestart.repositories.ConfirmationTokenRepository;
+import com.capstone.remotestart.repositories.PasswordResetTokenRepository;
 import com.capstone.remotestart.repositories.UserRepository;
 import com.capstone.remotestart.services.EmailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +23,18 @@ public class UserController {
     private ConfirmationTokenRepository confirmationTokenRepository;
 
     @Autowired
+    private PasswordResetTokenRepository passwordResetTokenRepository;
+
+    @Autowired
     private EmailSenderService emailSenderService;
 
     private PasswordEncoder passwordEncoder;
 
-    public UserController(UserRepository userRepository, PasswordEncoder passwordEncoder, ConfirmationTokenRepository confirmationTokenRepository, EmailSenderService emailSenderService) {
+    public UserController(UserRepository userRepository, PasswordEncoder passwordEncoder, ConfirmationTokenRepository confirmationTokenRepository, PasswordResetTokenRepository passwordResetTokenRepository, EmailSenderService emailSenderService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.confirmationTokenRepository = confirmationTokenRepository;
+        this.passwordResetTokenRepository = passwordResetTokenRepository;
         this.emailSenderService = emailSenderService;
     }
 
@@ -36,6 +42,53 @@ public class UserController {
     public ModelAndView showSignupForm(ModelAndView modelAndView, User user){
         modelAndView.addObject("user", user);
         modelAndView.setViewName("registration/sign-up");
+        return modelAndView;
+    }
+
+    @GetMapping("/reset-password")
+    public String showPasswordResetPage(){
+        return "password-reset";
+    }
+
+    @PostMapping("/reset-password")
+    public ModelAndView sendPasswordResetEmail(ModelAndView modelAndView, @RequestParam(name = "username") String username){
+        User user = userRepository.findByUsername(username);
+        PasswordResetToken passwordResetToken = new PasswordResetToken(user);
+
+        passwordResetTokenRepository.save(passwordResetToken);
+
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(user.getEmail());
+        mailMessage.setSubject("RESET YOUR PASSWORD!");
+        mailMessage.setFrom("admin@remote-start.io");
+        mailMessage.setText("To reset your password, please click here : "
+                +"https://remote-start.io/change-password/"+passwordResetToken.getPasswordResetToken());
+
+        emailSenderService.sendEmail(mailMessage);
+
+        modelAndView.addObject("email", user.getEmail());
+
+        modelAndView.setViewName("password-confirm-email");
+        return modelAndView;
+    }
+
+    @RequestMapping(value="/change-password/{token}", method= {RequestMethod.GET, RequestMethod.POST})
+    public ModelAndView confirmChangePassword(ModelAndView modelAndView, @PathVariable String token)
+    {
+        PasswordResetToken passwordResetToken = passwordResetTokenRepository.findByPasswordResetToken(token);
+
+        if(token != null)
+        {
+            User user = userRepository.findByUsername(passwordResetToken.getUser().getUsername());
+            modelAndView.addObject("user", user);
+            modelAndView.setViewName("change-password");
+        }
+        else
+        {
+            modelAndView.addObject("message","The link is invalid or broken!");
+            modelAndView.setViewName("registration/account-error");
+        }
+
         return modelAndView;
     }
 
