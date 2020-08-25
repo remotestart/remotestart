@@ -82,6 +82,7 @@ public class ProjectController {
         percentage = 0;
 
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("team", teamDao.getOne(projectDao.teamIdFromProjectId(id)));
         model.addAttribute("role", userDao.checkIfTeamLeader(loggedInUser.getId(),projectDao.teamIdFromProjectId(id)));
         model.addAttribute("project", projectDao.getOne(id));
         model.addAttribute("user", loggedInUser);
