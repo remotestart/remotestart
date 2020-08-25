@@ -5,6 +5,9 @@ import com.capstone.remotestart.models.Team;
 import com.capstone.remotestart.models.User;
 import com.capstone.remotestart.models.UserTeamRoleLink;
 import com.capstone.remotestart.repositories.*;
+import com.capstone.remotestart.services.EmailSenderService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,14 +24,17 @@ public class TaskController {
     private TeamRepository teamDao;
     private ProjectRepository projectDao;
     private SubtaskRepository subtaskDao;
+    @Autowired
+    private EmailSenderService emailSenderService;
 
 
-    public TaskController(TaskRepository taskDao, UserRepository userDao, TeamRepository teamDao, ProjectRepository projectDao, SubtaskRepository subtaskDao) {
+    public TaskController(TaskRepository taskDao, UserRepository userDao, TeamRepository teamDao, ProjectRepository projectDao, SubtaskRepository subtaskDao, EmailSenderService emailSenderService) {
         this.taskDao = taskDao;
         this.userDao = userDao;
         this.teamDao = teamDao;
         this.projectDao = projectDao;
         this.subtaskDao = subtaskDao;
+        this.emailSenderService = emailSenderService;
     }
 
     @GetMapping("/task/create/{projectId}")
@@ -56,10 +62,23 @@ public class TaskController {
 
     @PostMapping("/task/create/{projectId}")
     public String saveTask(@ModelAttribute Task task, @RequestParam(name = "userId") long userId, @PathVariable long projectId) {
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         task.setProject(projectDao.getOne(projectId));
         task.setUser(userDao.getOne(userId));
         taskDao.save(task);
         taskDao.editStateOfCompletion(1, task.getId());
+
+        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        mailMessage.setTo(userDao.getOne(userId).getEmail());
+        mailMessage.setSubject("New task assignment");
+        mailMessage.setFrom("admin@remote-start.io");
+        mailMessage.setText(user.getFirstName() + " " + user.getLastName() + " has assigned a new task to you on project: " + projectDao.getOne(projectId).getName() + ". Click here to log in: https://remote-start.io/login");
+
+        emailSenderService.sendEmail(mailMessage);
+
+
         return "redirect:/project/" + projectId;
     }
 
