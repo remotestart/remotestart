@@ -81,7 +81,7 @@ public class UserController {
         {
             User user = userRepository.findByUsername(passwordResetToken.getUser().getUsername());
             modelAndView.addObject("user", user);
-            modelAndView.setViewName("change-password");
+            modelAndView.setViewName("change-places");
         }
         else
         {
