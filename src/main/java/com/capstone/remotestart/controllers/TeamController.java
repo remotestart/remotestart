@@ -220,4 +220,30 @@ public class TeamController {
         }
         return "redirect:/team/" + id;
     }
+
+    @GetMapping("/team/{teamId}/drop-user/{userId}")
+    public String dropUserFromTeam(@PathVariable long teamId, @PathVariable long userId){
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (userDao.checkIfTeamLeader(user.getId(), teamId) == 1){
+            userDao.removeUserFromTeamByUserAndTeamId(userId, teamId);
+            return "redirect:/team/" + teamId;
+        }else {
+            return "redirect:/team/" + teamId;
+        }
+    }
+
+    @GetMapping("/team/{teamId}/make-team-lead/{userId}")
+    public String makeUserTeamLead(@PathVariable long teamId, @PathVariable long userId){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (userDao.checkIfTeamLeader(user.getId(), teamId) == 1){
+            userDao.makeUserTeamLead(userId, teamId);
+            return "redirect:/team/" + teamId;
+        }else {
+            return "redirect:/team/" + teamId;
+        }
+
+    }
 }

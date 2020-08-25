@@ -51,4 +51,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying
     @Query(value = "UPDATE users SET password = :password WHERE id = :id", nativeQuery = true)
     void editPassword(@Param("id") Long id, @Param("password") String password);
+
+    @Query(value = "DELETE FROM user_team_role WHERE user_id = :user_id AND team_id = :team_id", nativeQuery = true)
+    void removeUserFromTeamByUserAndTeamId(@Param("user_id") long userId, @Param("team_id") long teamId);
+
+   @Transactional
+    @Modifying
+    @Query(value = "UPDATE user_team_role SET role_id = 1 WHERE user_id = :user_id AND team_id = :team_id", nativeQuery = true)
+    void makeUserTeamLead(@Param("user_id") long userId, @Param("team_id") long teamId);
 }
