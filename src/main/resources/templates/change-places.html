@@ -9,6 +9,7 @@
         <div class="form-group">
             <label for="password">New Password:</label>
             <input class="form-control" id="password" name="password" type="password" autofocus required>
+            <input type="hidden" th:value="${user.id}" name="user-id">
             <br>
             <button class="btn btn-primary btn-sm" type="submit">Submit</button>
         </div>
