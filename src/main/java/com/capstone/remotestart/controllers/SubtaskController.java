@@ -28,6 +28,7 @@ public class SubtaskController {
     @GetMapping("/subtask/create/{projectId}/{taskId}")
     public String createSubtaskForm(Model model, @PathVariable long taskId, @PathVariable long projectId){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", user);
         model.addAttribute("project", projectDao.getOne(projectId));
         model.addAttribute("subtask", new Subtask());
         model.addAttribute("task", taskDao.getOne(taskId));
@@ -60,6 +61,8 @@ public class SubtaskController {
 
     @GetMapping("/subtask/{subtaskId}/edit/{projectId}")
     public String showEditSubtaskForm(Model model, @PathVariable long subtaskId, @PathVariable long projectId){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("user", user);
         //need to pass in subtask object to form model bind
         model.addAttribute("subtask", subtaskDao.getOne(subtaskId));
         //project object to pull for path variable
