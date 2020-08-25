@@ -2,7 +2,10 @@ package com.capstone.remotestart.controllers;
 
 import com.capstone.remotestart.models.User;
 import com.capstone.remotestart.repositories.UserRepository;
+import com.capstone.remotestart.services.EmailSenderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class ProfileController {
+
+    @Autowired
+    private EmailSenderService emailSenderService;
 
     private UserRepository userDao;
 
@@ -46,6 +52,35 @@ public class ProfileController {
     public String editProfile(@PathVariable Long id, @ModelAttribute User user){
 
             userDao.editProfileInfo(id, user.getUsername(), user.getFirstName(), user.getLastName(), user.getEmail());
+
+        return "redirect:/profile";
+    }
+
+    @GetMapping("/profile/{id}/change-password")
+    public String changePassword(Model model, @PathVariable Long id){
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("id", id);
+        model.addAttribute("user", userDao.getOne(id));
+        if (loggedInUser.getId() != id ){
+            return "redirect:/profile";
+        } else {
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
+            mailMessage.setTo(loggedInUser.getEmail());
+            mailMessage.setSubject(loggedInUser.getFirstName() + " " + loggedInUser.getLastName() + " : " + "Remote-start Password Change");
+            mailMessage.setFrom("admin@remote-start.io");
+            mailMessage.setText("Please click this link to update/change your password : " +
+                    "https://remote-start.io/profile/" + id + "/change-password");
+
+            emailSenderService.sendEmail(mailMessage);
+
+            return "email-password";
+        }
+    }
+
+    @PostMapping("profile/{id}/change-password")
+        public String saveNewPassword(@PathVariable Long id, @ModelAttribute User user){
+
+        userDao.editPassword(id, user.getPassword());
 
         return "redirect:/profile";
     }

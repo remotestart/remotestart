@@ -14,8 +14,16 @@
         <h5>Email:</h5>
         <p th:text="${user.email}"></p>
     </div>
-        <a th:href="@{'/profile/' + ${user.id} +'/edit-profile'}">Edit profile information</a>
+    <form th:action="@{'/profile/' + ${user.id} +'/edit-profile'}" method="get">
+        <button class="btn btn-outline-warning btn-sm" type="submit">Edit profile information</button>
+    </form>
+
+    <form th:action="@{'/profile/' + ${user.id} + '/change-password'}" method="get">
+        <button class="btn btn-outline-danger btn-sm" type="submit">Change password</button>
+    </form>
+
 
     <footer th:replace="partials :: footer"></footer>
+
 </body>
 </html>
