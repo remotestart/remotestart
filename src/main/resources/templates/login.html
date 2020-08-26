@@ -3,28 +3,33 @@
 <head th:replace="partials :: head (pageTitle ='Login')">
 
 </head>
-<body>
+<body class="login-body">
 <header th:replace="partials :: header"></header>
-<h1>Log In</h1>
 <div th:if="${param.error}">
     Invalid Username and Password.
 </div>
 <div th:if="${param.logout}">
     You have been logged out.
 </div>
-
-<form th:action="@{/login}" method="post">
-    <label for="username" >Username</label>
-    <input id="username" name="username" type="text" required autofocus/>
-    <label for="password">Password</label>
-    <input id="password" name="password" type="password" required/>
-    <input type="submit" value="Log In" />
-</form>
-<form th:action="@{'/reset-password'}" method="get">
-    <button class="btn btn-outline-danger btn-sm" type="submit">Forgot Password</button>
-</form>
-
+<div class="d-flex justify-content-center align-items-center">
+    <div class="card w-50 m-5">
+        <form th:action="@{/login}" method="post" class="p-4">
+            <h1 class="h3 mb-3 font-weight-normal">Log In</h1>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" class="form-control" required autofocus/>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" class="form-control" required/>
+            </div>
+            <input type="submit" value="Log In" />
+        </form>
+        <form th:action="@{'/reset-password'}" method="get">
+            <button class="btn btn-outline-danger btn-sm" type="submit">Change password</button>
+        </form>
+    </div>
+</div>
 <footer th:replace="partials :: footer"></footer>
-
 </body>
 </html>
