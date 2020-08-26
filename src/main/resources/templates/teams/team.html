@@ -8,16 +8,18 @@
 <div class="container-fluid">
     <div class="row">
         <nav th:replace="partials :: sidenav"></nav>
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-8 px-4">
 
             <div class="container">
 
+                    <div class="text-center font-weight-bold">
+                        <h1 class="" th:text="${team.name}"></h1>
+                    </div>
+
+
+
                 <div class="card w-50 my-3">
-
-
-                    <div class="card-header text-center font-weight-bold" th:text="${team.name}"></div>
                     <div class="card-body">
-                        <p>Card Body</p>
                         <div th:if="${role == 1}">
                             <a th:href="@{'/project/create/' + ${team.id}}">Create a Project</a>
 
@@ -33,22 +35,30 @@
                             </form>
                         </div>
                     </div>
+
                 </div>
             </div>
 
-            <!--User Search Card-->
-            <div>
-                <form>
-                    <input type="text" id="user-search" name="user-search" class="" placeholder="User Name"
-                           onkeyup="updateUsers(this)">
-                </form>
-            </div>
 
-            <script th:inline="javascript">
-                let users = [[${users}]]
-                let team = [[${team.id}]];
-            </script>
-            <div id="bucket"></div>
+
+            <!--User Search Card-->
+<!--            <div>-->
+<!--                <form>-->
+<!--                    <input type="text" id="user-search" name="user-search" class="" placeholder="User Name"-->
+<!--                           onkeyup="updateUsers(this)">-->
+<!--                </form>-->
+<!--            </div>-->
+
+<!--            <script th:inline="javascript">-->
+<!--                let users = [[${users}]]-->
+<!--                let team = [[${team.id}]];-->
+<!--            </script>-->
+<!--            <div id="bucket"></div>-->
+
+
+
+
+
 
             <div class="card w-50 my-3" th:each="project : ${projects}">
 
@@ -75,6 +85,24 @@
             </div>
 
         </main>
+
+        <div class="col-lg-2">
+            <!--User Search Card-->
+            <div>
+                <form>
+                    <input type="text" id="user-search" name="user-search" class="" placeholder="User Name"
+                           onkeyup="updateUsers(this)">
+                </form>
+            </div>
+
+            <script th:inline="javascript">
+                let users = [[${users}]]
+                let team = [[${team.id}]];
+            </script>
+            <div id="bucket"></div>
+        </div>
+
+
     </div>
 </div>
 

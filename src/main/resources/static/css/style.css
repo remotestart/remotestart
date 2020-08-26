@@ -8,6 +8,11 @@ body {
     height: 100%;
 }
 
+.user-search-bar {
+    position: fixed;
+    height: 100%;
+}
+
 /*Removing logout form styling*/
 .logout-form-button {
     margin: 0;
