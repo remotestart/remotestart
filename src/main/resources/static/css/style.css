@@ -1,6 +1,6 @@
 body {
-    padding-top: 50px;
-    font-family: 'Chakra Petch', sans-serif;
+    padding-top: 40px;
+    font-family: 'Nunito', sans-serif;
 }
 
 .sidebar {
@@ -101,4 +101,8 @@ body {
 
 .team-name {
     font-size: 5em;
+}
+
+.main {
+    height: 95vh;
 }
