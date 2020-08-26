@@ -2,3 +2,7 @@ body {
     padding-top: 50px;
 }
 
+.sidebar {
+    position: fixed;
+    height: 100%;
+}
