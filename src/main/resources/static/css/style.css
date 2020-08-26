@@ -1,5 +1,6 @@
 body {
     padding-top: 50px;
+    font-family: 'Chakra Petch', sans-serif;
 }
 
 .sidebar {
@@ -7,7 +8,13 @@ body {
     height: 100%;
 }
 
+/*Removing logout form styling*/
 .logout-form-button {
     margin: 0;
     padding: 0;
 }
+
+/*Adding padding to sidenav links*/
+/*.sidenav-list-item {*/
+/*    padding-top: 1em;*/
+/*}*/
