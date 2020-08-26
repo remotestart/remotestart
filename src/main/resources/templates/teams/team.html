@@ -10,34 +10,52 @@
         <nav th:replace="partials :: sidenav"></nav>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-8 px-4">
 
-            <div class="container">
+            <div class="container p-0">
 
-                    <div class="text-center font-weight-bold">
-                        <h1 class="" th:text="${team.name}"></h1>
+                    <div class="text-center font-weight-bold bg-light mb-0">
+                        <h1 class="team-name m-0" th:text="${team.name}"></h1>
                     </div>
 
 
 
-                <div class="card w-50 my-3">
+                <div class="card w-100 mb-3 bg-light border-0">
                     <div class="card-body">
                         <div th:if="${role == 1}">
-                            <a th:href="@{'/project/create/' + ${team.id}}">Create a Project</a>
+                            <div class="d-flex flex-row justify-content-between">
+                                <a th:href="@{'/project/create/' + ${team.id}}" class="btn btn-primary btn-sm">Create a Project</a>
 
 
-                            <form th:action="@{'/team/' + ${team.id} + '/edit'}" th:method="get">
-                                <button type="submit" class="btn btn-warning btn-sm">Change Team Name</button>
-                            </form>
+                                <form th:action="@{'/team/' + ${team.id} + '/edit'}" th:method="get">
+                                    <button type="submit" class="btn btn-info btn-sm">Change Team Name</button>
+                                </form>
 
-                            <br>
-
-                            <form th:action="@{'/team/' + ${team.id} + '/delete'}" th:method="POST">
-                                <button class="btn btn-danger btn-sm" type="submit">Delete Team</button>
-                            </form>
+                                <form th:action="@{'/team/' + ${team.id} + '/delete'}" th:method="POST">
+                                    <button class="btn btn-danger btn-sm" type="submit">Delete Team</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
 
                 </div>
             </div>
+
+            <div class="text-center mb-3">
+                <h1 class="m-0">Team Members</h1>
+            </div>
+
+            <div class="card-columns">
+                <div class="card" th:each="user : ${teamUsers}">
+                    <div class="card-body p-0">
+                        <h5 class="card-title bg-light text-center" th:text="${user.firstName} + ' ' + ${user.lastName}"></h5>
+                    </div>
+                    <div class="card-footer p-0 d-flex justify-content-between" th:if="${role == 1}">
+                        <a th:if="${loggedInUser.id} != ${user.id}" th:href="@{'/team/' + ${team.id} + '/make-team-lead/' + ${user.id}}" class="btn btn-outline-primary btn-sm">Make Co-Lead</a>
+                        <a th:if="${loggedInUser.id} != ${user.id}" th:href="@{'/team/' + ${team.id} + '/drop-user/' + ${user.id}}" class="btn btn-outline-danger btn-sm">Remove</a>
+                        <a th:if="${loggedInUser.id} == ${user.id}" th:href="@{'/profile'}" class="justify-content-center btn btn-outline-primary btn-sm">View Profile</a>
+                    </div>
+                </div>
+            </div>
+
 
             <div class="card w-50 my-3" th:each="project : ${projects}">
 
@@ -49,19 +67,28 @@
 
             </div>
 
-            <div class="card w-50 my-3" th:each="user : ${teamUsers}">
 
-                <div class="card-header text-center font-weight-bold" th:text="${user.username}"></div>
-                <div class="card-body">
-                    <p th:text="${user.firstName}"></p>
-                    <p th:text="${user.lastName}"></p>
-                    <div th:if="${role == 1} and (${loggedInUser.id} != ${user.id})">
-                        <a th:href="@{'/team/' + ${team.id} + '/make-team-lead/' + ${user.id}}" class="btn btn-success">Make Co-Lead</a>
-                        <a th:href="@{'/team/' + ${team.id} + '/drop-user/' + ${user.id}}" class="btn btn-danger">Remove from team</a>
-                    </div>
-                </div>
 
-            </div>
+
+
+
+
+
+
+
+<!--            <div class="card w-50 my-3" th:each="user : ${teamUsers}">-->
+
+<!--                <div class="card-header text-center font-weight-bold" th:text="${user.username}"></div>-->
+<!--                <div class="card-body">-->
+<!--                    <p th:text="${user.firstName}"></p>-->
+<!--                    <p th:text="${user.lastName}"></p>-->
+<!--                    <div th:if="${role == 1} and (${loggedInUser.id} != ${user.id})">-->
+<!--                        <a th:href="@{'/team/' + ${team.id} + '/make-team-lead/' + ${user.id}}" class="btn btn-outline-primary btn-sm">Make Co-Lead</a>-->
+<!--                        <a th:href="@{'/team/' + ${team.id} + '/drop-user/' + ${user.id}}" class="btn btn-outline-danger btn-sm">Remove from team</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--            </div>-->
 
         </main>
 
