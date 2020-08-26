@@ -3,47 +3,11 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="partials :: head (pageTitle ='Team Page')"></head>
 <body>
-<header th:replace="partials :: header"></header>
+<nav th:replace="partials :: header"></nav>
 
 <div class="container-fluid">
     <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-            <div class="sidebar-sticky">
-                <ul class="nav flex-column">
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/profile">Profile</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/teams">Search Teams</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/teams/my-teams">View My Teams</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/team/create">Create A Team</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">FAQ</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <form th:action="@{/logout}" th:method="post">
-                            <button class="btn-link btn" style="margin-top: 8px">Logout</button>
-                        </form>
-                    </li>
-
-                </ul>
-            </div>
-        </nav>
+        <nav th:replace="partials :: sidenav"></nav>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
             <div class="container">
@@ -103,8 +67,8 @@
                     <p th:text="${user.firstName}"></p>
                     <p th:text="${user.lastName}"></p>
                     <div th:if="${role == 1} and (${loggedInUser.id} != ${user.id})">
-                        <a th:href="@{'/team/' + ${team.id} + '/make-team-lead/' + ${user.id}}" class="btn btn-success">Grant Power</a>
-                        <a th:href="@{'/team/' + ${team.id} + '/drop-user/' + ${user.id}}" class="btn btn-danger">Remove User</a>
+                        <a th:href="@{'/team/' + ${team.id} + '/make-team-lead/' + ${user.id}}" class="btn btn-success">Make Co-Lead</a>
+                        <a th:href="@{'/team/' + ${team.id} + '/drop-user/' + ${user.id}}" class="btn btn-danger">Remove from team</a>
                     </div>
                 </div>
 
