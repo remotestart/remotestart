@@ -8,9 +8,9 @@ let showUsers = (users) => {
         bucket.innerHTML +=
             "<div class='w-100 d-flex justify-content-between my-2'>" +
             // "<div class='card w-50 my-3' style='width: 18rem'>" +
-            "<div class='text-center font-weight-bold'>" + users[i].firstName + "</div>" +
+            "<div class='text-center font-weight-bold'>" + users[i].firstName + " " + users[i].lastName + "</div>" +
             // "<div class='d-flex flex-column'>" +
-            "<a href='/team/" + team + "/add/" + users[i].id + "' " + "class='btn btn-outline-info align-self-end'>Add User</a>" +
+            "<a href='/team/" + team + "/add/" + users[i].id + "' " + "class='btn btn-outline-info btn-sm align-self-end'>Add User</a>" +
             // "</div>" +
             // "</div>" +
             "</div>" +
