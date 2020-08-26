@@ -5,37 +5,47 @@
 <body>
 <header th:replace="partials :: header"></header>
 
-<div class="container">
+<div class="container-fluid">
+    <div class="row">
+        <nav th:replace="partials :: sidenav"></nav>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
-    <div class="my-2">
-        <a th:href="@{'/project/' + ${project.id}}" class="btn btn-outline-info">Back to <span th:text="${project.name}"></span></a>
-    </div>
+            <div class="container">
 
-    <form th:method="post" th:action="@{'/task/create/' + ${projectId}}" th:object="${task}">
-        <div class="form-group">
-            <input th:field="*{title}" type="text" class="form-control" id="title" name="task" required autofocus>
-            <label for="title">Title</label>
-        </div>
-        <div class="form-group">
-            <input th:field="*{description}" type="text" class="form-control" id="description" name="task" required>
-            <label for="description">Description</label>
-        </div>
-        <div class="form-group">
-            <!--input for assigned to-->
-
-            <div class="dropdown">
-                <h5>Assigned to:</h5>
-                <div class="form-check form-check-inline">
-                    <div th:each="user : ${users}">
-                        <input class="form-check-input" type="checkbox" name="userId" th:text="${user.username}" th:value="${user.id}">
-                    </div>
+                <div class="my-2">
+                    <a th:href="@{'/project/' + ${project.id}}" class="btn btn-outline-info">Back to <span th:text="${project.name}"></span></a>
                 </div>
+
+                <form th:method="post" th:action="@{'/task/create/' + ${projectId}}" th:object="${task}">
+                    <div class="form-group">
+                        <input th:field="*{title}" type="text" class="form-control" id="title" name="task" required autofocus>
+                        <label for="title">Title</label>
+                    </div>
+                    <div class="form-group">
+                        <input th:field="*{description}" type="text" class="form-control" id="description" name="task" required>
+                        <label for="description">Description</label>
+                    </div>
+                    <div class="form-group">
+                        <!--input for assigned to-->
+
+                        <div class="dropdown">
+                            <h5>Assigned to:</h5>
+                            <div class="form-check form-check-inline">
+                                <div th:each="user : ${users}">
+                                    <input class="form-check-input" type="checkbox" name="userId" th:text="${user.username}" th:value="${user.id}">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </form>
             </div>
 
-        </div>
-        <button type="submit" class="btn btn-primary">Create</button>
-    </form>
+        </main>
+    </div>
 </div>
+
 
 <footer th:replace="partials :: footer"></footer>
 </body>

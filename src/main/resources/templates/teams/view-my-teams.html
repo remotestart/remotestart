@@ -5,7 +5,10 @@
 <body>
 <header th:replace="partials :: header"></header>
 
-<div class="container">
+<div class="container-fluid">
+    <div class="row">
+        <nav th:replace="partials :: sidenav"></nav>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
             <div th:each="team : ${teams}" class="w-100 d-flex justify-content-center">
                 <div class="card w-50 my-3" style="width: 18rem;">
@@ -16,7 +19,10 @@
                 </div>
             </div>
 
+        </main>
+    </div>
 </div>
+
 
 <footer th:replace="partials :: footer"></footer>
 </body>

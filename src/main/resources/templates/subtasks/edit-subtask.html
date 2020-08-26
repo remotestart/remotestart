@@ -5,24 +5,34 @@
 <body>
 <header th:replace="partials :: header"></header>
 
-<div class="container">
+<div class="container-fluid">
+    <div class="row">
+        <nav th:replace="partials :: sidenav"></nav>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
-    <div class="my-2">
-        <a th:href="@{'/project/' + ${project.id} + '/' + ${user.id}}" class="btn btn-outline-info">Back to My Tasks</a>
+            <div class="container">
+
+                <div class="my-2">
+                    <a th:href="@{'/project/' + ${project.id} + '/' + ${user.id}}" class="btn btn-outline-info">Back to My Tasks</a>
+                </div>
+
+                <form th:method="post" th:action="@{'/subtask/' + ${subtask.id} + '/edit/' + ${project.id}}" th:object="${subtask}">
+                    <div class="form-group">
+                        <input th:field="*{title}" type="text" class="form-control" id="title" th:value="${subtask.title}" required autofocus>
+                    </div>
+                    <div class="form-group">
+                        <input th:field="*{description}" type="text" class="form-control" id="description" th:value="${subtask.description}" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                </form>
+
+
+            </div>
+
+        </main>
     </div>
-
-    <form th:method="post" th:action="@{'/subtask/' + ${subtask.id} + '/edit/' + ${project.id}}" th:object="${subtask}">
-        <div class="form-group">
-            <input th:field="*{title}" type="text" class="form-control" id="title" th:value="${subtask.title}" required autofocus>
-        </div>
-        <div class="form-group">
-            <input th:field="*{description}" type="text" class="form-control" id="description" th:value="${subtask.description}" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Edit</button>
-    </form>
-
-
 </div>
+
 
 <footer th:replace="partials :: footer"></footer>
 </body>
