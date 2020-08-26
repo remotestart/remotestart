@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
     <script src="https://kit.fontawesome.com/1a038e3095.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap" rel="stylesheet">
 </head>
 <body>
 <!--<header th:fragment="header">-->
@@ -82,33 +83,33 @@
     <div class="sidebar-sticky">
         <ul class="nav flex-column">
 
-            <li class="nav-item">
-                <a class="nav-link" href="/">Home</a>
+            <li class="nav-item font-weight-bold text-uppercase mt-3 sidenav-list-item">
+                <a class="nav-link text-muted" href="/">Home</a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="/profile">Profile</a>
+            <li class="nav-item font-weight-bold text-uppercase mt-3 sidenav-list-item">
+                <a class="nav-link text-muted" href="/profile">Profile</a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="/teams">Search Teams</a>
+            <li class="nav-item font-weight-bold text-uppercase mt-3 sidenav-list-item">
+                <a class="nav-link text-muted" href="/teams">Search Teams</a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="/teams/my-teams">View My Teams</a>
+            <li class="nav-item font-weight-bold text-uppercase mt-3 sidenav-list-item">
+                <a class="nav-link text-muted" href="/teams/my-teams">View My Teams</a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="/team/create">Create A Team</a>
+            <li class="nav-item font-weight-bold text-uppercase mt-3 sidenav-list-item">
+                <a class="nav-link text-muted" href="/team/create">Create A Team</a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="#">FAQ</a>
+            <li class="nav-item font-weight-bold text-uppercase mt-3 sidenav-list-item">
+                <a class="nav-link text-muted" href="#">FAQ</a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item font-weight-bold text-uppercase mt-3 sidenav-list-item">
                 <form th:action="@{/logout}" th:method="post">
-                    <button class="btn-link btn" style="margin-top: 8px">Logout</button>
+                    <button class="btn-link btn text-danger" style="margin-top: 8px">Logout</button>
                 </form>
             </li>
 
