@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="login-body">
+<head th:replace="partials :: head (pageTitle ='About Us')">
+</head>
+<body class="login-body">
+<header th:replace="partials :: header"></header>
+
+<div class="card m-2" style="width: 20rem;">
+    <img th:src="@{/images/justin.jpg}" class="card-img-top" alt="justin photo">
+    <div class="card-body pb-0">
+        <h5 class="card-title text-center">Justin McCaleb</h5>
+    </div>
+    <div class="card-body text-center pt-2">
+        <a href="mailto:justinleemccaleb@gmail.com" class="card-link"><i class="fas fa-envelope mr-1"></i>Email</a>
+        <a href="https://github.com/JustinMcCaleb" class="card-link"><i class="fab fa-github mr-1"></i>Github</a>
+        <a href="https://www.linkedin.com/in/justinmccaleb/" class="card-link"><i class="fab fa-linkedin mr-1"></i>LinkedIn</a>
+    </div>
+</div>
+
+<div class="card m-2" style="width: 20rem;">
+    <img th:src="@{/images/dylan.jpg}" class="card-img-top" alt="dylan photo">
+    <div class="card-body pb-0">
+        <h5 class="card-title text-center">Dylan Leifeste</h5>
+    </div>
+    <div class="card-body text-center pt-2">
+        <a href="mailto:ldylan01@gmail.com" class="card-link"><i class="fas fa-envelope mr-1"></i>Email</a>
+        <a href="https://github.com/DylanLeifeste" class="card-link"><i class="fab fa-github mr-1"></i>Github</a>
+        <a href="https://www.linkedin.com/in/dylan-leifeste" class="card-link"><i class="fab fa-linkedin mr-1"></i>LinkedIn</a>
+    </div>
+</div>
+
+<div class="card m-2" style="width: 20rem;">
+    <img th:src="@{/images/jahziel.jpg}" class="card-img-top" alt="jahziel photo">
+    <div class="card-body pb-0">
+        <h5 class="card-title text-center">Jahziel Baez</h5>
+    </div>
+    <div class="card-body text-center pt-2">
+        <a href="mailto:jahzielb@gmail.com" class="card-link"><i class="fas fa-envelope mr-1"></i>Email</a>
+        <a href="https://github.com/JahzielB" class="card-link"><i class="fab fa-github mr-1"></i>Github</a>
+        <a href="https://www.linkedin.com/in/jahziel-baez/" class="card-link"><i class="fab fa-linkedin mr-1"></i> LinkedIn</a>
+    </div>
+</div>
+
+<footer th:replace="partials :: footer"></footer>
+</body>
+</html>
