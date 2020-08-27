@@ -76,7 +76,7 @@
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
 
-                            <a class="dropdown-item"th:href="@{'/project/' + ${project.id} + '/'+ ${user.id}}">View My Tasks</a>
+                            <a class="dropdown-item" th:href="@{'/project/' + ${project.id} + '/'+ ${user.id}}">View My Tasks</a>
 
                             <!--Team Leader Links-->
                             <div th:if="${role == 1}">
