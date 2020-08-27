@@ -19,6 +19,68 @@ body {
     padding: 0;
 }
 
+
+.cardtitle p{
+    font-size: 4em;
+}
+
+.card{
+    border: none;
+}
+
+.card-body h5{
+    font-size: 3em;
+    color: #0157B3;
+}
+
+.card-body p{
+    font-size: 2.5em;
+}
+
+.card-body label{
+    font-size: 2em;
+}
+
+div.info {
+    font-size: 1.5em;
+    margin-right: 80%;
+}
+
+.parent {
+    display: inline-block;
+    margin-right: 78%;
+    padding-left: 0;
+}
+
+.parent p {
+    font-size: 1.3em;
+    display: inline-block;
+    color: #0157B3;
+}
+
+.parent span {
+    font-size: 1.3em;
+    display: inline-block;
+    padding-right: 20%;
+}
+
+.parent-two {
+    display: inline-block;
+    margin-right: 80%;
+    padding-left: 0;
+}
+
+.parent-two p {
+    font-size: 1.3em;
+    display: inline-block;
+    color: #0157B3;
+}
+
+.parent-two span {
+    font-size: 1.3em;
+    display: inline-block;
+    padding-right: 39%;
+
 .login-body {
     height: 100%;
 }
@@ -109,4 +171,5 @@ body {
 
 .team-project-div {
     height: 30vh;
+
 }
