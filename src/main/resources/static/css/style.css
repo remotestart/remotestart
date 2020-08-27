@@ -80,6 +80,7 @@ div.info {
     font-size: 1.3em;
     display: inline-block;
     padding-right: 39%;
+}
 
 .login-body {
     height: 100%;
@@ -171,5 +172,4 @@ div.info {
 
 .team-project-div {
     height: 30vh;
-
 }
