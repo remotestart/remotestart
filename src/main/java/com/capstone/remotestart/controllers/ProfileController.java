@@ -106,4 +106,8 @@ public class ProfileController {
         return "redirect:/login";
     }
 
+    @GetMapping("/about")
+    public String showProfile() {
+        return "about";
+    }
 }
