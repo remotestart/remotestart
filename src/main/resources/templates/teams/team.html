@@ -39,30 +39,30 @@
                     <h1 class="my-3">Projects</h1>
                 </div>
 
-                <div class="w-50">
+                <div class="w-75">
                     <hr>
                 </div>
 
-<!--                <div class="text-center d-flex flex-column w-50">-->
+                <div class="overflow-auto w-50 team-project-div d-flex flex-column align-items-center">
+
                     <th:block th:each="project : ${projects}">
-                        <div class="d-flex flex-column justify-content-between w-50 mb-2">
-                            <h4 th:text="${project.name}" class="text-center"></h4>
+                        <div class="d-flex justify-content-between w-100 my-2">
+                            <h4 th:text="${project.name}" class="align-self-start"></h4>
                             <a class="btn btn-outline-info btn-sm text-center align-self-center" th:href="@{'/project/' + ${project.id}}">View Project</a>
                         </div>
-                        <div class="w-25">
+                        <div class="w-100">
                             <hr>
                         </div>
                     </th:block>
 
-    <!--                </div>-->
-<!--                </div>-->
+                </div>
             </div>
 
         </main>
 
         <div class="col-lg-2 bg-light team-page-users">
 
-            <div class="text-center mb-3">
+            <div class="text-center my-3">
                 <h4 class="m-0">Members</h4>
                 <hr>
             </div>
