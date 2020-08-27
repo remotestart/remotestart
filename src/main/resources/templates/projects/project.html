@@ -50,8 +50,8 @@
                 </div>
 
                 <div class="d-flex justify-content-between w-100">
-                    <div class="pl-5" th:text="'Start Date: ' + ${project.startDate}"></div>
-                    <div class="pr-5" th:text="'Deadline: ' + ${project.deadline}"></div>
+                    <div class="pl-5" th:text="'Start Date (yyyy/mm/dd): ' + ${project.startDate}"></div>
+                    <div class="pr-5" th:text="'Deadline (yyyy/mm/dd): ' + ${project.deadline}"></div>
                 </div>
 
                 <div class="my-5 w-75">
@@ -70,20 +70,26 @@
                         <p th:text="'Complete: ' + ${tasksComplete}"></p>
                     </div>
 
-                    <a class="btn btn-outline-info align-self-start" th:href="@{'/project/' + ${project.id} + '/'+ ${user.id}}">View My Tasks</a>
+                    <div class="dropdown text-center">
+                        <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Task Options
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
 
-                    <!--Team Leader Links-->
-                    <div th:if="${role == 1}">
+                            <a class="dropdown-item"th:href="@{'/project/' + ${project.id} + '/'+ ${user.id}}">View My Tasks</a>
 
-                        <a class="btn btn-outline-info align-self-start" th:href="@{'/task/create/' + ${project.id}}">Create Task</a>
+                            <!--Team Leader Links-->
+                            <div th:if="${role == 1}">
 
-                        <a class="btn btn-outline-info align-self-start" th:href="@{'/project/' + ${project.id} + '/all-tasks'}">View All Tasks</a>
+                                <a class="dropdown-item" th:href="@{'/task/create/' + ${project.id}}">Create Task</a>
 
+                                <a class="dropdown-item" th:href="@{'/project/' + ${project.id} + '/all-tasks'}">View All Tasks</a>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
-
             </div>
-
         </main>
     </div>
 </div>
