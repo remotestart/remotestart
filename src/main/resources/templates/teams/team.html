@@ -13,44 +13,50 @@
             <div class="container p-0">
 
                     <div class="text-center font-weight-bold mb-0">
-                        <h1 class="team-name m-0" th:text="${team.name}"></h1>
+                        <h1 class="team-name my-5" th:text="${team.name}"></h1>
                     </div>
 
 
+                <div class="dropdown text-center" th:if="${role == 1}">
+                    <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Team Options
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <a th:href="@{'/project/create/' + ${team.id}}" class="dropdown-item">Create a Project</a>
 
-                <div class="card w-100 mb-3 border-0">
-                    <div class="card-body p-0">
-                        <div th:if="${role == 1}">
-                            <div class="d-flex flex-row justify-content-between">
-                                <a th:href="@{'/project/create/' + ${team.id}}" class="btn btn-primary btn-sm">Create a Project</a>
+                        <a th:href="@{'/team/' + ${team.id} + '/edit'}" class="dropdown-item">Change Team Name</a>
 
-
-                                <form th:action="@{'/team/' + ${team.id} + '/edit'}" th:method="get">
-                                    <button type="submit" class="btn btn-info btn-sm">Change Team Name</button>
-                                </form>
-
-                                <form th:action="@{'/team/' + ${team.id} + '/delete'}" th:method="POST">
-                                    <button class="btn btn-danger btn-sm" type="submit">Delete Team</button>
-                                </form>
-                            </div>
-                        </div>
+                        <a th:href="@{'/team/' + ${team.id} + '/delete'}" class="dropdown-item">Delete Team</a>
                     </div>
-
                 </div>
             </div>
 
             <hr class="my-3">
 
-            <div class="card w-50 my-3" th:each="project : ${projects}">
+            <div class="container-fluid d-flex flex-column align-items-center">
 
-                <div class="card-header text-center font-weight-bold" th:text="${project.name}"></div>
-                <div class="card-body">
-                    <p th:text="${project.description}"></p>
-                    <a class="btn btn-outline-info align-self-end" th:href="@{'/project/' + ${project.id}}">View Project</a>
+                <div class="text-center font-weight-bold mb-0">
+                    <h1 class="my-3">Projects</h1>
                 </div>
 
-            </div>
+                <div class="w-50">
+                    <hr>
+                </div>
 
+<!--                <div class="text-center d-flex flex-column w-50">-->
+                    <th:block th:each="project : ${projects}">
+                        <div class="d-flex flex-column justify-content-between w-50 mb-2">
+                            <h4 th:text="${project.name}" class="text-center"></h4>
+                            <a class="btn btn-outline-info btn-sm text-center align-self-center" th:href="@{'/project/' + ${project.id}}">View Project</a>
+                        </div>
+                        <div class="w-25">
+                            <hr>
+                        </div>
+                    </th:block>
+
+    <!--                </div>-->
+<!--                </div>-->
+            </div>
 
         </main>
 
@@ -62,7 +68,8 @@
             </div>
 
             <div class="d-flex flex-row justify-content-between pb-3" th:each="user : ${teamUsers}">
-                <div class="p-0 text-center h5" th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
+                <div class="p-0 text-center font-weight-bold" th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
+
                 <div class="dropdown dropleft" th:if="${role == 1}">
                     <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Options
@@ -82,19 +89,21 @@
 
 
             <!--User Search Card-->
-            <div class="d-flex align-items-center flex-column mb-3">
-                <h4>Add Users</h4>
-                <form>
-                    <input type="text" id="user-search" name="user-search" class="" placeholder="User Name"
-                           onkeyup="updateUsers(this)">
-                </form>
-            </div>
+            <th:block th:if="${role == 1}">
+                <div class="d-flex align-items-center flex-column mb-3">
+                    <h4>Add Users</h4>
+                    <form>
+                        <input type="text" id="user-search" name="user-search" class="" placeholder="User Name"
+                               onkeyup="updateUsers(this)">
+                    </form>
+                </div>
 
-            <script th:inline="javascript">
-                let users = [[${users}]]
-                let team = [[${team.id}]];
-            </script>
-            <div id="bucket"></div>
+                <script th:inline="javascript">
+                    let users = [[${users}]]
+                    let team = [[${team.id}]];
+                </script>
+                <div id="bucket"></div>
+            </th:block>
         </div>
 
 

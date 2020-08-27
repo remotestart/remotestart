@@ -179,7 +179,7 @@ public class TeamController {
         return "teams/view-my-teams";
     }
 
-    @PostMapping("/team/{id}/delete")
+    @GetMapping("/team/{id}/delete")
     private String deleteTeam(Model model, @PathVariable Long id){
 
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
