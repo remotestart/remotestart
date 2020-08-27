@@ -19,15 +19,17 @@
                 <div class="info">
                     Profile information:
                 </div>
+                <p></p>
                 <div class="card-body parent">
-                    <span class="child">Username:</span>
+                    <div class="child">Username:</div>
                     <p class="card-title child" th:text="${user.username}"></p>
                 </div>
                 <div class="parent-two">
-                    <span class="child-two">Email:</span>
+                    <div class="child-two">Email:</div>
                     <p class="card-text child-two" th:text="${user.email}"></p>
                 </div>
                 </div>
+                <p></p>
                 <div class="card-footer.bg-light text-muted">
                     <form th:action="@{'/profile/' + ${user.id} +'/edit-profile'}" method="get">
                         <button class="btn btn-outline-warning btn-sm" type="submit">Edit profile information</button>
