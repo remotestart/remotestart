@@ -1,35 +1,30 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" class="login-body">
 <head th:replace="partials :: head (pageTitle ='Login')">
-
 </head>
 <body class="login-body">
 <header th:replace="partials :: header"></header>
-<div th:if="${param.error}">
-    Invalid Username and Password.
-</div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-<div class="d-flex justify-content-center align-items-center">
-    <div class="card w-50 m-5">
-        <form th:action="@{/login}" method="post" class="p-4">
-            <h1 class="h3 mb-3 font-weight-normal">Log In</h1>
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input id="username" name="username" type="text" class="form-control" required autofocus/>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input id="password" name="password" type="password" class="form-control" required/>
-            </div>
-            <input type="submit" value="Log In" />
-        </form>
-        <form th:action="@{'/reset-password'}" method="get">
-            <button class="btn btn-outline-danger btn-sm" type="submit">Change password</button>
-        </form>
+<form th:action="@{/login}" method="post" class="form-signin">
+    <div class="text-center mb-4">
+        <h1 class="h3 mb-3 font-weight-normal">Log In</h1>
     </div>
-</div>
+    <div th:if="${param.error}">
+        Invalid Username and Password.
+    </div>
+    <div th:if="${param.logout}">
+        You have been logged out.
+    </div>
+    <div class="form-label-group">
+        <input id="username" name="username" type="text" class="form-control" required autofocus/>
+        <label for="username">Username</label>
+    </div>
+    <div class="form-label-group">
+        <input id="password" name="password" type="password" class="form-control" required/>
+        <label for="password">Password</label>
+    </div>
+    <input type="submit" class="btn btn-lg btn-primary btn-block" value="Log In" />
+    <a th:href="@{'/reset-password'}" class="btn btn-outline-danger btn-lg btn-block">Forgot password?</a>
+</form>
 <footer th:replace="partials :: footer"></footer>
 </body>
 </html>

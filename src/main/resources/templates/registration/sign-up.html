@@ -1,51 +1,49 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" class="login-body">
 <head th:replace="partials :: head (pageTitle ='Sign Up')">
 
 </head>
-<body>
+<body class="login-body">
     <header th:replace="partials :: header"></header>
-    <div class="d-flex justify-content-center align-items-center">
-        <div class="card w-50 m-5">
-            <form th:action="@{/sign-up}" method="POST" th:object="${user}" class="p-4">
-                <h1>Create an account</h1>
-                <div class="form-group">
-                    <label for="username">Username</label>
-                    <input id="username" class="form-control" th:field="*{username}" required autofocus />
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input id="email" class="form-control" th:field="*{email}" required/>
-                </div>
-
-                <div class="form-group">
-                    <label for="first-name">First Name</label>
-                    <input id="first-name" class="form-control" th:field="*{firstName}" required/>
-                </div>
-
-                <div class="form-group">
-                    <label for="last-name">Last Name</label>
-                    <input id="last-name" class="form-control" th:field="*{lastName}" required/>
-                </div>
-
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input id="password" class="form-control" type="password" th:field="*{password}" required/>
-                </div>
-
-                <div th:if="${error}">
-                    Passwords Don't Match
-                </div>
-                <div class="form-group">
-                    <label for="confirm-password">Confirm Password</label>
-                    <input id="confirm-password" class="form-control" type="password" name="confirm-password" required/>
-                </div>
-
-                <input value="Sign me up!" type="submit" />
-            </form>
+    <form th:action="@{/sign-up}" method="POST" th:object="${user}" class="form-signin">
+        <div class="text-center mb-4">
+            <h1 class="h3 mb-3 font-weight-normal">Create an account</h1>
         </div>
-    </div>
+        <div class="form-label-group">
+            <input id="username" class="form-control" th:field="*{username}" required autofocus />
+            <label for="username">Username</label>
+        </div>
+
+        <div class="form-label-group">
+            <input id="email" class="form-control" th:field="*{email}" required/>
+            <label for="email">Email</label>
+        </div>
+
+        <div class="form-label-group">
+            <input id="first-name" class="form-control" th:field="*{firstName}" required/>
+            <label for="first-name">First Name</label>
+        </div>
+
+        <div class="form-label-group">
+            <input id="last-name" class="form-control" th:field="*{lastName}" required/>
+            <label for="last-name">Last Name</label>
+        </div>
+
+        <div class="form-label-group">
+            <input id="password" class="form-control" type="password" th:field="*{password}" required/>
+            <label for="password">Password</label>
+        </div>
+
+        <div th:if="${error}">
+            Passwords Don't Match
+        </div>
+        <div class="form-label-group">
+            <input id="confirm-password" class="form-control" type="password" name="confirm-password" required/>
+            <label for="confirm-password">Confirm Password</label>
+        </div>
+
+        <input value="Sign me up!" type="submit" class="btn btn-lg btn-primary btn-block"/>
+    </form>
     <footer th:replace="partials :: footer"></footer>
 </body>
 </html>

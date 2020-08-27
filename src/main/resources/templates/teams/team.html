@@ -8,73 +8,105 @@
 <div class="container-fluid">
     <div class="row">
         <nav th:replace="partials :: sidenav"></nav>
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <main role="main" class="main col-md-9 ml-sm-auto col-lg-8 p-0">
 
-            <div class="container">
+            <div class="container p-0">
 
-                <div class="card w-50 my-3">
-
-
-                    <div class="card-header text-center font-weight-bold" th:text="${team.name}"></div>
-                    <div class="card-body">
-                        <p>Card Body</p>
-                        <div th:if="${role == 1}">
-                            <a th:href="@{'/project/create/' + ${team.id}}">Create a Project</a>
+                    <div class="text-center font-weight-bold mb-0">
+                        <h1 class="team-name my-5" th:text="${team.name}"></h1>
+                    </div>
 
 
-                            <form th:action="@{'/team/' + ${team.id} + '/edit'}" th:method="get">
-                                <button type="submit" class="btn btn-warning btn-sm">Change Team Name</button>
-                            </form>
+                <div class="dropdown text-center" th:if="${role == 1}">
+                    <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Team Options
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <a th:href="@{'/project/create/' + ${team.id}}" class="dropdown-item">Create a Project</a>
 
-                            <br>
+                        <a th:href="@{'/team/' + ${team.id} + '/edit'}" class="dropdown-item">Change Team Name</a>
 
-                            <form th:action="@{'/team/' + ${team.id} + '/delete'}" th:method="POST">
-                                <button class="btn btn-danger btn-sm" type="submit">Delete Team</button>
-                            </form>
+                        <a th:href="@{'/team/' + ${team.id} + '/delete'}" class="dropdown-item">Delete Team</a>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-3">
+
+            <div class="container-fluid d-flex flex-column align-items-center">
+
+                <div class="text-center font-weight-bold mb-0">
+                    <h1 class="my-3">Projects</h1>
+                </div>
+
+                <div class="w-75">
+                    <hr>
+                </div>
+
+                <div class="overflow-auto w-50 team-project-div d-flex flex-column align-items-center">
+
+                    <th:block th:each="project : ${projects}">
+                        <div class="d-flex justify-content-between w-100 my-2">
+                            <h4 th:text="${project.name}" class="align-self-start"></h4>
+                            <a class="btn btn-outline-info btn-sm text-center align-self-center" th:href="@{'/project/' + ${project.id}}">View Project</a>
                         </div>
-                    </div>
+                        <div class="w-100">
+                            <hr>
+                        </div>
+                    </th:block>
+
                 </div>
-            </div>
-
-            <!--User Search Card-->
-            <div>
-                <form>
-                    <input type="text" id="user-search" name="user-search" class="" placeholder="User Name"
-                           onkeyup="updateUsers(this)">
-                </form>
-            </div>
-
-            <script th:inline="javascript">
-                let users = [[${users}]]
-                let team = [[${team.id}]];
-            </script>
-            <div id="bucket"></div>
-
-            <div class="card w-50 my-3" th:each="project : ${projects}">
-
-                <div class="card-header text-center font-weight-bold" th:text="${project.name}"></div>
-                <div class="card-body">
-                    <p th:text="${project.description}"></p>
-                    <a class="btn btn-outline-info align-self-end" th:href="@{'/project/' + ${project.id}}">View Project</a>
-                </div>
-
-            </div>
-
-            <div class="card w-50 my-3" th:each="user : ${teamUsers}">
-
-                <div class="card-header text-center font-weight-bold" th:text="${user.username}"></div>
-                <div class="card-body">
-                    <p th:text="${user.firstName}"></p>
-                    <p th:text="${user.lastName}"></p>
-                    <div th:if="${role == 1} and (${loggedInUser.id} != ${user.id})">
-                        <a th:href="@{'/team/' + ${team.id} + '/make-team-lead/' + ${user.id}}" class="btn btn-success">Make Co-Lead</a>
-                        <a th:href="@{'/team/' + ${team.id} + '/drop-user/' + ${user.id}}" class="btn btn-danger">Remove from team</a>
-                    </div>
-                </div>
-
             </div>
 
         </main>
+
+        <div class="col-lg-2 bg-light team-page-users">
+
+            <div class="text-center my-3">
+                <h4 class="m-0">Members</h4>
+                <hr>
+            </div>
+
+            <div class="d-flex flex-row justify-content-between pb-3" th:each="user : ${teamUsers}">
+                <div class="p-0 text-center font-weight-bold" th:text="${user.firstName} + ' ' + ${user.lastName}"></div>
+
+                <div class="dropdown dropleft" th:if="${role == 1}">
+                    <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Options
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a th:if="${loggedInUser.id} != ${user.id}" class="dropdown-item" th:href="@{'/team/' + ${team.id} + '/make-team-lead/' + ${user.id}}">Make Co-Lead</a>
+                        <a th:if="${loggedInUser.id} != ${user.id}" class="dropdown-item" th:href="@{'/team/' + ${team.id} + '/drop-user/' + ${user.id}}">Remove</a>
+                        <a th:if="${loggedInUser.id} == ${user.id}" class="dropdown-item" th:href="@{'/profile'}">View Profile</a>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <hr class="my-3">
+
+
+
+            <!--User Search Card-->
+            <th:block th:if="${role == 1}">
+                <div class="d-flex align-items-center flex-column mb-3">
+                    <h4>Add Users</h4>
+                    <form>
+                        <input type="text" id="user-search" name="user-search" class="" placeholder="User Name"
+                               onkeyup="updateUsers(this)">
+                    </form>
+                </div>
+
+                <script th:inline="javascript">
+                    let users = [[${users}]]
+                    let team = [[${team.id}]];
+                </script>
+                <div id="bucket"></div>
+            </th:block>
+        </div>
+
+
     </div>
 </div>
 
