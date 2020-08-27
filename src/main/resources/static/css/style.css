@@ -110,3 +110,7 @@ body {
 .team-project-div {
     height: 30vh;
 }
+
+.project-name {
+    font-size: 5em;
+}

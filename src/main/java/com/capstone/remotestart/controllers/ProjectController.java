@@ -60,6 +60,39 @@ public class ProjectController {
         return "projects/projects";
     }
 
+    int numOfTasksNotStarted;
+    public int numberOfTasksNotStarted(long id){
+        List<Long> stateIds = taskDao.stateIdsByProjectId(id);
+        for(int i = 0; i < stateIds.size(); i++){
+            if(stateIds.get(i) == 1){
+                numOfTasksNotStarted += 1;
+            }
+        }
+        return numOfTasksNotStarted;
+    }
+
+    int numOfTasksInProgress;
+    public int numberOfTasksInProgress(long id){
+        List<Long> stateIds = taskDao.stateIdsByProjectId(id);
+        for(int i = 0; i < stateIds.size(); i++){
+            if(stateIds.get(i) == 2){
+                numOfTasksNotStarted += 1;
+            }
+        }
+        return numOfTasksInProgress;
+    }
+
+    int numOfTasksComplete;
+    public int numberOfTasksComplete(long id){
+        List<Long> stateIds = taskDao.stateIdsByProjectId(id);
+        for(int i = 0; i < stateIds.size(); i++){
+            if(stateIds.get(i) == 3){
+                numOfTasksComplete += 1;
+            }
+        }
+        return numOfTasksComplete;
+    }
+
     float numCompleted;
     float percentage;
     public float percentageComplete(long id){
@@ -78,9 +111,15 @@ public class ProjectController {
     @GetMapping("/project/{id}")
     private String projectPage(Model model, @PathVariable long id){
 
+        model.addAttribute("tasksNotStarted", numberOfTasksNotStarted(id));
+        model.addAttribute("tasksInProgress", numberOfTasksInProgress(id));
+        model.addAttribute("tasksComplete", numberOfTasksComplete(id));
         model.addAttribute("completionPercentage", (int) percentageComplete(id));
         numCompleted = 0;
         percentage = 0;
+        numOfTasksInProgress = 0;
+        numOfTasksNotStarted = 0;
+        numOfTasksComplete = 0;
 
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("team", teamDao.getOne(projectDao.teamIdFromProjectId(id)));
