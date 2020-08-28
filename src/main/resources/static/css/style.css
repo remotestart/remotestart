@@ -124,6 +124,10 @@ div.info {
     margin: auto;
 }
 
+.task-cards {
+    height: 60vh;
+}
+
 .form-label-group {
     position: relative;
     margin-bottom: 1rem;
