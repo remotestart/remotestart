@@ -261,3 +261,16 @@ div.info {
     font-size: 12px;
     margin: 1% 0 0 10%;
 }
+
+.reg-verified{
+    display: flex;
+    margin: 20% 10% 1% 10%;
+    font-size: 2em;
+}
+
+.admin-msg-two {
+    display: flex;
+    color: red;
+    font-size: 12px;
+    margin: 1% 0 0 10%;
+}
