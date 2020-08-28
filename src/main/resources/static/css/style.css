@@ -248,6 +248,7 @@ div.info {
 .btn-outline-info {
     background-color: #85ccff !important;
     color: #0D1821 !important;
+}
 
 .reg-complete{
     display: flex;

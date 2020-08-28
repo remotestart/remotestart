@@ -10,17 +10,21 @@
         <nav th:replace="partials :: sidenav"></nav>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
-            <div class="container-fluid d-flex flex-column">
-                <div>
-                    <form>
-                        <input type="text" id="team-search" name="team-search" class="" placeholder="Team Name" onkeyup="updateTeams(this)">
+            <div class="container-fluid d-flex flex-column align-items-center">
+                <div class="h1 mt-5 mb-3">TEAM SEARCH</div>
+                <div class="w-75">
+                    <hr>
+                </div>
+                <div class="w-100">
+                    <form class="d-flex justify-content-center w-100 mb-3">
+                        <input type="text" id="team-search" name="team-search" class="form-control w-50" placeholder="Team Name" onkeyup="updateTeams(this)">
                     </form>
                 </div>
                 <script th:inline="javascript">
                     let teams = [[${teams}]];
                     let teamsId = [[${teamIds}]]
                 </script>
-                <div id="test"></div>
+                <div class="w-75 d-flex flex-column align-items-center" id="test"></div>
         <!--        <div th:each="team : ${teams}" class="w-100 d-flex justify-content-center">-->
         <!--            <div class="card w-50 my-3" style="width: 18rem;">-->
         <!--                <div class="card-header text-center font-weight-bold" th:text="${team.name}"></div>-->
