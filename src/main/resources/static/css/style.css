@@ -35,12 +35,12 @@ body {
     border: none;
 }
 
-.card-body h5{
+.parent-one h5{
     font-size: 3em;
     color: #0157B3;
 }
 
-.card-body p{
+.parent-one p{
     font-size: 2.5em;
 }
 
