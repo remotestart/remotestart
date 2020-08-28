@@ -39,10 +39,6 @@
             <th:block sec:authorize="isAuthenticated()">
                 <ul class="navbar-nav mr-auto d-md-none">
                     <li class="nav-item">
-                        <a class="nav-link" href="/">Home</a>
-                    </li>
-
-                    <li class="nav-item">
                         <a class="nav-link" href="/profile">Profile</a>
                     </li>
 
@@ -81,10 +77,6 @@
 <nav th:fragment="sidenav" class="col-md-2 d-none d-md-block bg-light sidebar">
     <div class="sidebar-sticky">
         <ul class="nav flex-column">
-
-            <li class="nav-item font-weight-bold text-uppercase mt-3 sidenav-list-item">
-                <a class="nav-link text-muted" href="/">Home</a>
-            </li>
 
             <li class="nav-item font-weight-bold text-uppercase mt-3 sidenav-list-item">
                 <a class="nav-link text-muted" href="/profile">Profile</a>
