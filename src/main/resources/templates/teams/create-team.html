@@ -10,13 +10,24 @@
         <nav th:replace="partials :: sidenav"></nav>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
-            <form th:method="post" th:action="@{/team/create}" th:object="${team}">
-                <div class="form-group">
-                    <input th:field="*{name}" type="text" class="form-control" id="team" placeholder="Team Name" required>
+            <div class="container-fluid d-flex flex-column align-items-center justify-content-center create-team-div">
+                <div class="h3">Create A Team</div>
+                <div class="w-25">
+                    <hr>
                 </div>
-                <button type="submit" class="btn btn-primary">Create</button>
-            </form>
+                <div class="d-flex justify-content-center mt-2 w-100">
 
+                    <form class="w-75" th:method="post" th:action="@{/team/create}" th:object="${team}">
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="form-group w-100 d-flex justify-content-center">
+                                <input th:field="*{name}" type="text" class="form-control w-50" id="team" placeholder="Team Name" required>
+                            </div>
+                            <button type="submit" class="btn btn-outline-info btn-sm ml-3">Create</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
         </main>
     </div>
 </div>

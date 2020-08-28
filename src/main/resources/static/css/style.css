@@ -1,6 +1,13 @@
 body {
     padding-top: 40px;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Oxygen', sans-serif;
+    color: #0D1821;
+    /*background-color: #b1bdc5;*/
+    background-color: #F0F3F5;
+}
+
+.bg-light {
+    background-color: #97a6b52b !important;
 }
 
 .sidebar {
@@ -223,4 +230,17 @@ div.info {
 .change-btn:hover{
     transition: color .20s ease-out;
     color: gold;
+}
+
+.btn {
+    border-radius: 9999px;
+}
+
+.create-team-div {
+    height: 90vh;
+}
+
+.btn-outline-info {
+    background-color: #85ccff !important;
+    color: #0D1821 !important;
 }
