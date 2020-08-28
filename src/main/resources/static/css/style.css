@@ -181,3 +181,29 @@ div.info {
 .project-name {
     font-size: 5em;
 }
+
+.edit-btn {
+    background-color: #5e2ca5;
+    color: whitesmoke;
+    border-radius: 9999px;
+    padding: .4rem 1rem;
+    margin-bottom: .4rem;
+    cursor: pointer;
+}
+.edit-btn:hover{
+    transition: color .40s ease-out;
+    color: lime;
+}
+
+.change-btn {
+    background-color: red;
+    color: white;
+    border-radius: 9999px;
+    padding: .4rem 1rem;
+    margin-bottom: .4rem;
+    cursor: pointer;
+}
+.change-btn:hover{
+    transition: color .20s ease-out;
+    color: gold;
+}
