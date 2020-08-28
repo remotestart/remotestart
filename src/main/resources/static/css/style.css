@@ -49,17 +49,17 @@ div.info {
     margin-right: 80%;
 }
 
-.parent {
+.parent-one {
     display: flex;
     padding-left: 1%;
 }
 
-.parent div {
+.parent-one div {
     font-size: 1.3em;
     color: #0157B3;
 }
 
-.parent p {
+.parent-one p {
     font-size: 1.3em;
     padding-left: 20px;
 }
