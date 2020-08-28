@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="partials :: head (pageTitle ='Account Confirmed!')">
-    <script type = "text/javascript">
-        <!--
-        function Redirect() {
-            window.location = "https://remote-start.io/login";
-        }
-        setTimeout('Redirect()', 5000);
-        //-->
-    </script>
 </head>
 <body>
 <header th:replace="partials :: header"></header>
@@ -17,5 +9,10 @@
     <p class="admin-msg-two">*redirecting you to login*</p>
 </div>
 <footer th:replace="partials :: footer"></footer>
+<script type = "text/javascript">
+    setTimeout(function(){
+        window.location.href = "https://remote-start.io/login";
+    }, 5000);
+</script>
 </body>
 </html>
