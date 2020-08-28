@@ -62,10 +62,13 @@
                         <a class="nav-link" href="/about">About Us</a>
                     </li>
 
+<!--                    <li class="nav-item">-->
+<!--                        <form th:action="@{/logout}" th:method="post">-->
+<!--                            <button class="btn-link btn logout-form-button text-danger" style="margin-top: 8px">Logout</button>-->
+<!--                        </form>-->
+<!--                    </li>-->
                     <li class="nav-item">
-                        <form th:action="@{/logout}" th:method="post">
-                            <button class="btn-link btn logout-form-button text-danger" style="margin-top: 8px">Logout</button>
-                        </form>
+                        <a class="nav-link" href="/logout">Logout</a>
                     </li>
                 </ul>
             </th:block>
@@ -105,7 +108,7 @@
 
             <li class="nav-item font-weight-bold text-uppercase mt-3 sidenav-list-item">
                 <form th:action="@{/logout}" th:method="post">
-                    <button class="btn-link btn text-danger" style="margin-top: 8px">Logout</button>
+                    <button class="nav-link btn text-danger" style="margin-top: 8px">LOGOUT</button>
                 </form>
             </li>
 
