@@ -76,7 +76,7 @@ public class ProjectController {
         List<Long> stateIds = taskDao.stateIdsByProjectId(id);
         for(int i = 0; i < stateIds.size(); i++){
             if(stateIds.get(i) == 2){
-                numOfTasksNotStarted += 1;
+                numOfTasksInProgress += 1;
             }
         }
         return numOfTasksInProgress;
