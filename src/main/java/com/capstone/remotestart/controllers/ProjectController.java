@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -120,6 +124,17 @@ public class ProjectController {
         numOfTasksInProgress = 0;
         numOfTasksNotStarted = 0;
         numOfTasksComplete = 0;
+
+        //https://stackoverflow.com/questions/36113530/java-convert-string-date-to-month-name-year-mmm-yyyy
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("dd MMM yyyy");
+        LocalDate ld = LocalDate.parse(projectDao.getOne(id).getStartDate(), dtf);
+        LocalDate ld2 = LocalDate.parse(projectDao.getOne(id).getDeadline(), dtf);
+        String startDate = dtf2.format(ld);
+        String deadline = dtf2.format(ld2);
+        model.addAttribute("startDate", startDate);
+        model.addAttribute("deadline", deadline);
+
 
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("team", teamDao.getOne(projectDao.teamIdFromProjectId(id)));

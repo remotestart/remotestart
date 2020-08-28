@@ -50,8 +50,8 @@
                 </div>
 
                 <div class="d-flex justify-content-between w-100">
-                    <div class="pl-5" th:text="'Start Date (yyyy/mm/dd): ' + ${project.startDate}"></div>
-                    <div class="pr-5" th:text="'Deadline (yyyy/mm/dd): ' + ${project.deadline}"></div>
+                    <div class="pl-5" th:text="'Start Date: ' + ${startDate}"></div>
+                    <div class="pr-5" th:text="'Deadline: ' + ${deadline}"></div>
                 </div>
 
                 <div class="my-5 w-75">
@@ -93,7 +93,6 @@
         </main>
     </div>
 </div>
-
 
 <footer th:replace="partials :: footer"></footer>
 </body>
