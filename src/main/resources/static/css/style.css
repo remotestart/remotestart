@@ -51,7 +51,7 @@ div.info {
 
 .parent {
     display: flex;
-    padding: 0;
+    padding-left: 1%;
 }
 
 .parent div {
@@ -66,6 +66,7 @@ div.info {
 
 .parent-two {
     display: flex;
+    padding-left: 1%;
 }
 
 .parent-two div {
@@ -243,4 +244,16 @@ div.info {
 .btn-outline-info {
     background-color: #85ccff !important;
     color: #0D1821 !important;
+
+.reg-complete{
+    display: flex;
+    margin: 20% 10% 1% 10%;
+    font-size: 2em;
+}
+
+.admin-msg-one {
+    display: flex;
+    color: red;
+    font-size: 12px;
+    margin: 1% 0 0 10%;
 }

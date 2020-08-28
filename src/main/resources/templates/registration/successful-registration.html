@@ -5,9 +5,11 @@
 </head>
 <body>
 <header th:replace="partials :: header"></header>
-    <div>
-        <span th:text="'A verification email has been sent to: ' + ${email}"></span>
-    </div>
+<div>
+    <div class="alert alert-success reg-complete" th:text="'A verification email has been sent to: ' + ${email}"></div>
+        <p class="admin-msg-one">*Admin: Once verified, you will have access to the sites features. Thank you for signing up!*</p>
+
+</div>
 <footer th:replace="partials :: footer"></footer>
 </body>
 </html>
