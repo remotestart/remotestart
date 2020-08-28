@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="partials :: head (pageTitle ='Account Confirmed!')">
-
+    <script type = "text/javascript">
+        <!--
+        function Redirect() {
+            window.location = "https://remote-start.io/login";
+        }
+        setTimeout('Redirect()', 5000);
+        //-->
+    </script>
 </head>
 <body>
 <header th:replace="partials :: header"></header>
 <div>
-    <h1>Your account is now activated.</h1>
+    <div class="alert alert-success reg-verified">Your Account has been confirmed!</div>
+    <p class="admin-msg-two">*redirecting you to login*</p>
 </div>
 <footer th:replace="partials :: footer"></footer>
 </body>
