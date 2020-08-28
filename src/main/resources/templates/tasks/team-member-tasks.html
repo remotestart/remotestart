@@ -18,8 +18,8 @@
 
                 <div class="card w-50 my-3 border rounded overflow-auto task-cards" th:each="task : ${tasks}">
 <!--                    <div class="card-header text-center font-weight-bold" th:text="${task.title}"></div>-->
-                    <div class="card-body">
-                        <h5 class="card-title" style="font-size: 30px;" th:text="${task.title}"></h5>
+                    <div class="card-body pt-2">
+                        <h5 class="card-title" th:text="${task.title}"></h5>
                         <h6 th:if="${task.getStateOfCompletion().getId()} == 1" class="card-subtitle mb-2 text-muted">Task State: Not started</h6>
                         <h6 th:if="${task.getStateOfCompletion().getId()} == 2" class="card-subtitle mb-2 text-muted">Task State: In progress</h6>
                         <h6 th:if="${task.getStateOfCompletion().getId()} == 3" class="card-subtitle mb-2 text-muted">Task State: Complete</h6>
@@ -33,30 +33,30 @@
                             <button type="submit" class="btn btn-sm btn-outline-info">Update Task State</button>
                         </form>
                         <p class="card-text" th:text="${task.description}"></p>
-                        <a class="btn btn-outline-info align-self-start" th:href="@{'/subtask/create/' + ${project.id} + '/' + ${task.id}}">Create Subtask</a>
+                        <a class="btn btn-sm btn-outline-info align-self-start mb-2" th:href="@{'/subtask/create/' + ${project.id} + '/' + ${task.id}}">Create Subtask</a>
+                        <th:block th:each="subtask: ${subtasks}">
+
+                            <div class="border-top" th:if="${task.id} == ${subtask.getTask().id}">
+                                <p th:text="${subtask.title}"></p>
+                                <label for="subtask-state-form" th:if="${subtask.getStateOfCompletion().getId()} == 1">Subtask State: Not started</label>
+                                <label for="subtask-state-form" th:if="${subtask.getStateOfCompletion().getId()} == 2">Subtask State: In progress</label>
+                                <label for="subtask-state-form" th:if="${subtask.getStateOfCompletion().getId()} == 3">Subtask State: Complete</label>
+                                <form th:action="@{'/project/' + ${project.id} + '/subtask/' + ${subtask.id} + '/update-state'}" th:method="post" id="subtask-state-form">
+                                    <select name="subtask-state" class="custom-select w-50" id="subtask-state">
+                                        <option disabled selected>Select a state</option>
+                                        <option th:value="'1'">Not started</option>
+                                        <option th:value="'2'">In progress</option>
+                                        <option th:value="'3'">Complete</option>
+                                    </select>
+                                    <button type="submit" class="btn btn-sm btn-outline-info">Update status</button>
+                                </form>
+                                <p th:text="${subtask.description}"></p>
+                                <a th:href="@{'/subtask/' + ${subtask.id} + '/edit/' + ${project.id}}" class="btn btn-sm btn-outline-danger mb-2">Edit Subtask</a>
+                                <a th:href="@{'/subtask/' + ${subtask.id} + '/delete/' + ${project.id}}" class="btn btn-sm btn-danger mb-2">Delete Subtask</a>
+                            </div>
+
+                        </th:block>
                     </div>
-                    <th:block th:each="subtask: ${subtasks}">
-
-                        <div class="card-body border-top" th:if="${task.id} == ${subtask.getTask().id}">
-                            <p th:text="${subtask.title}"></p>
-                            <p th:text="${subtask.description}"></p>
-                            <a th:href="@{'/subtask/' + ${subtask.id} + '/edit/' + ${project.id}}" class="btn btn-outline-danger">Edit Subtask</a>
-                            <a th:href="@{'/subtask/' + ${subtask.id} + '/delete/' + ${project.id}}" class="btn btn-danger">Delete Subtask</a>
-                            <label for="subtask-state-form" th:if="${subtask.getStateOfCompletion().getId()} == 1">Subtask State: Not started</label>
-                            <label for="subtask-state-form" th:if="${subtask.getStateOfCompletion().getId()} == 2">Subtask State: In progress</label>
-                            <label for="subtask-state-form" th:if="${subtask.getStateOfCompletion().getId()} == 3">Subtask State: Complete</label>
-                            <form th:action="@{'/project/' + ${project.id} + '/subtask/' + ${subtask.id} + '/update-state'}" th:method="post" id="subtask-state-form">
-                                <select name="subtask-state" id="subtask-state">
-                                    <option disabled selected>Select a state</option>
-                                    <option th:value="'1'">Not started</option>
-                                    <option th:value="'2'">In progress</option>
-                                    <option th:value="'3'">Complete</option>
-                                </select>
-                                <button type="submit" class="btn btn-outline-info">Update status</button>
-                            </form>
-                        </div>
-
-                    </th:block>
 
 
                 </div>
