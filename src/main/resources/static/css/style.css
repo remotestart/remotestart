@@ -275,3 +275,7 @@ div.info {
     font-size: 12px;
     margin: 1% 0 0 10%;
 }
+
+.all-tasks {
+    height: 80vh;
+}
