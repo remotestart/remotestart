@@ -24,11 +24,9 @@
 
                 <form class="w-75" th:method="post" th:action="@{'/task/create/' + ${projectId}}" th:object="${task}">
                     <div class="form-group">
-<!--                        <label for="title">Title</label>-->
                         <input th:field="*{title}" type="text" class="form-control" id="title" name="task" required autofocus placeholder="Task Name">
                     </div>
                     <div class="form-group">
-<!--                        <label for="description">Description</label>-->
                         <input th:field="*{description}" type="text" class="form-control" id="description" name="task" required placeholder="Task Description">
                     </div>
                     <div class="form-group">
@@ -38,7 +36,7 @@
                             <h5>Assign to:</h5>
                             <div class="form-check form-check-inline">
                                 <div th:each="user : ${users}">
-                                    <input class="form-check-input mx-2" type="checkbox" name="userId" th:text="${user.firstName} + ' ' + ${user.lastName}" th:value="${user.id}">
+                                    <input class="form-check-input mx-2" type="radio" name="userId" th:text="${user.firstName} + ' ' + ${user.lastName}" th:value="${user.id}">
                                 </div>
                             </div>
                         </div>
