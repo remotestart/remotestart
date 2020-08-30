@@ -20,7 +20,7 @@
 
                 <div class="dropdown text-center" th:if="${role == 1}">
                     <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Team Options
+                        Project Options
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
@@ -29,12 +29,12 @@
                             <button type="submit" class="dropdown-item">Edit Project</button>
                         </form>
 
-                        <form th:action="@{'/project/' + ${project.id} + '/delete'}" th:method="post">
-                            <button type="submit" class="dropdown-item">Delete Project</button>
-                        </form>
 
                         <a th:href="@{'/project/' + ${project.id} + '/complete'}" class="dropdown-item">Complete Project</a>
 
+                        <form th:action="@{'/project/' + ${project.id} + '/delete'}" th:method="post">
+                            <button type="submit" class="dropdown-item text-danger">Delete Project</button>
+                        </form>
 
                     </div>
                 </div>

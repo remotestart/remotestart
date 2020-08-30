@@ -26,7 +26,7 @@
 
                         <a th:href="@{'/team/' + ${team.id} + '/edit'}" class="dropdown-item">Change Team Name</a>
 
-                        <a th:href="@{'/team/' + ${team.id} + '/delete'}" class="dropdown-item">Delete Team</a>
+                        <a th:href="@{'/team/' + ${team.id} + '/delete'}" class="dropdown-item text-danger">Delete Team</a>
                     </div>
                 </div>
             </div>
@@ -78,7 +78,7 @@
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <a th:if="${loggedInUser.id} != ${user.id}" class="dropdown-item" th:href="@{'/team/' + ${team.id} + '/make-team-lead/' + ${user.id}}">Make Co-Lead</a>
-                        <a th:if="${loggedInUser.id} != ${user.id}" class="dropdown-item" th:href="@{'/team/' + ${team.id} + '/drop-user/' + ${user.id}}">Remove</a>
+                        <a th:if="${loggedInUser.id} != ${user.id}" class="dropdown-item text-danger" th:href="@{'/team/' + ${team.id} + '/drop-user/' + ${user.id}}">Remove</a>
                         <a th:if="${loggedInUser.id} == ${user.id}" class="dropdown-item" th:href="@{'/profile'}">View Profile</a>
                     </div>
                 </div>
