@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" class="">
+<head>
+    <head th:replace="partials :: head (pageTitle = ${error})">
+    </head>
+<body class="">
+<header th:replace="partials :: header"></header>
+<div class="container-fluid">
+    <div class="row">
+        <nav th:replace="partials :: sidenav"></nav>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <div class="container-fluid d-flex flex-column align-items-center create-team-div justify-content-center">
+                <div class="d-flex justify-content-center mt-2 w-100">
+                    <div class="d-flex flex-column align-items-center">
+                        <div class="w-100 d-flex justify-content-center">
+                            <div class="card border">
+                                <div class="card-header">
+                                    Error Information
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item" th:text="${'Date: ' + timestamp}"></li>
+                                    <li class="list-group-item" th:text="${'Path: ' + path}"></li>
+                                    <li class="list-group-item" th:text="${'Error: ' + error}"></li>
+                                    <li class="list-group-item" th:text="${'Status: ' + status}"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<footer th:replace="partials :: footer"></footer>
+</body>
+</html>
