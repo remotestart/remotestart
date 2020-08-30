@@ -1,6 +1,6 @@
 body {
     padding-top: 40px;
-    font-family: 'Oxygen', sans-serif;
+    font-family: 'Abel', sans-serif;
     color: #0D1821;
     /*background-color: #b1bdc5;*/
     background-color: #F0F3F5;
@@ -248,8 +248,10 @@ div.info {
 }
 
 .btn-outline-info {
-    background-color: #85ccff !important;
-    color: #0D1821 !important;
+    background-color: #49b1c2 !important;
+    /*color: #0D1821 !important;*/
+    color: #ffffff !important;
+    font-size: medium;
 }
 
 .reg-complete{
@@ -276,4 +278,18 @@ div.info {
     color: red;
     font-size: 12px;
     margin: 1% 0 0 10%;
+}
+
+.protect-tm-srch {
+    margin-left: 25%;
+    overflow: auto;
+    height: 70vh;
+}
+
+.protect-my-teams {
+    overflow: auto;
+    height: 70vh;
+}
+.all-tasks {
+    height: 80vh;
 }

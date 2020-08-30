@@ -29,12 +29,12 @@
                             <button type="submit" class="dropdown-item">Edit Project</button>
                         </form>
 
-                        <form th:action="@{'/project/' + ${project.id} + '/delete'}" th:method="post">
-                            <button type="submit" class="dropdown-item">Delete Project</button>
-                        </form>
 
                         <a th:href="@{'/project/' + ${project.id} + '/complete'}" class="dropdown-item">Complete Project</a>
 
+                        <form th:action="@{'/project/' + ${project.id} + '/delete'}" th:method="post">
+                            <button type="submit" class="dropdown-item text-danger">Delete Project</button>
+                        </form>
 
                     </div>
                 </div>
@@ -56,7 +56,7 @@
 
                 <div class="my-5 w-75">
                     <div class="progress" style="height: 20px;">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" th:style="'width:' + ${completionPercentage} +'%;'" th:aria-valuenow="${completionPercentage}" aria-valuemin="0" aria-valuemax="100" th:text="${completionPercentage} + '%'"></div>
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" th:style="'width:' + ${completionPercentage} +'%;'" th:aria-valuenow="${completionPercentage}" aria-valuemin="0" aria-valuemax="100" th:text="${completionPercentage} + '%'"></div>
                     </div>
                 </div>
 

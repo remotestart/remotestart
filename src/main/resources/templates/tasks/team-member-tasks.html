@@ -15,7 +15,6 @@
                 </div>
                 <div class="row">
                     <div class="card w-50 my-3 border rounded overflow-auto task-cards col-6" th:each="task : ${tasks}">
-    <!--                    <div class="card-header text-center font-weight-bold" th:text="${task.title}"></div>-->
                         <div class="card-body pt-2">
                             <h5 class="card-title" th:text="${task.title}"></h5>
                             <h6 th:if="${task.getStateOfCompletion().getId()} == 1" class="card-subtitle mb-2 text-muted">Task State: Not started</h6>
@@ -50,8 +49,19 @@
                                     </form>
                                     <p class="card-text mb-0 mt-1" style="text-decoration: underline;">Subtask Description</p>
                                     <p th:text="${subtask.description}" class="mb-0"></p>
-                                    <a th:href="@{'/subtask/' + ${subtask.id} + '/edit/' + ${project.id}}" class="btn btn-outline-info btn-sm mb-3">Edit Subtask</a>
-                                    <a th:href="@{'/subtask/' + ${subtask.id} + '/delete/' + ${project.id}}" class="btn btn-danger btn-sm mb-3">Delete Subtask</a>
+                                    <div class="dropdown mb-2">
+                                        <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Subtask Options
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+                                            <a th:href="@{'/subtask/' + ${subtask.id} + '/edit/' + ${project.id}}" class="dropdown-item">Edit Subtask</a>
+                                            <a th:href="@{'/subtask/' + ${subtask.id} + '/delete/' + ${project.id}}" class="dropdown-item text-danger">Delete Subtask</a>
+
+
+                                        </div>
+                                    </div>
+
                                 </div>
                             </th:block>
                         </div>

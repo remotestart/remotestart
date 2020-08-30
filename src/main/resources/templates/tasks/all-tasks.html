@@ -10,28 +10,42 @@
         <nav th:replace="partials :: sidenav"></nav>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
-            <div class="container">
+            <div class="container d-flex flex-column align-items-center">
 
-                <div class="my-2">
+                <div class="my-4">
                     <a th:href="@{'/project/' + ${project.id}}" class="btn btn-outline-info">Back to <span th:text="${project.name}"></span></a>
                 </div>
 
-                <div class="card w-50 my-3" th:each="task : ${tasks}">
+                <div class="all-tasks overflow-auto w-75 d-flex flex-column align-items-center">
+                    <div class="card w-50 my-3 border rounded" th:each="task : ${tasks}">
 
-                    <div class="card-header text-center font-weight-bold" th:text="${task.title}"></div>
-                    <div class="card-body">
-                        <p th:text="${task.description}"></p>
-                        <p th:if="${task.getStateOfCompletion().getId()} == 1">Task State: Not started</p>
-                        <p th:if="${task.getStateOfCompletion().getId()} == 2">Task State: In progress</p>
-                        <p th:if="${task.getStateOfCompletion().getId()} == 3">Task State: Complete</p>
-                        <p th:text="'Assigned to: ' + ${task.getUser().firstName} + ' ' + ${task.getUser().lastName}"></p>
-                        <a th:href="@{'/project/'+ ${projectID} + '/task/' + ${task.id} + '/edit'}" class="btn btn-outline-danger">Edit Task</a>
+                        <div class="card-body">
+                        <h5 class="text-center card-title" th:text="${task.title}"></h5>
+                            <p th:text="${task.description}"></p>
+                            <p th:if="${task.getStateOfCompletion().getId()} == 1">Task State: Not started</p>
+                            <p th:if="${task.getStateOfCompletion().getId()} == 2">Task State: In progress</p>
+                            <p th:if="${task.getStateOfCompletion().getId()} == 3">Task State: Complete</p>
+                            <p th:text="'Assigned to: ' + ${task.getUser().firstName} + ' ' + ${task.getUser().lastName}"></p>
 
-                        <a th:href="@{'/project/'+ ${projectID} + '/task/' + ${task.id} + '/delete'}" class="btn btn-danger">Delete Task</a>
+                            <div class="dropdown text-center">
+                                <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Task Options
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 
+                                    <a th:href="@{'/project/'+ ${projectID} + '/task/' + ${task.id} + '/edit'}" class="dropdown-item">Edit Task</a>
+
+                                    <a th:href="@{'/project/'+ ${projectID} + '/task/' + ${task.id} + '/delete'}" class="dropdown-item text-danger">Delete Task</a>
+
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
 
                     </div>
-
                 </div>
 
 
