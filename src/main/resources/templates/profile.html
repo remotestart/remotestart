@@ -32,7 +32,7 @@
                 <p></p>
                 <div class="card-footer.bg-light text-muted">
                     <form th:action="@{'/profile/' + ${user.id} +'/edit-profile'}" method="get">
-                        <button class="btn edit-btn btn-sm" type="submit">Edit profile information</button>
+                        <button class="btn btn-outline-info" type="submit">Edit profile information</button>
                     </form>
                     <p></p>
                     <form th:action="@{'/profile/' + ${user.id} + '/change-password'}" method="get">
