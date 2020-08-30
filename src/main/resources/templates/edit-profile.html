@@ -11,25 +11,31 @@
         <nav th:replace="partials :: sidenav"></nav>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
-            <div class="container">
+            <div class="container d-flex flex-column align-items-center">
 
-                <form th:method="post" th:action="@{'/profile/' +${user.id} + '/edit-profile'}" th:object="${user}">
+                <div class="h3 mt-4">EDIT PROFILE</div>
+
+                <div class="w-25 mb-3">
+                    <hr>
+                </div>
+
+                <form class="w-75" th:method="post" th:action="@{'/profile/' +${user.id} + '/edit-profile'}" th:object="${user}">
                     <div class="form-group">
                         <label for="username">Username:</label>
-                        <input th:field="*{username}" th:value="${user.username}" type="text" class="form-control" id="username" placeholder="Example: CloneWarChamp" required autofocus>
+                        <input th:field="*{username}" th:value="${user.username}" type="text" class="form-control mb-2" id="username" placeholder="Example: CloneWarChamp" required autofocus>
                       <div>
                           <label for="firstname">First name:</label>
-                          <input th:field="*{firstName}" th:value="${user.firstName}" type="text" class="form-control" id="firstname" placeholder="Example: Obi Wan" required>
+                          <input th:field="*{firstName}" th:value="${user.firstName}" type="text" class="form-control mb-2" id="firstname" placeholder="Example: Obi Wan" required>
                        </div>
                     <div>
                         <label for="lastname">Last name:</label>
-                        <input th:field="*{lastName}" th:value="${user.lastName}" type="text" class="form-control" id="lastname" placeholder="Example: Kenobi" required>
+                        <input th:field="*{lastName}" th:value="${user.lastName}" type="text" class="form-control mb-2" id="lastname" placeholder="Example: Kenobi" required>
                     </div>
                     <div>
                         <label for="email">Email:</label>
-                        <input th:field="*{email}" th:value="${user.email}" type="email" class="form-control" id="email" placeholder="Example: Dont-try-it@HighGround.com" required>
+                        <input th:field="*{email}" th:value="${user.email}" type="email" class="form-control mb-2" id="email" placeholder="Example: Dont-try-it@HighGround.com" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit Changes</button>
+                    <button type="submit" class="btn btn-outline-info">Submit Changes</button>
                     </div>
                 </form>
 
