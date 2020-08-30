@@ -12,12 +12,7 @@ values ('Not Started'),
        ('Completed');
 
 # Teams
-insert into teams (name)
-values (),
-       (),
-       (),
-       (),
-       ();
+
 
 # Projects
 
