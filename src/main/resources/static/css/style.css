@@ -88,14 +88,16 @@ div.info {
 }
 
 .landing-body {
-    background-image: url("../images/meeting.jpg");
-    background-size: 100%;
+    /*background-image: url("../images/meeting.jpg");*/
+    /*background-size: 100%;*/
     display: -ms-flexbox;
     display: flex;
     -ms-flex-align: center;
     align-items: center;
-    padding-top: 40px;
-    padding-bottom: 40px;
+    /*padding-top: 40px;*/
+    /*padding-bottom: 40px;*/
+    height: 100vh;
+    width: 100vw;
 }
 
 .login-body>body {
