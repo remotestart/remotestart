@@ -278,6 +278,16 @@ div.info {
     margin: 1% 0 0 10%;
 }
 
+.protect-tm-srch {
+    margin-left: 25%;
+    overflow: auto;
+    height: 70vh;
+}
+
+.protect-my-teams {
+    overflow: auto;
+    height: 70vh;
+}
 .all-tasks {
     height: 80vh;
 }
