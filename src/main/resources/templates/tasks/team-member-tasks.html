@@ -40,7 +40,7 @@
                                     <label for="subtask-state-form" th:if="${subtask.getStateOfCompletion().getId()} == 1" class="mb-2 text-muted">Subtask State: Not started</label>
                                     <label for="subtask-state-form" th:if="${subtask.getStateOfCompletion().getId()} == 2" class="mb-2 text-muted">Subtask State: In progress</label>
                                     <label for="subtask-state-form" th:if="${subtask.getStateOfCompletion().getId()} == 3" class="mb-2 text-muted">Subtask State: Complete</label>
-                                    <form th:action="@{'/project/' + ${project.id} + '/subtask/' + ${subtask.id} + '/update-state'}" th:method="post" id="subtask-state-form" class="mb-3 d-flex flex-column w-50">
+                                    <form th:action="@{'/project/' + ${project.id} + '/subtask/' + ${subtask.id} + '/update-state'}" th:method="post" id="subtask-state-form" class="mb-3 d-flex flex-column">
                                         <select name="subtask-state" class="custom-select w-100 mb-2" id="subtask-state">
                                             <option disabled selected>Select a state</option>
                                             <option th:value="'1'">Not started</option>
