@@ -10,9 +10,9 @@
         <nav th:replace="partials :: sidenav"></nav>
         <main role="main" class="main col-md-9 ml-sm-auto col-lg-8 p-0">
 
-            <div class="container p-0">
+            <div class="container p-0 pt-5">
 
-                    <div class="text-center font-weight-bold mb-0">
+                    <div class="text-center font-weight-bold mt-5 mb-0">
                         <h1 class="team-name my-5" th:text="${team.name}"></h1>
                     </div>
 
@@ -35,8 +35,8 @@
 
             <div class="container-fluid d-flex flex-column align-items-center">
 
-                <div class="text-center font-weight-bold mb-0">
-                    <h1 class="my-3">PROJECTS</h1>
+                <div class="text-center mb-0">
+                    <h1 class="my-3">Projects</h1>
                 </div>
 
                 <div class="w-75">
@@ -46,7 +46,7 @@
                 <div class="overflow-auto w-50 team-project-div d-flex flex-column align-items-center border rounded">
 
                     <th:block th:each="project : ${projects}">
-                        <div class="d-flex justify-content-between w-100 my-2">
+                        <div class="d-flex justify-content-between w-100 my-2 align-items-center">
                             <h4 th:text="${project.name}" class="align-self-start pl-2"></h4>
                             <div class="pr-2">
                             <a class="btn btn-outline-info btn-sm text-center align-self-center" th:href="@{'/project/' + ${project.id}}">View Project</a>
@@ -65,7 +65,7 @@
         <div class="col-lg-2 bg-light team-page-users">
 
             <div class="text-center my-3">
-                <h4 class="m-0">MEMBERS</h4>
+                <h4 class="m-0">Members</h4>
                 <hr>
             </div>
 
@@ -93,7 +93,7 @@
             <!--User Search Card-->
             <th:block th:if="${role == 1}">
                 <div class="d-flex align-items-center flex-column mb-3">
-                    <h4>ADD USERS</h4>
+                    <h4>Add Users</h4>
                     <form>
                         <input type="text" id="user-search" name="user-search" class="" placeholder="User Name"
                                onkeyup="updateUsers(this)">
