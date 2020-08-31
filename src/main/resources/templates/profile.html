@@ -11,7 +11,7 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
 
 
-            <div class="card text-center">
+            <div class="card text-center" style="display: flex; width: 80%; margin-left: 10%; background-color: #F0F3F5;">
                 <div class="card-header.bg-light cardtitle">
                     <p th:text="${user.firstName + ' ' + user.lastName}"></p>
                     <hr>
@@ -30,14 +30,24 @@
                 </div>
                 </div>
                 <p></p>
-                <div class="card-footer.bg-light text-muted">
+            <br>
+                <div class="card-footer.bg-light text-muted btn-grp">
+
+                    <div class="dropdown text-center">
+                            <button class="btn btn-outline-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Profile Options
+                            </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <form th:action="@{'/profile/' + ${user.id} +'/edit-profile'}" method="get">
-                        <button class="btn btn-outline-info" type="submit">Edit profile information</button>
+                        <button class="dropdown-item" type="submit">Edit profile information</button>
                     </form>
-                    <p></p>
+
                     <form th:action="@{'/profile/' + ${user.id} + '/change-password'}" method="get">
-                        <button class="btn change-btn btn-sm" type="submit">Change password</button>
+                        <button class="dropdown-item text-danger" type="submit">Change password</button>
                     </form>
+                        </div>
+                </div>
+
                 </div>
         </main>
     </div>
