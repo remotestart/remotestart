@@ -27,9 +27,9 @@ body {
 }
 
 
-.cardtitle p{
-    font-size: 4em;
-}
+/*.cardtitle p{*/
+/*    font-size: 4em;*/
+/*}*/
 
 .card{
     border: none;
@@ -211,7 +211,7 @@ div.info {
 }
 
 .team-project-div {
-    height: 34vh;
+    height: 36vh;
 }
 
 /*.project-name {*/
