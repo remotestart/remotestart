@@ -3,7 +3,7 @@ body {
     font-family: 'Abel', sans-serif;
     color: #0D1821;
     /*background-color: #b1bdc5;*/
-    background-color: #F0F3F5;
+        background-color: #F0F3F5;
 }
 
 .bg-light {
@@ -46,12 +46,12 @@ body {
 
 div.info {
     font-size: 1.5em;
-    margin-right: 80%;
+    padding-right: 1%;
 }
 
 .parent-one {
     display: flex;
-    padding-left: 1%;
+    padding-left: 40%;
 }
 
 .parent-one div {
@@ -66,7 +66,7 @@ div.info {
 
 .parent-two {
     display: flex;
-    padding-left: 1%;
+    padding-left: 40%;
 }
 
 .parent-two div {
@@ -77,6 +77,11 @@ div.info {
 .parent-two p {
     font-size: 1.3em;
     padding-left:  20px;
+}
+
+.btn-grp{
+    display: flex;
+    justify-content: space-around;
 }
 
 .login-body {
