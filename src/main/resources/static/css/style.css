@@ -92,13 +92,19 @@ div.info {
     height: 100%;
 }
 
+.landing-image {
+    position: absolute;
+    bottom: 0px;
+    left: 28%;
+}
+
 .landing-body {
-    /*background-image: url("../images/meeting.jpg");*/
-    /*background-size: 100%;*/
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-align: center;
-    align-items: center;
+    /*background-image: url("../images/landing.jpg");*/
+    /*!*background-size: cover;*!*/
+    /*display: -ms-flexbox;*/
+    /*display: flex;*/
+    /*-ms-flex-align: center;*/
+    /*align-items: center;*/
     /*padding-top: 40px;*/
     /*padding-bottom: 40px;*/
     height: 100vh;
@@ -115,6 +121,10 @@ div.info {
     background-color: #f5f5f5;
 }
 
+.landing-font {
+    font-size: 4em;
+}
+
 .about {
     display: -ms-flexbox;
     display: flex;
@@ -128,6 +138,13 @@ div.info {
 .form-signin {
     width: 100%;
     max-width: 420px;
+    padding: 15px;
+    margin: auto;
+}
+
+.landing-form-signin {
+    width: 100%;
+    max-width: 500px;
     padding: 15px;
     margin: auto;
 }
