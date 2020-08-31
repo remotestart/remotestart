@@ -315,3 +315,9 @@ div.info {
 .all-tasks {
     height: 80vh;
 }
+
+@media screen and (device-aspect-ratio: 16/9){
+    .big-screen-text {
+        font-size: x-large;
+    }
+}
