@@ -10,7 +10,7 @@
         <nav th:replace="partials :: sidenav"></nav>
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="container">
-                <div class="my-2">
+                <div class="my-4 d-flex justify-content-center">
                     <a th:href="@{'/project/' + ${project.id}}" class="btn btn-outline-info">Back to <span th:text="${project.name}"></span></a>
                 </div>
                 <div class="row">

@@ -206,12 +206,12 @@ div.info {
 }
 
 .team-project-div {
-    height: 30vh;
+    height: 34vh;
 }
 
-.project-name {
-    font-size: 5em;
-}
+/*.project-name {*/
+/*    font-size: 5em;*/
+/*}*/
 
 .edit-btn {
     background-color: #5e2ca5;

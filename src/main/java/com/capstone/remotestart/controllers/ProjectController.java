@@ -127,7 +127,7 @@ public class ProjectController {
 
         //https://stackoverflow.com/questions/36113530/java-convert-string-date-to-month-name-year-mmm-yyyy
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("dd MMM yyyy");
+        DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("MMM, dd yyyy");
         LocalDate ld = LocalDate.parse(projectDao.getOne(id).getStartDate(), dtf);
         LocalDate ld2 = LocalDate.parse(projectDao.getOne(id).getDeadline(), dtf);
         String startDate = dtf2.format(ld);
