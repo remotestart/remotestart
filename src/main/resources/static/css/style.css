@@ -316,6 +316,10 @@ div.info {
     height: 80vh;
 }
 
+.landing-body {
+    overflow: hidden;
+}
+
 @media screen and (device-aspect-ratio: 16/9){
     .big-screen-text {
         /*font-size: x-large;*/
