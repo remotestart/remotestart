@@ -3,16 +3,22 @@
 <head th:replace="partials :: head (pageTitle ='RemoteSTART')">
 
 </head>
-<body class="login-body">
-    <header th:replace="partials :: header"></header>
-    <div class="landing-form-signin pt-5 pb-0 mt-1 big-screen-text">
-        <h1 class="text-center landing-font">Plan your project with RemoteSTART</h1>
-        <div class="text-center">
-            <a th:href="@{/sign-up}" class="text-center btn btn-outline-info btn-lg">Get Started!</a>
+<body class="landing-body">
+    <div class="container">
+        <header th:replace="partials :: header"></header>
+        <div class="row">
+            <div class="landing-form-signin pt-5 pb-0 mt-1 big-screen-text">
+                <h1 class="text-center landing-font">Plan your project with RemoteSTART</h1>
+                <div class="text-center">
+                    <a th:href="@{/sign-up}" class="text-center btn btn-outline-info btn-lg">Get Started!</a>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="landing-image big-screen-logo">
-        <img th:src="@{/images/landing.png}" alt="">
+        <div class="row">
+            <div class="text-center" style="max-width: 100%;">
+                <img th:src="@{/images/landing.png}" alt="">
+            </div>
+        </div>
     </div>
     <footer th:replace="partials :: footer"></footer>
 </body>

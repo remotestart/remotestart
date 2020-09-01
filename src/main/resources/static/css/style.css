@@ -144,7 +144,7 @@ div.info {
 
 .landing-form-signin {
     width: 100%;
-    max-width: 500px;
+    max-width: 100%;
     padding: 15px;
     margin: auto;
 }
@@ -318,6 +318,6 @@ div.info {
 
 @media screen and (device-aspect-ratio: 16/9){
     .big-screen-text {
-        font-size: x-large;
+        /*font-size: x-large;*/
     }
 }
